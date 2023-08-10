@@ -37,7 +37,7 @@ const storage3 = multer.diskStorage({
     cb(null, "./uploads/auto_mobile_images/");
   },
   filename: (req, file, cb) => {
-    cb(null, Date.now() + file.originalname);
+    cb(null, Date.now() + uniqid() + file.originalname);
   },
 });
 
