@@ -12,6 +12,7 @@ const {
   editHotelByIdController,
   getHotelcategoriesController,
   getHotelAmenitiesController,
+  getHotelDetailsByIdController,
 } = require("../controllers/hotel_controller/hotel_controller");
 const { upload } = require("../middleware/uploader");
 router.post(
@@ -48,5 +49,10 @@ router.get(
   getHotelcategoriesController
 );
 router.get("/gethotelamenities", verifyAuthToken, getHotelAmenitiesController);
+router.get(
+  "/gethoteldetails/:id",
+  verifyAuthToken,
+  getHotelDetailsByIdController
+);
 
 module.exports = router;

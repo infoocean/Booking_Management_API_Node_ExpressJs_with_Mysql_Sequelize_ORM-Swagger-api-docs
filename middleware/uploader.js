@@ -1,5 +1,6 @@
 const multer = require("multer");
 const uniqid = require("uniqid");
+const { getExtension } = require("../common/commonfn");
 
 //for hotel
 const storage = multer.diskStorage({
@@ -47,6 +48,10 @@ const storage4 = multer.diskStorage({
     cb(null, "./uploads/users_images/");
   },
   filename: (req, file, cb) => {
+    // const image_properties = getExtension(file?.originalname);
+    // if (image_properties === "jpeg" || image_properties === "png") {
+    // } else {
+    // }
     cb(null, Date.now() + uniqid() + file.originalname);
   },
 });

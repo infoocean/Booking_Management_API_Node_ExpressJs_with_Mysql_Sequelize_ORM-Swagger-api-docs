@@ -29,7 +29,7 @@ const verifyLoginToken = (req, res, next) => {
       if (err) {
         return res.status(401).json({
           error: true,
-          message: "Unauthorized access login or token expired or Invalid.",
+          message: "Invalid access login token",
         });
       }
       req.decoded = decoded;

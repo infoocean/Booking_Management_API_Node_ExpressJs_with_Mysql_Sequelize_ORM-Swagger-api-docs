@@ -23,3 +23,17 @@ exports.automobile_defaine_arr = [
   "cost_per_km",
   "status",
 ];
+
+//other define arr  predine schemana for m meta define arr
+exports.default_arr = [
+  "short_description",
+  "long_description",
+  "availability",
+  "location",
+  "city",
+  "image",
+  "gallary_image",
+  "booking_type",
+  "cancellation_pilicy",
+  "terms_condition",
+];

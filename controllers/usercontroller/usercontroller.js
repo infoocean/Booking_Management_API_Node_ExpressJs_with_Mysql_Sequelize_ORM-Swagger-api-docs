@@ -180,7 +180,6 @@ const uploadProfilePictureController = async (req, res) => {
       message: "image is required",
     });
   }
-
   try {
     const findUser = await User.update(
       {
@@ -188,11 +187,10 @@ const uploadProfilePictureController = async (req, res) => {
       },
       { where: { id: req.params.id } }
     );
-    console.log(findUser);
     if (findUser[0] == 1) {
       res.status(202).json({
         succes: true,
-        message: "user updated successfully",
+        message: "user profile picture updated successfully",
       });
     } else {
       res.status(404).json({

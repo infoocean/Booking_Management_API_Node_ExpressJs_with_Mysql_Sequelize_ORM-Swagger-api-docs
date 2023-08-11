@@ -1,3 +1,4 @@
+const { default_arr } = require("../../common/default_array");
 const { decodeToken } = require("../../helper/helperfn");
 const db = require("../../models/index.model");
 const Hotel = db.Hotel;
@@ -32,7 +33,6 @@ const addHotelController = async (req, res) => {
       gallary_image.push(element?.path);
     });
   }
-
   try {
     const findhotel = await Hotel.findOne({
       where: { title: title },
@@ -51,18 +51,6 @@ const addHotelController = async (req, res) => {
         created_by: verify_token?.id,
       });
       if (hotel) {
-        const default_arr = [
-          "short_description",
-          "long_description",
-          "availability",
-          "location",
-          "city",
-          "image",
-          "gallary_image",
-          "booking_type",
-          "cancellation_pilicy",
-          "terms_condition",
-        ];
         const default_arr_lgh = default_arr.length;
         for (let index = 0; index < default_arr_lgh; index++) {
           if (
@@ -108,7 +96,7 @@ const getHotelController = async (req, res) => {
       include: [
         {
           model: HotelMeta,
-          attributes: ["hotel_id", "key", "value"],
+          attributes: ["key", "value"],
         },
       ],
     });
@@ -129,17 +117,45 @@ const getHotelController = async (req, res) => {
   }
 };
 
-//get hotel by id  controller
+//get hotel by id  controller with rooms
 const getHotelByIdController = async (req, res) => {
   try {
     const findHotel = await Hotel.findByPk(req.params.id, {
       include: [
         {
           model: HotelMeta,
-          attributes: ["hotel_id", "key", "value"],
+          attributes: ["key", "value"],
         },
         {
           model: db.Room,
+        },
+      ],
+    });
+    if (findHotel) {
+      res.status(200).json({
+        success: true,
+        hotels: findHotel,
+      });
+    } else {
+      res.status(404).json({
+        success: false,
+        message: "hotel not found",
+        hotels: findHotel,
+      });
+    }
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+
+//get hotel details by id  controller
+const getHotelDetailsByIdController = async (req, res) => {
+  try {
+    const findHotel = await Hotel.findByPk(req.params.id, {
+      include: [
+        {
+          model: HotelMeta,
+          attributes: ["key", "value"],
         },
       ],
     });
@@ -179,28 +195,72 @@ const editHotelByIdController = async (req, res) => {
     cancellation_pilicy,
     terms_condition,
   } = req.body;
+  const getHotel = await Hotel.findByPk(req.params.id);
+  if (!getHotel) {
+    return res.status(404).json({
+      success: false,
+      message: "hotel not found",
+    });
+  }
   try {
-    const editHotel = await Hotel.update(
-      {
-        title: title,
-        slug: slug,
-        updated_by: verify_token?.id,
-      },
-      { where: { id: req.params.id } }
-    );
-    if (editHotel[0] == 1) {
-      res.status(202).json({
-        succes: true,
-        message: "hotel updated successfully",
-      });
+    const findregisterhotel = await Hotel.findOne({
+      where: { title: title },
+    });
+    if (findregisterhotel && findregisterhotel?.id == req.params.id) {
+      const editHotel = await Hotel.update(
+        {
+          title: title,
+          slug: slug,
+          status: status,
+          user_id: user_id,
+          updated_by: verify_token?.id,
+        },
+        { where: { id: req.params.id } }
+      );
+      if (editHotel[0] == 1) {
+        const default_arr_lgh = default_arr.length;
+        for (let index = 0; index < default_arr_lgh; index++) {
+          if (
+            default_arr[index] === "image" ||
+            default_arr[index] === "gallary_image"
+          ) {
+            await HotelMeta.update(
+              {
+                key: default_arr[index],
+                value:
+                  default_arr[index] === "image"
+                    ? image
+                    : gallary_image.length > 0
+                    ? JSON.stringify(gallary_image)
+                    : "",
+              },
+              { where: { hotel_id: req.params.id } }
+            );
+          } else {
+            await HotelMeta.update(
+              {
+                key: default_arr[index],
+                value: req.body[default_arr[index]]
+                  ? req.body[default_arr[index]]
+                  : "",
+              },
+              { where: { hotel_id: req.params.id } }
+            );
+          }
+        }
+        res.status(202).json({
+          succes: true,
+          message: "hotel updated successfully",
+        });
+      }
     } else {
-      res.status(404).json({
+      res.status(409).json({
         success: false,
-        message: "hotel not found",
+        error: "Hotel Name already registered!",
       });
     }
   } catch (error) {
-    res.status(500).send(error);
+    res.status(500).send(error.message);
   }
 };
 
@@ -293,4 +353,5 @@ module.exports = {
   deleteHotelByIdController,
   getHotelcategoriesController,
   getHotelAmenitiesController,
+  getHotelDetailsByIdController,
 };
