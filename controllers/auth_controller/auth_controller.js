@@ -47,7 +47,7 @@ const userLoginController = async (req, res) => {
         }
       }
     } catch (error) {
-      res.status(500).send(error);
+      res.status(500).send(error.message);
     }
   }
 };
@@ -71,10 +71,11 @@ const forgotPasswordController = async (req, res) => {
       if (!findUser) {
         return res
           .status(404)
-          .json({ succes: false, error: "email not regidtred!" });
+          .json({ succes: false, error: "email not registred!" });
       } else {
         const resetpasswordtoken = await generateToken({
           email: findUser?.email,
+          id: findUser?.id,
         });
         res.status(200).json({
           succes: true,
@@ -83,7 +84,7 @@ const forgotPasswordController = async (req, res) => {
         });
       }
     } catch (error) {
-      res.status(500).send(error);
+      res.status(500).send(error.message);
     }
   }
 };
@@ -93,17 +94,24 @@ const resetPasswordController = async (req, res) => {
   const { token, password } = req.body;
   try {
     const decode = await decodeToken(token);
-    const findUser = await User.findOne({
-      where: { email: decode?.email },
-    });
-    if (!findUser) {
-      return res.status(400).json("user not Found!");
+    if (decode && decode?.email && decode?.id) {
+      const findUser = await User.findOne({
+        where: { email: decode?.email, id: decode?.id },
+      });
+      if (!findUser) {
+        return res.status(400).json("user not Found!");
+      } else {
+        findUser.password = await hashPassword(password);
+        findUser.save();
+        res
+          .status(202)
+          .json({ success: true, message: "password updated succesfully!" });
+      }
     } else {
-      findUser.password = await hashPassword(password);
-      findUser.save();
-      res
-        .status(202)
-        .json({ success: true, message: "password updated succesfully!" });
+      return res.status(401).json({
+        success: false,
+        message: "Invalid token",
+      });
     }
   } catch (e) {
     res.status(500).json(e);

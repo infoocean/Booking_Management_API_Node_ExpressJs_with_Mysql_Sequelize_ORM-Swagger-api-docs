@@ -33,7 +33,7 @@ const addRoleController = async (req, res) => {
         });
       }
     } catch (error) {
-      res.status(500).send(error);
+      res.status(500).send(error.message);
     }
   }
 };
@@ -54,7 +54,7 @@ const getRoleController = async (req, res) => {
       });
     }
   } catch (error) {
-    res.status(500).send(error);
+    res.status(500).send(error.message);
   }
 };
 
@@ -70,19 +70,36 @@ const editRoleController = async (req, res) => {
   if (error) {
     return res.status(400).send({ error: "Invalid Request: " + error });
   } else {
-    try {
-      await Role.update(
-        {
-          name: name,
-        },
-        { where: { id: req.params.id } }
-      );
-      res.status(202).json({
-        success: true,
-        message: "role updated successfylly!",
+    const role = await Role.findByPk(req.params.id);
+    if (!role) {
+      return res.status(404).json({
+        success: false,
+        message: "role not found!",
       });
+    }
+    try {
+      const findtregisterrole = await Role.findOne({
+        where: { name: name },
+      });
+      if (findtregisterrole && findtregisterrole?.id == req.params.id) {
+        const role = await Role.update(
+          {
+            name: name,
+          },
+          { where: { id: req.params.id } }
+        );
+        res.status(202).json({
+          success: true,
+          message: "role updated successfylly!",
+        });
+      } else {
+        res.status(409).json({
+          success: false,
+          error: "role already registered!",
+        });
+      }
     } catch (error) {
-      res.status(500).send(error);
+      res.status(500).send(error.message);
     }
   }
 };

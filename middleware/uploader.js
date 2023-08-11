@@ -41,9 +41,26 @@ const storage3 = multer.diskStorage({
   },
 });
 
+//for user profile
+const storage4 = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "./uploads/users_images/");
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + uniqid() + file.originalname);
+  },
+});
+
 const upload = multer({ storage: storage });
 const roomupload = multer({ storage: storage1 });
 const spaceupload = multer({ storage: storage2 });
 const automobileupload = multer({ storage: storage3 });
+const userupload = multer({ storage: storage4 });
 
-module.exports = { upload, roomupload, spaceupload, automobileupload };
+module.exports = {
+  upload,
+  roomupload,
+  spaceupload,
+  automobileupload,
+  userupload,
+};

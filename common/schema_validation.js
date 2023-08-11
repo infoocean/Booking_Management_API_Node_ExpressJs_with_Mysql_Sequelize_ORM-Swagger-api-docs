@@ -12,10 +12,9 @@ const userSchemaValidation = Joi.object({
     .length(10)
     .pattern(/[6-9]{1}[0-9]{9}/)
     .required(),
-  date_of_birth: Joi.date().greater(new Date("1940-01-01")),
-  password: Joi.string().pattern(
-    /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[ -\/:-@\[-\`{-~]).{8,}$/
-  ),
+  password: Joi.string()
+    .required()
+    .pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[ -\/:-@\[-\`{-~]).{8,}$/),
   role_id: Joi.number().required(),
 });
 

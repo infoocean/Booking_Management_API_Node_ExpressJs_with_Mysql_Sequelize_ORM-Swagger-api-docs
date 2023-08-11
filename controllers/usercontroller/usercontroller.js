@@ -5,23 +5,14 @@ const User = db.User;
 
 //add user controller
 const addUserController = async (req, res) => {
-  const {
-    first_name,
-    last_name,
-    email,
-    phone_number,
-    date_of_birth,
-    password,
-    role_id,
-    identifier,
-  } = req.body;
+  const { first_name, last_name, email, phone_number, password, role_id } =
+    req.body;
   const { error, value } = userSchemaValidation.validate(
     {
       first_name,
       last_name,
       email,
       phone_number,
-      date_of_birth,
       password,
       role_id,
     },
@@ -48,7 +39,6 @@ const addUserController = async (req, res) => {
           email: email,
           phone_number: phone_number,
           password: await hashPassword(password),
-          date_of_birth: date_of_birth,
           role_id: role_id,
         });
         res.status(201).json({
@@ -58,7 +48,7 @@ const addUserController = async (req, res) => {
         });
       }
     } catch (error) {
-      res.status(500).send(error);
+      res.status(500).send(error.message);
     }
   }
 };
@@ -66,7 +56,11 @@ const addUserController = async (req, res) => {
 //get users controller
 const getUsersController = async (req, res) => {
   try {
-    const findUser = await User.findAll();
+    const findUser = await User.findAll({
+      attributes: {
+        exclude: ["createdAt", "updatedAt", "password"],
+      },
+    });
     if (findUser.length > 0) {
       res.status(200).json({
         success: true,
@@ -80,15 +74,17 @@ const getUsersController = async (req, res) => {
       });
     }
   } catch (error) {
-    res.status(500).send(error);
+    res.status(500).send(error.message);
   }
 };
 
 //get user by id controller
 const getUserController = async (req, res) => {
   try {
-    const findUser = await User.findOne({
-      where: { id: req.params.id },
+    const findUser = await User.findByPk(req.params.id, {
+      attributes: {
+        exclude: ["createdAt", "updatedAt", "password"],
+      },
     });
     if (findUser) {
       res.status(200).json({
@@ -103,7 +99,7 @@ const getUserController = async (req, res) => {
       });
     }
   } catch (error) {
-    res.status(500).send(error);
+    res.status(500).send(error.message);
   }
 };
 
@@ -128,7 +124,7 @@ const deleteuserUserController = async (req, res) => {
       });
     }
   } catch (error) {
-    res.status(500).send(error);
+    res.status(500).send(error.message);
   }
 };
 
@@ -136,17 +132,63 @@ const deleteuserUserController = async (req, res) => {
 const editUserController = async (req, res) => {
   const { first_name, last_name, email, phone_number, date_of_birth } =
     req.body;
+  const user = await User.findByPk(req.params.id);
+  if (!user) {
+    return res.status(404).json({
+      success: false,
+      message: "user not found!",
+    });
+  }
+  try {
+    const findregisterUser = await User.findOne({
+      where: { email: email },
+      attributes: ["id", "email"],
+    });
+    if (findregisterUser && findregisterUser?.id == req.params.id) {
+      const findUser = await User.update(
+        {
+          first_name: first_name,
+          last_name: last_name,
+          email: email,
+          phone_number: phone_number,
+          date_of_birth: date_of_birth,
+        },
+        { where: { id: req.params.id } }
+      );
+      if (findUser[0] == 1) {
+        res.status(202).json({
+          succes: true,
+          message: "user updated successfully",
+        });
+      }
+    } else {
+      res.status(409).json({
+        success: false,
+        error: "Email already registered!",
+      });
+    }
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+};
+
+//edit user profile picture controller
+const uploadProfilePictureController = async (req, res) => {
+  if (!req.file) {
+    return res.status(400).json({
+      succes: false,
+      message: "image is required",
+    });
+  }
+
   try {
     const findUser = await User.update(
       {
-        first_name: first_name,
-        last_name: last_name,
-        email: email,
-        phone_number: phone_number,
-        date_of_birth: date_of_birth,
+        profile_picture: req.file ? req.file.path : "",
       },
       { where: { id: req.params.id } }
     );
+    console.log(findUser);
     if (findUser[0] == 1) {
       res.status(202).json({
         succes: true,
@@ -159,7 +201,7 @@ const editUserController = async (req, res) => {
       });
     }
   } catch (error) {
-    res.status(500).send(error);
+    res.status(500).send(error.message);
   }
 };
 
@@ -169,4 +211,5 @@ module.exports = {
   getUserController,
   deleteuserUserController,
   editUserController,
+  uploadProfilePictureController,
 };
