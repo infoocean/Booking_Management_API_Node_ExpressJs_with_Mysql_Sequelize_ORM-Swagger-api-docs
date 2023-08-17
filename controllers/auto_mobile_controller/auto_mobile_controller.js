@@ -166,13 +166,22 @@ const editAutoMobileController = async (req, res) => {
     auto_mobile_brand,
     auto_mobile_type,
     user_id,
-    image,
-    gallary_image,
     rc_number,
     seater,
     cost_per_km,
     status,
   } = req.body;
+
+  let image = "",
+    gallary_image = [];
+  if (req.files.image) {
+    image = req.files.image[0]?.path;
+  }
+  if (req.files.gallary_image) {
+    req.files.gallary_image.forEach((element) => {
+      gallary_image.push(element?.path);
+    });
+  }
   try {
     const updateAutoMobile = await AutoMobile.update(
       {
@@ -191,6 +200,72 @@ const editAutoMobileController = async (req, res) => {
       { where: { id: req.params.id } }
     );
     if (updateAutoMobile[0] == 1) {
+      let automobile_meta_keys = ["image", "gallary_image"];
+      Object.keys(req.body).filter((key) => {
+        if (!automobile_defaine_arr.includes(key)) {
+          automobile_meta_keys.push(key);
+        }
+      });
+      const automobile_meta_keys_lgh = automobile_meta_keys.length;
+      //get allready register keys and value
+      const find_allready_register_keys = await AutoMobileMeta.findAll({
+        where: {
+          auto_mobile_id: req.params.id,
+        },
+        attributes: ["key"],
+      });
+      const mynewdt = find_allready_register_keys.filter((e) => {
+        return e?.key !== "image" && e.key !== "gallary_image";
+      });
+      const dt = [];
+      mynewdt.map((data) => {
+        dt.push(data?.key);
+      });
+      for (let index = 0; index < automobile_meta_keys_lgh; index++) {
+        if (
+          automobile_meta_keys[index] == "image" ||
+          automobile_meta_keys[index] == "gallary_image"
+        ) {
+          await AutoMobileMeta.update(
+            {
+              value:
+                automobile_meta_keys[index] === "image"
+                  ? image
+                  : gallary_image.length > 0
+                  ? JSON.stringify(gallary_image)
+                  : "",
+            },
+            {
+              where: {
+                auto_mobile_id: req.params.id,
+                key: automobile_meta_keys[index],
+              },
+            }
+          );
+        } else {
+          if (dt.includes(automobile_meta_keys[index])) {
+            await AutoMobileMeta.update(
+              {
+                value: req.body[automobile_meta_keys[index]],
+              },
+              {
+                where: {
+                  auto_mobile_id: req.params.id,
+                  key: [automobile_meta_keys[index]],
+                },
+              }
+            );
+          } else {
+            await AutoMobileMeta.create({
+              key: automobile_meta_keys[index],
+              value: req.body[automobile_meta_keys[index]]
+                ? req.body[automobile_meta_keys[index]]
+                : "",
+              auto_mobile_id: req.params.id,
+            });
+          }
+        }
+      }
       res.status(202).json({
         succes: true,
         message: "Auto Mobile updated successfully",

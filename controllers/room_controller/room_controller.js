@@ -1,4 +1,4 @@
-const { hashPassword, decodeToken } = require("../../helper/helperfn");
+const { decodeToken } = require("../../helper/helperfn");
 const db = require("../../models/index.model");
 const Room = db.Room;
 

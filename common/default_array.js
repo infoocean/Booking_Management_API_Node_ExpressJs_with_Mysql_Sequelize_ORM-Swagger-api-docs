@@ -1,16 +1,18 @@
-//define array for space
+//pre define array for hotel
+exports.hotel_defaine_arr = ["title", "slug", "status", "user_id"];
+
+//pre define array for space
 exports.space_defaine_arr = [
   "title",
   "slug",
   "status",
   "space_size",
   "guest_capacity",
-  "user_id",
   "cost_per_hour",
   "cost_per_day",
+  "user_id",
 ];
-
-//define array for automobile
+//pre define array for automobile
 exports.automobile_defaine_arr = [
   "auto_mobile_categories",
   "auto_mobile_name",
@@ -22,18 +24,4 @@ exports.automobile_defaine_arr = [
   "seater",
   "cost_per_km",
   "status",
-];
-
-//other define arr  predine schemana for m meta define arr
-exports.default_arr = [
-  "short_description",
-  "long_description",
-  "availability",
-  "location",
-  "city",
-  "image",
-  "gallary_image",
-  "booking_type",
-  "cancellation_pilicy",
-  "terms_condition",
 ];

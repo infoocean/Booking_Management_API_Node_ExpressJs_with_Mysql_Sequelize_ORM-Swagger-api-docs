@@ -1,4 +1,8 @@
-const { default_arr } = require("../../common/default_array");
+const {
+  deleteMultiplefile,
+  deleteSinglefile,
+} = require("../../common/commonfn");
+const { hotel_defaine_arr } = require("../../common/default_array");
 const { decodeToken } = require("../../helper/helperfn");
 const db = require("../../models/index.model");
 const Hotel = db.Hotel;
@@ -8,21 +12,7 @@ const CategoriesAmenities = db.CategoriesAmenities;
 //add hotel controller
 const addHotelController = async (req, res) => {
   const verify_token = await decodeToken(req.headers["x-access-token"]);
-  const {
-    title,
-    slug,
-    short_description,
-    long_description,
-    availability,
-    status,
-    user_id,
-    location,
-    city,
-    booking_type,
-    cancellation_pilicy,
-    terms_condition,
-  } = req.body;
-
+  const { title, slug, status, user_id } = req.body;
   let image = "",
     gallary_image = [];
   if (req.files.image) {
@@ -38,6 +28,9 @@ const addHotelController = async (req, res) => {
       where: { title: title },
     });
     if (findhotel) {
+      //removing images from folder
+      deleteSinglefile(image);
+      deleteMultiplefile(gallary_image);
       res.status(409).json({
         success: false,
         error: "title already registered!",
@@ -51,16 +44,21 @@ const addHotelController = async (req, res) => {
         created_by: verify_token?.id,
       });
       if (hotel) {
-        const default_arr_lgh = default_arr.length;
-        for (let index = 0; index < default_arr_lgh; index++) {
+        let hotel_meta_keys = ["image", "gallary_image"];
+        Object.keys(req.body).filter((key) => {
+          if (!hotel_defaine_arr.includes(key)) {
+            hotel_meta_keys.push(key);
+          }
+        });
+        for (let index = 0; index < hotel_meta_keys.length; index++) {
           if (
-            default_arr[index] === "image" ||
-            default_arr[index] === "gallary_image"
+            hotel_meta_keys[index] === "image" ||
+            hotel_meta_keys[index] === "gallary_image"
           ) {
             await HotelMeta.create({
-              key: default_arr[index],
+              key: hotel_meta_keys[index],
               value:
-                default_arr[index] === "image"
+                hotel_meta_keys[index] === "image"
                   ? image
                   : gallary_image.length > 0
                   ? JSON.stringify(gallary_image)
@@ -69,9 +67,9 @@ const addHotelController = async (req, res) => {
             });
           } else {
             await HotelMeta.create({
-              key: default_arr[index],
-              value: req.body[default_arr[index]]
-                ? req.body[default_arr[index]]
+              key: hotel_meta_keys[index],
+              value: req.body[hotel_meta_keys[index]]
+                ? req.body[hotel_meta_keys[index]]
                 : "",
               hotel_id: hotel?.id,
             });
@@ -179,22 +177,7 @@ const getHotelDetailsByIdController = async (req, res) => {
 //edit hotel by id  controller
 const editHotelByIdController = async (req, res) => {
   const verify_token = await decodeToken(req.headers["x-access-token"]);
-  const {
-    title,
-    slug,
-    short_description,
-    long_description,
-    availability,
-    status,
-    user_id,
-    image,
-    gallary_image,
-    location,
-    city,
-    booking_type,
-    cancellation_pilicy,
-    terms_condition,
-  } = req.body;
+  const { title, slug, status, user_id } = req.body;
   const getHotel = await Hotel.findByPk(req.params.id);
   if (!getHotel) {
     return res.status(404).json({
@@ -202,11 +185,21 @@ const editHotelByIdController = async (req, res) => {
       message: "hotel not found",
     });
   }
+  let image = "",
+    gallary_image = [];
+  if (req.files.image) {
+    image = req.files.image[0]?.path;
+  }
+  if (req.files.gallary_image) {
+    req.files.gallary_image.forEach((element) => {
+      gallary_image.push(element?.path);
+    });
+  }
   try {
     const findregisterhotel = await Hotel.findOne({
-      where: { title: title },
+      where: { id: req.params.id },
     });
-    if (findregisterhotel && findregisterhotel?.id == req.params.id) {
+    if (findregisterhotel) {
       const editHotel = await Hotel.update(
         {
           title: title,
@@ -218,34 +211,67 @@ const editHotelByIdController = async (req, res) => {
         { where: { id: req.params.id } }
       );
       if (editHotel[0] == 1) {
-        const default_arr_lgh = default_arr.length;
-        for (let index = 0; index < default_arr_lgh; index++) {
+        let hotel_meta_keys = ["image", "gallary_image"];
+        Object.keys(req.body).filter((key) => {
+          if (!hotel_defaine_arr.includes(key)) {
+            hotel_meta_keys.push(key);
+          }
+        });
+        const hotel_meta_keys_lgh = hotel_meta_keys.length;
+        //get allready register keys and value
+        const find_allready_register_keys = await HotelMeta.findAll({
+          where: {
+            hotel_id: req.params.id,
+          },
+          attributes: ["key"],
+        });
+        const mynewdt = find_allready_register_keys.filter((e) => {
+          return e?.key !== "image" && e.key !== "gallary_image";
+        });
+        const dt = [];
+        mynewdt.map((data) => {
+          dt.push(data?.key);
+        });
+        for (let index = 0; index < hotel_meta_keys_lgh; index++) {
           if (
-            default_arr[index] === "image" ||
-            default_arr[index] === "gallary_image"
+            hotel_meta_keys[index] == "image" ||
+            hotel_meta_keys[index] == "gallary_image"
           ) {
             await HotelMeta.update(
               {
-                key: default_arr[index],
                 value:
-                  default_arr[index] === "image"
+                  hotel_meta_keys[index] === "image"
                     ? image
                     : gallary_image.length > 0
                     ? JSON.stringify(gallary_image)
                     : "",
               },
-              { where: { hotel_id: req.params.id } }
+              {
+                where: { hotel_id: req.params.id, key: hotel_meta_keys[index] },
+              }
             );
           } else {
-            await HotelMeta.update(
-              {
-                key: default_arr[index],
-                value: req.body[default_arr[index]]
-                  ? req.body[default_arr[index]]
+            if (dt.includes(hotel_meta_keys[index])) {
+              await HotelMeta.update(
+                {
+                  value: req.body[hotel_meta_keys[index]],
+                },
+                {
+                  where: {
+                    hotel_id: req.params.id,
+                    key: [hotel_meta_keys[index]],
+                  },
+                }
+              );
+            } else {
+              await HotelMeta.create({
+                key: hotel_meta_keys[index],
+                value: req.body[hotel_meta_keys[index]]
+                  ? req.body[hotel_meta_keys[index]]
                   : "",
-              },
-              { where: { hotel_id: req.params.id } }
-            );
+                hotel_id: req.params.id,
+              });
+            }
           }
         }
         res.status(202).json({

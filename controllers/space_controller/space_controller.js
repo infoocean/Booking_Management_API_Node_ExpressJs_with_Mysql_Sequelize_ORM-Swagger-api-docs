@@ -15,15 +15,6 @@ const addSpaceController = async (req, res) => {
     guest_capacity,
     cost_per_hour,
     cost_per_day,
-    space_type,
-    short_description,
-    long_description,
-    avalability,
-    location,
-    city,
-    booking_type,
-    cancellation_pilicy,
-    terms_condition,
     user_id,
   } = req.body;
   let image = "",
@@ -161,48 +152,122 @@ const getSpaceByIdController = async (req, res) => {
 //edit space by id controller
 const editSpaceController = async (req, res) => {
   const verify_token = await decodeToken(req.headers["x-access-token"]);
+
+  const getspace = await Space.findByPk(req.params.id);
+  if (!getspace) {
+    return res.status(404).json({
+      success: false,
+      message: "space not found",
+    });
+  }
   const {
     title,
     slug,
     status,
     space_size,
     guest_capacity,
-    space_type,
     cost_per_hour,
     cost_per_day,
-    short_description,
-    long_description,
-    avalability,
-    image,
-    gallary_image,
-    location,
-    city,
-    booking_type,
-    cancellation_pilicy,
-    terms_condition,
+    user_id,
   } = req.body;
+  let image = "",
+    gallary_image = [];
+  if (req.files.image) {
+    image = req.files.image[0]?.path;
+  }
+  if (req.files.gallary_image) {
+    req.files.gallary_image.forEach((element) => {
+      gallary_image.push(element?.path);
+    });
+  }
   try {
-    const updatespace = await Space.update(
-      {
-        title: title,
-        slug: slug,
-        status: status,
-        space_size: space_size,
-        guest_capacity: guest_capacity,
-        updated_by: verify_token?.id,
-      },
-      { where: { id: req.params.id } }
-    );
-    if (updatespace[0] == 1) {
-      res.status(202).json({
-        succes: true,
-        message: "space updated successfully",
-      });
-    } else {
-      res.status(404).json({
-        success: false,
-        message: "space not found!",
-      });
+    const checkspace_title = await Space.findAll({
+      where: { id: req.params.id },
+    });
+    if (checkspace_title) {
+      const updatespace = await Space.update(
+        {
+          title: title,
+          slug: slug,
+          status: status,
+          space_size: space_size,
+          guest_capacity: guest_capacity,
+          cost_per_hour: cost_per_hour,
+          cost_per_day: cost_per_day,
+          user_id: user_id,
+          updated_by: verify_token?.id,
+        },
+        { where: { id: req.params.id } }
+      );
+      if (updatespace[0] == 1) {
+        let space_meta_keys = ["image", "gallary_image"];
+        Object.keys(req.body).filter((key) => {
+          if (!space_defaine_arr.includes(key)) {
+            space_meta_keys.push(key);
+          }
+        });
+        const space_meta_keys_lgh = space_meta_keys.length;
+        //get allready register keys and value
+        const find_already_register_keys = await SpaceMeta.findAll({
+          where: {
+            space_id: req.params.id,
+          },
+          attributes: ["key"],
+        });
+        const mynewdt = find_already_register_keys.filter((e) => {
+          return e?.key !== "image" && e.key !== "gallary_image";
+        });
+        const dt = [];
+        mynewdt.map((data) => {
+          dt.push(data?.key);
+        });
+        for (let index = 0; index < space_meta_keys_lgh; index++) {
+          if (
+            space_meta_keys[index] == "image" ||
+            space_meta_keys[index] == "gallary_image"
+          ) {
+            await SpaceMeta.update(
+              {
+                value:
+                  space_meta_keys[index] === "image"
+                    ? image
+                    : gallary_image.length > 0
+                    ? JSON.stringify(gallary_image)
+                    : "",
+              },
+              {
+                where: { space_id: req.params.id, key: space_meta_keys[index] },
+              }
+            );
+          } else {
+            if (dt.includes(space_meta_keys[index])) {
+              await SpaceMeta.update(
+                {
+                  value: req.body[space_meta_keys[index]],
+                },
+                {
+                  where: {
+                    space_id: req.params.id,
+                    key: [space_meta_keys[index]],
+                  },
+                }
+              );
+            } else {
+              await SpaceMeta.create({
+                key: space_meta_keys[index],
+                value: req.body[space_meta_keys[index]]
+                  ? req.body[space_meta_keys[index]]
+                  : "",
+                space_id: req.params.id,
+              });
+            }
+          }
+        }
+        res.status(202).json({
+          succes: true,
+          message: "space updated successfully",
+        });
+      }
     }
   } catch (error) {
     res.status(500).send(error.message);
