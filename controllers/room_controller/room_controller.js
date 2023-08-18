@@ -145,6 +145,16 @@ const editRoomByIdController = async (req, res) => {
     cost_per_hour,
     room_size,
   } = req.body;
+  let image = "",
+    gallary_image = [];
+  if (req.files.image) {
+    image = req.files.image[0]?.path;
+  }
+  if (req.files.gallary_image) {
+    req.files.gallary_image.forEach((element) => {
+      gallary_image.push(element?.path);
+    });
+  }
   try {
     const findRoom = await Room.update(
       {
@@ -157,6 +167,9 @@ const editRoomByIdController = async (req, res) => {
         cost_per_day: cost_per_day,
         cost_per_hour: cost_per_hour,
         room_size: room_size,
+        image: image,
+        gallary_image:
+          gallary_image.length > 0 ? JSON.stringify(gallary_image) : "",
         updated_by: verify_token?.id,
       },
       { where: { id: req.params.id } }
