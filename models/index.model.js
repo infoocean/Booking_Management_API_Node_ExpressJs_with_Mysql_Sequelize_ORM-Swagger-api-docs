@@ -31,6 +31,7 @@ db.Transaction = require("./transaction.model")(sequelize, Sequelize);
 db.OrderMeta = require("./order_meta")(sequelize, Sequelize);
 db.OrderItems = require("./order.items")(sequelize, Sequelize);
 db.OrderItemsMeta = require("./order.items.meta")(sequelize, Sequelize);
+db.SiteOptionMeta = require("./site_option_meta")(sequelize, Sequelize);
 
 //orders joins
 db.Order.hasMany(db.OrderMeta, { foreignKey: "order_id" });

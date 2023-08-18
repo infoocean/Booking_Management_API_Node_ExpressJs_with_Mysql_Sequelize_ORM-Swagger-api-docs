@@ -37,6 +37,8 @@ const transaction = require("./routes/transaction_routes");
 app.use("/api", transaction);
 const payment = require("./routes/payment_routes");
 app.use("/api", payment);
+const siteoptions = require("./routes/site_options");
+app.use("/api", siteoptions);
 
 app.get("/", (req, res) => {
   res.status(200).send({
