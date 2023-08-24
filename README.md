@@ -3,6 +3,14 @@
 #node vesrion  
 v18.12.1
 
+### How to start the project:
+
+- First, you clone the project by using the following command:\
+  `git clone https://github.com/infoocean/Booking_Management_API_Node_with_Mysql_Sequelize.git`
+- Install node version v18.12.1 or use nvm to downgrade your node version.
+- Delete the existing `package.lock.json` and run `npm install`
+- Then you create a postgres database named iLrn with the following credentials:
+
 #start the project using the command
 nodemon
 or
