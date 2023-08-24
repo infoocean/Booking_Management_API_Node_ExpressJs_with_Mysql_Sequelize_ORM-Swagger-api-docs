@@ -1,11 +1,12 @@
 const { userSchemaValidation } = require("../../common/schema_validation");
-const { hashPassword } = require("../../helper/helperfn");
 const db = require("../../models/index.model");
+const { decodeToken } = require("../../helper/helperfn");
 const User = db.User;
 
 //add user controller
 const addUserController = async (req, res) => {
-  const { first_name, last_name, email, phone_number, password, role_id } =
+  const verify_token = await decodeToken(req.headers["x-access-token"]);
+  const { first_name, last_name, email, phone_number, date_of_birth, role_id } =
     req.body;
   const { error, value } = userSchemaValidation.validate(
     {
@@ -13,7 +14,7 @@ const addUserController = async (req, res) => {
       last_name,
       email,
       phone_number,
-      password,
+      date_of_birth,
       role_id,
     },
     {
@@ -38,7 +39,8 @@ const addUserController = async (req, res) => {
           last_name: last_name,
           email: email,
           phone_number: phone_number,
-          password: await hashPassword(password),
+          date_of_birth: date_of_birth,
+          created_by: verify_token?.id,
           role_id: role_id,
         });
         res.status(201).json({
@@ -130,8 +132,24 @@ const deleteuserUserController = async (req, res) => {
 
 //edit user controller
 const editUserController = async (req, res) => {
-  const { first_name, last_name, email, phone_number, date_of_birth } =
+  const { first_name, last_name, email, phone_number, date_of_birth, role_id } =
     req.body;
+  const { error, value } = userSchemaValidation.validate(
+    {
+      first_name,
+      last_name,
+      email,
+      phone_number,
+      date_of_birth,
+      role_id,
+    },
+    {
+      abortEarly: false,
+    }
+  );
+  if (error) {
+    return res.status(400).send({ error: "Invalid Request: " + error });
+  }
   const user = await User.findByPk(req.params.id);
   if (!user) {
     return res.status(404).json({

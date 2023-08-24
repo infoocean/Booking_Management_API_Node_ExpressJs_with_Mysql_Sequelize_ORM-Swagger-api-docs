@@ -1,4 +1,9 @@
-const { loginuserSchemaValidation } = require("../../common/schema_validation");
+const {
+  loginuserSchemaValidation,
+  userSignupValidation,
+  resetSchemaValidation,
+  changePasswordValidation,
+} = require("../../common/schema_validation");
 const db = require("../../models/index.model");
 const {
   verifyPassword,
@@ -8,6 +13,54 @@ const {
 } = require("../../helper/helperfn");
 const { emailValidation } = require("../../common/email_validation");
 const User = db.User;
+
+//user Signup controller
+const userSignupController = async (req, res) => {
+  const { first_name, last_name, email, phone_number, password } = req.body;
+  const { error, value } = userSignupValidation.validate(
+    {
+      first_name,
+      last_name,
+      email,
+      phone_number,
+      password,
+    },
+    {
+      abortEarly: false,
+    }
+  );
+  if (error) {
+    return res.status(400).send({ error: "Invalid Request: " + error });
+  } else {
+    try {
+      const findUser = await User.findOne({
+        where: { email: email },
+      });
+      if (findUser) {
+        res.status(409).json({
+          success: false,
+          error: "Email already registered!",
+        });
+      } else {
+        const user = await User.create({
+          first_name: first_name,
+          last_name: last_name,
+          email: email,
+          phone_number: phone_number,
+          password: await hashPassword(password),
+          role_id: 2,
+        });
+        res.status(201).json({
+          success: true,
+          message: "user signup successfylly!",
+          user: user,
+        });
+      }
+    } catch (error) {
+      res.status(500).send(error.message);
+    }
+  }
+};
 
 //user login controller
 const userLoginController = async (req, res) => {
@@ -79,7 +132,8 @@ const forgotPasswordController = async (req, res) => {
         });
         res.status(200).json({
           succes: true,
-          message: "token expire in 8 hours",
+          message:
+            "forgot password success. use this token for reset password. token expire in 8 hours",
           token: resetpasswordtoken,
         });
       }
@@ -92,25 +146,79 @@ const forgotPasswordController = async (req, res) => {
 //reset password token
 const resetPasswordController = async (req, res) => {
   const { token, password } = req.body;
-  try {
-    const decode = await decodeToken(token);
-    if (decode && decode?.email && decode?.id) {
-      const findUser = await User.findOne({
-        where: { email: decode?.email, id: decode?.id },
-      });
-      if (!findUser) {
-        return res.status(400).json("user not Found!");
+  const { error, value } = resetSchemaValidation.validate(
+    { token, password },
+    {
+      abortEarly: false,
+    }
+  );
+  if (error) {
+    return res.status(400).send({ error: "Invalid Request: " + error });
+  } else {
+    try {
+      const decode = await decodeToken(token);
+      if (decode && decode?.email && decode?.id) {
+        const findUser = await User.findOne({
+          where: { email: decode?.email, id: decode?.id },
+        });
+        if (!findUser) {
+          return res.status(400).json("user not Found!");
+        } else {
+          findUser.password = await hashPassword(password);
+          findUser.save();
+          res
+            .status(202)
+            .json({ success: true, message: "password updated succesfully!" });
+        }
       } else {
-        findUser.password = await hashPassword(password);
-        findUser.save();
-        res
-          .status(202)
-          .json({ success: true, message: "password updated succesfully!" });
+        return res.status(401).json({
+          success: false,
+          message: "Invalid token",
+        });
       }
+    } catch (e) {
+      res.status(500).json(e);
+    }
+  }
+};
+
+//reset password token
+const changePasswordController = async (req, res) => {
+  const verify_token = await decodeToken(req.headers["x-access-token"]);
+  const { current_password, new_password, confirm_password } = req.body;
+  const { error, value } = changePasswordValidation.validate(
+    { current_password, new_password, confirm_password },
+    {
+      abortEarly: false,
+    }
+  );
+  if (error) {
+    return res.status(400).send({ error: "Invalid Request: " + error });
+  }
+  if (new_password != confirm_password) {
+    return res.status(400).json({
+      succes: false,
+      message: "new password and confirm pasword are not same",
+    });
+  }
+  try {
+    const findUser = await User.findOne({
+      where: { email: verify_token?.email, id: verify_token?.id },
+    });
+    const verify_password = await verifyPassword(
+      current_password,
+      findUser?.password
+    );
+    if (verify_password) {
+      findUser.password = await hashPassword(new_password);
+      findUser.save();
+      res
+        .status(202)
+        .json({ success: true, message: "password changed succesfully!" });
     } else {
-      return res.status(401).json({
-        success: false,
-        message: "Invalid token",
+      return res.status(400).json({
+        succes: false,
+        message: "invalid current_password",
       });
     }
   } catch (e) {
@@ -122,4 +230,6 @@ module.exports = {
   userLoginController,
   forgotPasswordController,
   resetPasswordController,
+  userSignupController,
+  changePasswordController,
 };

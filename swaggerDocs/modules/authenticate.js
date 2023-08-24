@@ -1,70 +1,106 @@
 module.exports = {
-  '/singup': {
-    post:{
-      tags: ['Login'],
-      summary: "Singup user into the system",
-      operationId: 'postRegistration',
-      produces: [
-        "application/json"
-      ],
+  "/usersignup": {
+    post: {
+      tags: ["User - Login/Signup"],
+      summary: "singup user into the system",
+      operationId: "usersignup",
+      produces: ["application/json"],
       requestBody: {
         content: {
           "application/json": {
             schema: {
               type: "object",
               properties: {
-                name: {
-                  description: "The user name for login",
+                first_name: {
+                  description: "The user first name for signup",
                   required: true,
                   type: "string",
-                  example: "Mario Lopez"
+                  example: "Shubham",
+                },
+                last_name: {
+                  description: "The user last name for signup",
+                  required: true,
+                  type: "string",
+                  example: "Jaiwsal",
                 },
                 email: {
-                  description: "The user email for login",
+                  description: "The user email for signup",
                   required: true,
                   type: "string",
-                  example: "mario@purposit.com"
+                  example: "sj2585097@gmail.com",
+                },
+                phone_number: {
+                  description: "The user phone number for signup",
+                  required: true,
+                  type: "string",
+                  example: "7089413024",
                 },
                 password: {
-                  description: "The user password for login",
+                  description: "The user password for signup",
                   required: true,
                   type: "string",
-                  example: "Interglobe"
+                  example: "Shubham#12",
                 },
               },
-            },            
+            },
           },
         },
       },
-      responses:{
-        '200':{
-          description:"successful login",
+      responses: {
+        201: {
+          description: "user signup successfully",
           content: {
-            'application/json':{
-              schema:{
+            "application/json": {
+              schema: {
                 type: "object",
                 properties: {
-                  token: {
+                  success: { example: "true" },
+                  message: { example: "user signup successfylly!" },
+                  first_name: {
+                    description: "The user first name for signup",
+                    required: true,
                     type: "string",
-                    description: "Access token",
-                    example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImVtYWlsIjoibWFyaW9AcHVycG9zaXQuY29tIiwiZmlyc3RfbmFt",
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
+                    example: "Shubham",
+                  },
+                  last_name: {
+                    description: "The user last name for signup",
+                    required: true,
+                    type: "string",
+                    example: "Jaiwsal",
+                  },
+                  email: {
+                    description: "The user email for signup",
+                    required: true,
+                    type: "string",
+                    example: "sj2585097@gmail.com",
+                  },
+                  phone_number: {
+                    description: "The user phone number for signup",
+                    required: true,
+                    type: "string",
+                    example: "7089413024",
+                  },
+                  password: {
+                    description: "The user phone number for signup",
+                    required: true,
+                    type: "string",
+                    example:
+                      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJwYXNzd29yZCI6IlYhdkVrQDMyMUAxMjMiLCJpYXQiOjE2OTI2ODU5NDEsImV4cCI6MTY5MjcyOTE0MX0.I5_QzYwzSCLpNZ1qZBN9srQoa8Wbh8Uh01h_zgP5_V8",
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    },
   },
-  '/singin': {
-    post:{
-      tags: ['Login'],
+  "/userlogin": {
+    post: {
+      tags: ["User - Login/Signup"],
       summary: "singin user into the system",
-      operationId: 'postAuthenticate',
-      produces: [
-        "application/json"
-      ],
+      operationId: "userlogin",
+      produces: ["application/json"],
       requestBody: {
         content: {
           "application/json": {
@@ -75,38 +111,40 @@ module.exports = {
                   description: "The user email for login",
                   required: true,
                   type: "string",
-                  example: "mario@purposit.com"
+                  example: "sj2585097@gmail.com",
                 },
                 password: {
                   description: "The user password for login",
                   required: true,
                   type: "string",
-                  example: "Interglobe"
+                  example: "Shubham#12",
                 },
               },
-            },            
+            },
           },
         },
       },
-      responses:{
-        '200':{
-          description:"successful login",
+      responses: {
+        200: {
+          description: "user login successfully",
           content: {
-            'application/json':{
-              schema:{
+            "application/json": {
+              schema: {
                 type: "object",
                 properties: {
+                  success: { example: "login successfully" },
                   token: {
                     type: "string",
                     description: "Access token",
-                    example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImVtYWlsIjoibWFyaW9AcHVycG9zaXQuY29tIiwiZmlyc3RfbmFt",
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
+                    example:
+                      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IlNodWJoYW0iLCJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJyb2xlIjowLCJpYXQiOjE2OTI3MDg5OTIsImV4cCI6MTY5MjczNzc5Mn0.ukuIyJJPDVisFpluum7b9067xP0g4eQgDuSI_t7fui4",
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    },
   },
-}
+};

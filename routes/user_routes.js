@@ -13,7 +13,7 @@ const {
   editUserController,
   uploadProfilePictureController,
 } = require("../controllers/usercontroller/usercontroller");
-router.post("/adduser", verifyAuthToken, addUserController);
+router.post("/adduser", verifyAuthToken, verifyLoginToken, addUserController);
 router.get("/getusers", verifyAuthToken, getUsersController);
 router.get("/getuser/:id", verifyAuthToken, getUserController);
 router.delete("/deleteuser/:id", verifyAuthToken, deleteuserUserController);

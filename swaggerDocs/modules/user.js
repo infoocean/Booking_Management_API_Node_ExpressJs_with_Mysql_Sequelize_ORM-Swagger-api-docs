@@ -1,21 +1,27 @@
 const user = require("../schema/user");
-const payments = require("../schema/payments");
-const notification = require("../schema/notification");
-const thankyou = require("../schema/thankyou");
 module.exports = {
   "/adduser": {
-    get: {
+    post: {
       tags: ["User"],
-      summary: "user registration",
+      summary: "add user into the system",
       operationId: "adduser",
-      parameters: [],
+      produces: ["application/json"],
+      requestBody: {
+        content: {
+          "application/json": {
+            schema: {
+              ...user.CreateUser,
+            },
+          },
+        },
+      },
       responses: {
         201: {
-          description: "Users were obtained",
+          description: "user registration successfully",
           content: {
             "application/json": {
               schema: {
-                $ref: "#/components/schemas/User",
+                ...user.CreateUser,
               },
             },
           },
@@ -23,11 +29,31 @@ module.exports = {
       },
     },
   },
-  "/user/{id}": {
+
+  "/getusers": {
     get: {
       tags: ["User"],
-      summary: "List user by id",
-      operationId: "getUser",
+      summary: "list of all users",
+      operationId: "getusers",
+      responses: {
+        200: {
+          description: "list of all users",
+          content: {
+            "application/json": {
+              schema: {
+                ...user.User,
+              },
+            },
+          },
+        },
+      },
+    },
+  },
+  "/getuser/{id}": {
+    get: {
+      tags: ["User"],
+      summary: "get user details by id",
+      operationId: "getuser",
       parameters: [
         {
           name: "id",
@@ -40,21 +66,58 @@ module.exports = {
       ],
       responses: {
         200: {
-          description: "User has been obtained",
+          description: "get user details by id",
           content: {
             "application/json": {
               schema: {
-                $ref: "#/components/schemas/User",
+                ...user.User,
               },
             },
           },
         },
       },
     },
+  },
+  "/deleteuser/{id}": {
+    delete: {
+      tags: ["User"],
+      summary: "delete user by id (soft deleted)",
+      operationId: "deleteuser",
+      parameters: [
+        {
+          name: "id",
+          in: "path",
+          description: "ID of user to return",
+          required: true,
+          type: "integer",
+          format: "int64",
+        },
+      ],
+      responses: {
+        202: {
+          description: "delete user by id (soft deleted)",
+          content: {
+            "application/json": {
+              schema: {
+                type: "object",
+                properties: {
+                  success: { example: "true" },
+                  message: {
+                    example: "user deleted successfully",
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+  },
+  "/edituser/{id}": {
     put: {
       tags: ["User"],
-      summary: "Update a user",
-      operationId: "putUser",
+      summary: "update an user details ",
+      operationId: "edituser",
       parameters: [
         {
           name: "id",
@@ -75,166 +138,16 @@ module.exports = {
         },
       },
       responses: {
-        200: {
+        202: {
           description: "User has been updated",
           content: {
             "application/json": {
               schema: {
-                $ref: "#/components/schemas/User",
-              },
-            },
-          },
-        },
-      },
-    },
-  },
-  "/user/email/{email}": {
-    get: {
-      tags: ["User"],
-      summary: "List user by email",
-      operationId: "getUserByEmail",
-      parameters: [
-        {
-          name: "email",
-          in: "path",
-          description: "Email of user to return",
-          required: true,
-          type: "string",
-        },
-      ],
-      responses: {
-        200: {
-          description: "User has been obtained",
-          content: {
-            "application/json": {
-              schema: {
-                $ref: "#/components/schemas/User",
-              },
-            },
-          },
-        },
-      },
-    },
-  },
-  "/user/{id}/image": {
-    get: {
-      tags: ["User"],
-      summary: "fetch user image",
-      operationId: "getUserImage",
-      parameters: [
-        {
-          name: "id",
-          in: "path",
-          description: "ID of user to return",
-          required: true,
-          type: "integer",
-          format: "int64",
-        },
-      ],
-      responses: {
-        200: {
-          description: "User has been obtained",
-          content: {
-            "application/json": {
-              schema: {
-                $ref: "#/components/schemas/User",
-              },
-            },
-          },
-        },
-      },
-    },
-  },
-  "/user/{id}/payment/card": {
-    post: {
-      tags: ["User payment details"],
-      summary: "create user card",
-      operationId: "postUserCard",
-      parameters: [
-        {
-          name: "id",
-          in: "path",
-          description: "ID of user",
-          required: true,
-          type: "integer",
-          format: "int64",
-        },
-      ],
-      requestBody: {
-        content: {
-          "application/json": {
-            schema: {
-              ...payments.CreateCard,
-            },
-          },
-        },
-      },
-      responses: {
-        200: {
-          description: "User has been obtained",
-          content: {
-            "application/json": {
-              schema: {
                 type: "object",
                 properties: {
-                  customer_id: {
-                    type: "string",
-                    description: "stripe customer id",
-                    example: "cus_12dbfggt34d",
-                  },
-                  finger_id: {
-                    type: "string",
-                    description: "stripe card finger id",
-                    example: "37mIV5k0sN0vCmjw",
-                  },
-                  last4: {
-                    type: "string",
-                    description: "last 4 number of user card",
-                    example: "1723",
-                  },
-                },
-              },
-            },
-          },
-        },
-      },
-    },
-    get: {
-      tags: ["User payment details"],
-      summary: "get user card",
-      operationId: "getUserCard",
-      parameters: [
-        {
-          name: "id",
-          in: "path",
-          description: "ID of user",
-          required: true,
-          type: "integer",
-          format: "int64",
-        },
-      ],
-      responses: {
-        200: {
-          description: "User has been obtained",
-          content: {
-            "application/json": {
-              schema: {
-                type: "object",
-                properties: {
-                  customer_id: {
-                    type: "string",
-                    description: "stripe customer id",
-                    example: "cus_12dbfggt34d",
-                  },
-                  finger_id: {
-                    type: "string",
-                    description: "stripe card finger id",
-                    example: "37mIV5k0sN0vCmjw",
-                  },
-                  last4: {
-                    type: "string",
-                    description: "last 4 number of user card",
-                    example: "1723",
+                  success: { example: "true" },
+                  message: {
+                    example: "user updated successfully",
                   },
                 },
               },
@@ -244,110 +157,16 @@ module.exports = {
       },
     },
   },
-  // '/user/{id}/payment/bank': {
-  //   post:{
-  //     tags: ['User payment details'],
-  //     summary: "create user bank",
-  //     operationId: 'postUserBank',
-  //     parameters: [
-  //       {
-  //         name: "id",
-  //         in: "path",
-  //         description: "ID of user",
-  //         required: true,
-  //         type: "integer",
-  //         format: "int64"
-  //       }
-  //     ],
-  //     requestBody: {
-  //       content: {
-  //         "application/json": {
-  //           schema:{
-  //             ...payments.CreateBank,
-  //           },
-  //         },
-  //       },
-  //     },
-  //     responses:{
-  //       '200':{
-  //         description:"User has been obtained",
-  //         content:{
-  //           "application/json": {
-  //             schema:{
-  //               ...payments.Bank,
-  //             }
-  //           }
-  //         }
-  //       }
-  //     }
-  //   },
-  //   get:{
-  //     tags: ['User payment details'],
-  //     summary: "get user bank",
-  //     operationId: 'getUserBank',
-  //     parameters: [
-  //       {
-  //         name: "id",
-  //         in: "path",
-  //         description: "ID of user",
-  //         required: true,
-  //         type: "integer",
-  //         format: "int64"
-  //       }
-  //     ],
-  //     responses:{
-  //       '200':{
-  //         description:"User has been obtained",
-  //         content:{
-  //           "application/json": {
-  //             schema:{
-  //               ...payments.Bank,
-  //             }
-  //           }
-  //         }
-  //       }
-  //     }
-  //   }
-  // },
-  "/user/{id}/notification": {
-    get: {
-      tags: ["User notification"],
-      summary: "Lists notifications",
-      operationId: "getNotification",
-      parameters: [
-        {
-          name: "id",
-          in: "path",
-          description: "ID of user to return",
-          required: true,
-          type: "integer",
-          format: "int64",
-        },
-      ],
-      responses: {
-        200: {
-          description: "Notifications were obtained",
-          content: {
-            "application/json": {
-              schema: {
-                $ref: "#/components/schemas/Notification",
-              },
-            },
-          },
-        },
-      },
-    },
-  },
-  "/user/{id}/notification/{notificationid}/read": {
+  "/edituserprofilepicture/{id}": {
     put: {
-      tags: ["User notification"],
-      summary: "Update user notification",
-      operationId: "putUserNotificationRead",
+      tags: ["User"],
+      summary: "update an user profile picture",
+      operationId: "edituserprofilepicture",
       parameters: [
         {
           name: "id",
           in: "path",
-          description: "ID of notification to update",
+          description: "ID of user to update",
           required: true,
           type: "integer",
           format: "int64",
@@ -357,76 +176,33 @@ module.exports = {
         content: {
           "application/json": {
             schema: {
-              ...notification.Notification,
-            },
-          },
-        },
-      },
-      responses: {
-        200: {
-          description: "Notification has been updated",
-          content: {
-            "application/json": {
-              schema: {
-                $ref: "#/components/schemas/Notification",
+              type: "object",
+              properties: {
+                image: {
+                  description: "The user profile picture",
+                  required: true,
+                  type: "string",
+                  example: "/home/shubham/Downloads/google.svg",
+                },
               },
             },
           },
         },
       },
-    },
-  },
-  "/user/{id}/notification/{notificationid}/delete": {
-    put: {
-      tags: ["User notification"],
-      summary: "Delete notification by id",
-      operationId: "putUserNotificationDelete",
-      parameters: [
-        {
-          name: "id",
-          in: "path",
-          description: "ID of notification to delete",
-          required: true,
-          type: "integer",
-          format: "int64",
-        },
-      ],
       responses: {
-        200: {
-          description: "Notification is deleted",
+        202: {
+          description: "User profile picture has been updated",
           content: {
             "application/json": {
               schema: {
-                $ref: "#/components/schemas/Notification",
-              },
-            },
-          },
-        },
-      },
-    },
-  },
-  "/user/{id}/thankyou": {
-    get: {
-      tags: ["User"],
-      summary: "Get user thankyou",
-      operationId: "getUserThankyou",
-      parameters: [
-        {
-          name: "id",
-          in: "path",
-          description: "ID of user to return",
-          required: true,
-          type: "integer",
-          format: "int64",
-        },
-      ],
-      responses: {
-        200: {
-          description: "Thankyou were obtained",
-          content: {
-            "application/json": {
-              schema: {
-                $ref: "#/components/schemas/Thankyou",
+                type: "object",
+                properties: {
+                  success: { example: "true" },
+                  message: {
+                    example:
+                      "user profile picture has been updated successfully",
+                  },
+                },
               },
             },
           },

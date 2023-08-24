@@ -1,22 +1,24 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "title": "booking_management",
+    "title": "Booking Management System",
+    "description": "Booking Management API Backend",
     "version": "1.0.0"
   },
   "servers": [
     {
-      "url": "localhost://"
+      "url": "http://localhost:4000",
+      "description": "Local server"
+    },
+    {
+      "url": "http://localhost:4000",
+      "description": "Development Server"
+    },
+    {
+      "url": "http://localhost:4000",
+      "description": "Staging Server"
     }
   ],
-  "components": {
-    "securitySchemes": {
-      "bearerAuth": {
-        "type": "http",
-        "scheme": "bearer"
-      }
-    }
-  },
   "tags": [
     {
       "name": "get_authorization_token"
@@ -56,46 +58,21 @@
     },
     {
       "name": "payment"
+    },
+    {
+      "name": "siteoptions"
     }
   ],
   "paths": {
-    "/000/api/getauthorizationtoken": {
+    "/api/getauthorizationtoken": {
       "get": {
         "tags": ["get_authorization_token"],
         "summary": "get_authorization_token",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
         "responses": {
           "200": {
             "description": "Successful response",
             "content": {
               "application/json": {}
-            }
-          }
-        }
-      }
-    },
-    "/000/api/adduser": {
-      "post": {
-        "tags": ["users"],
-        "summary": "adduser",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "example": {
-                  "first_name": "Muskan",
-                  "last_name": "Ved",
-                  "email": "muskanved@gmail.com",
-                  "phone_number": "9131649079",
-                  "password": "Shubham#12",
-                  "role_id": 2
-                }
-              }
             }
           }
         },
@@ -103,7 +80,43 @@
           {
             "bearerAuth": []
           }
+        ]
+      }
+    },
+    "/api/adduser": {
+      "post": {
+        "tags": ["users"],
+        "summary": "adduser",
+        "parameters": [
+          {
+            "name": "x-access-token",
+            "in": "header",
+            "required": false,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "number"
+            },
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IlNodWJoYW0iLCJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJyb2xlIjowLCJpYXQiOjE2OTI3NjcyMzUsImV4cCI6MTY5Mjc5NjAzNX0.1Hpl_FfQt4Rcfh7bECpxePLDibDztEQhl9YIEx2xc6I"
+          }
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "example": {
+                  "first_name": "Devendra Bhadoriya",
+                  "last_name": "Bhadoriya",
+                  "email": "Bhadoriya123@gmail.com",
+                  "phone_number": "9131649079",
+                  "date_of_birth": "1999-11-02",
+                  "role_id": 2
+                }
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "Successful response",
@@ -111,18 +124,18 @@
               "application/json": {}
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
-    "/000/api/getusers": {
+    "/api/getusers": {
       "get": {
         "tags": ["users"],
         "summary": "getusers",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
         "responses": {
           "200": {
             "description": "Successful response",
@@ -130,18 +143,18 @@
               "application/json": {}
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
-    "/000/api/getuser/2": {
+    "/api/getuser/2": {
       "get": {
         "tags": ["users"],
         "summary": "getuser",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
         "responses": {
           "200": {
             "description": "Successful response",
@@ -149,18 +162,18 @@
               "application/json": {}
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
-    "/000/api/deleteuser/3": {
+    "/api/deleteuser/3": {
       "delete": {
         "tags": ["users"],
         "summary": "deleteuser",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
         "responses": {
           "200": {
             "description": "Successful response",
@@ -168,10 +181,15 @@
               "application/json": {}
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
-    "/000/api/edituser/3": {
+    "/api/edituser/3": {
       "put": {
         "tags": ["users"],
         "summary": "edituser",
@@ -191,37 +209,11 @@
             }
           }
         },
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
         "responses": {
           "200": {
             "description": "Successful response",
             "content": {
               "application/json": {}
-            }
-          }
-        }
-      }
-    },
-    "/000/api/edituserprofilepicture/3": {
-      "put": {
-        "tags": ["users"],
-        "summary": "editprofilepicture",
-        "requestBody": {
-          "content": {
-            "multipart/form-data": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "image": {
-                    "type": "string",
-                    "format": "binary"
-                  }
-                }
-              }
             }
           }
         },
@@ -229,7 +221,22 @@
           {
             "bearerAuth": []
           }
-        ],
+        ]
+      }
+    },
+    "/api/edituserprofilepicture/3": {
+      "put": {
+        "tags": ["users"],
+        "summary": "editprofilepicture",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/edituserprofilepicture_3_body"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "Successful response",
@@ -237,10 +244,15 @@
               "application/json": {}
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
-    "/000/api/userlogin": {
+    "/api/userlogin": {
       "post": {
         "tags": ["auth"],
         "summary": "userlogin",
@@ -250,18 +262,13 @@
               "schema": {
                 "type": "object",
                 "example": {
-                  "email": "mvved@gmail.com",
+                  "email": "sj2585097@gmail.com",
                   "password": "Shubham#12"
                 }
               }
             }
           }
         },
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
         "responses": {
           "200": {
             "description": "Successful response",
@@ -269,10 +276,15 @@
               "application/json": {}
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
-    "/000/api/forgotpassword": {
+    "/api/forgotpassword": {
       "post": {
         "tags": ["auth"],
         "summary": "forgotpassword",
@@ -282,17 +294,12 @@
               "schema": {
                 "type": "object",
                 "example": {
-                  "email": "mvved@gmail.com"
+                  "email": "sj2585097@gmail.com"
                 }
               }
             }
           }
         },
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
         "responses": {
           "200": {
             "description": "Successful response",
@@ -300,10 +307,15 @@
               "application/json": {}
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
-    "/000/api/resetpassword": {
+    "/api/resetpassword": {
       "post": {
         "tags": ["auth"],
         "summary": "resertpassword",
@@ -313,18 +325,13 @@
               "schema": {
                 "type": "object",
                 "example": {
-                  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im12dmVkQGdtYWlsLmNvbSIsImlkIjozLCJpYXQiOjE2OTE3MzQ0OTIsImV4cCI6MTY5MTc2MzI5Mn0.5KRh_aGs8hUXljqauAfx6HhmkUnipIQcFzVNy79PKAU",
+                  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJpZCI6MSwiaWF0IjoxNjkyNjk0MzM5LCJleHAiOjE2OTI3MjMxMzl9.Kx8gDH2qZLBwDDfm5KJXhPfeBKkAXGkReU7F4QvKF5o",
                   "password": "Shubham#12"
                 }
               }
             }
           }
         },
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
         "responses": {
           "200": {
             "description": "Successful response",
@@ -332,10 +339,97 @@
               "application/json": {}
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
-    "/000/api/addrole": {
+    "/api/usersignup": {
+      "post": {
+        "tags": ["auth"],
+        "summary": "usersignup",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "example": {
+                  "first_name": "Devendra Bhadoriya",
+                  "last_name": "Bhadoriya",
+                  "email": "Bhadoriya123@gmail.com",
+                  "phone_number": "9131649079",
+                  "password": "Shubham#12",
+                  "role_id": 2
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {}
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/changepassword": {
+      "post": {
+        "tags": ["auth"],
+        "summary": "changepasword",
+        "parameters": [
+          {
+            "name": "x-access-token",
+            "in": "header",
+            "required": false,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IlNodWJoYW0iLCJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJyb2xlIjowLCJpYXQiOjE2OTI3MDU0OTcsImV4cCI6MTY5MjczNDI5N30.xCej0FkwBOgU_F0fipkD4eGksD9Hs-OVQHBoegzNOPc"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "example": {
+                  "current_password": "",
+                  "new_password": "Shubham12",
+                  "confirm_password": "Shubham#12"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {}
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/addrole": {
       "post": {
         "tags": ["role"],
         "summary": "addrole",
@@ -351,11 +445,6 @@
             }
           }
         },
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
         "responses": {
           "200": {
             "description": "Successful response",
@@ -363,18 +452,18 @@
               "application/json": {}
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
-    "/000/api/getroles": {
+    "/api/getroles": {
       "get": {
         "tags": ["role"],
         "summary": "getroles",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
         "responses": {
           "200": {
             "description": "Successful response",
@@ -382,10 +471,15 @@
               "application/json": {}
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
-    "/000/api/editrole/1": {
+    "/api/editrole/1": {
       "put": {
         "tags": ["role"],
         "summary": "editrole",
@@ -401,11 +495,6 @@
             }
           }
         },
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
         "responses": {
           "200": {
             "description": "Successful response",
@@ -413,90 +502,40 @@
               "application/json": {}
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
-    "/000/api/addroom": {
+    "/api/addroom": {
       "post": {
         "tags": ["hotel > room"],
         "summary": "addroom",
-        "requestBody": {
-          "content": {
-            "multipart/form-data": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "title": {
-                    "type": "string",
-                    "example": "Premium Room12234"
-                  },
-                  "room_number": {
-                    "type": "integer",
-                    "example": "201"
-                  },
-                  "description": {
-                    "type": "number",
-                    "example": "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of \"de Finibus Bonorum et Malorum\" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, \"Lorem ipsum dolor sit amet..\", comes from a line in section 1.10.32."
-                  },
-                  "image": {
-                    "type": "string",
-                    "format": "binary"
-                  },
-                  "gallary_image": {
-                    "type": "string",
-                    "format": "binary"
-                  },
-                  "guest_capacity": {
-                    "type": "integer",
-                    "example": "2"
-                  },
-                  "room_type": {
-                    "type": "string",
-                    "example": "single"
-                  },
-                  "status": {
-                    "type": "integer",
-                    "example": "1"
-                  },
-                  "cost_per_day": {
-                    "type": "integer",
-                    "example": "200"
-                  },
-                  "cost_per_hour": {
-                    "type": "integer",
-                    "example": "200"
-                  },
-                  "room_size": {
-                    "type": "string",
-                    "example": "301 sq.ft"
-                  },
-                  "hotel_id": {
-                    "type": "integer",
-                    "example": "1"
-                  },
-                  "": {
-                    "type": "string"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
         "parameters": [
           {
             "name": "x-access-token",
             "in": "header",
+            "required": false,
+            "style": "simple",
+            "explode": false,
             "schema": {
               "type": "string"
             },
-            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6IlNodWJoYW0gQmhhaSIsImVtYWlsIjoic2o4NDY0NzM2QGdtYWlsLmNvbSIsInJvbGUiOjIsImlhdCI6MTY5MTY0NDYzNiwiZXhwIjoxNjkxNjczNDM2fQ.f0LGi7z81ljvl5xDXQsP2CjsM4h0G1xDXcVxkLV3fNA"
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IlNodWJoYW0gS3VtYXIiLCJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJyb2xlIjoxLCJpYXQiOjE2OTIzNDU2MzQsImV4cCI6MTY5MjM3NDQzNH0.RQdSk-OmCvHqU2aKHyBgauUOndcvBKNxX6F7BwfdYpw"
           }
         ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/api_addroom_body"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "Successful response",
@@ -504,18 +543,18 @@
               "application/json": {}
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
-    "/000/api/getrooms": {
+    "/api/getrooms": {
       "get": {
         "tags": ["hotel > room"],
         "summary": "getrooms",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
         "responses": {
           "200": {
             "description": "Successful response",
@@ -523,18 +562,18 @@
               "application/json": {}
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
-    "/000/api/getroom/1": {
+    "/api/getroom/1": {
       "get": {
         "tags": ["hotel > room"],
         "summary": "getroom",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
         "responses": {
           "200": {
             "description": "Successful response",
@@ -542,18 +581,18 @@
               "application/json": {}
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
-    "/000/api/getroomesbyhotelid/1": {
+    "/api/getroomesbyhotelid/1": {
       "get": {
         "tags": ["hotel > room"],
         "summary": "getroomsbyhotelid",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
         "responses": {
           "200": {
             "description": "Successful response",
@@ -561,43 +600,40 @@
               "application/json": {}
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
-    "/000/": {
+    "/api/editroom/3": {
       "put": {
         "tags": ["hotel > room"],
         "summary": "editroom",
-        "requestBody": {
-          "content": {
-            "multipart/form-data": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "title": {
-                    "type": "string",
-                    "example": "room1"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
         "parameters": [
           {
             "name": "x-access-token",
             "in": "header",
+            "required": false,
+            "style": "simple",
+            "explode": false,
             "schema": {
               "type": "string"
             },
-            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6IlNodWJoYW0gQmhhaSIsImVtYWlsIjoic2o4NDY0NzM2QGdtYWlsLmNvbSIsInJvbGUiOjIsImlhdCI6MTY5MTEyNTQ0NywiZXhwIjoxNjkxMTU0MjQ3fQ.deYGEFGe5L7f0DpOnfxsxm5loHJpzWzHe_4Zof_znug"
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IlNodWJoYW0gS3VtYXIiLCJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJyb2xlIjoxLCJpYXQiOjE2OTIzNDU2MzQsImV4cCI6MTY5MjM3NDQzNH0.RQdSk-OmCvHqU2aKHyBgauUOndcvBKNxX6F7BwfdYpw"
           }
         ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/editroom_3_body"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "Successful response",
@@ -605,95 +641,40 @@
               "application/json": {}
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
-    "/000/api/addhotel": {
+    "/api/addhotel": {
       "post": {
         "tags": ["hotel"],
         "summary": "addhotel",
-        "requestBody": {
-          "content": {
-            "multipart/form-data": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "title": {
-                    "type": "string",
-                    "example": "Hotel  Grande Vijay Nagar Indore243"
-                  },
-                  "slug": {
-                    "type": "string",
-                    "example": "Hotel_Meritel_Grande_Vijay_Nagar_Indore"
-                  },
-                  "short_description": {
-                    "type": "number",
-                    "example": "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of \"de Finibus Bonorum et Malorum\" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, \"Lorem ipsum dolor sit amet..\", comes from a line in section 1.10.32."
-                  },
-                  "long_description": {
-                    "type": "number",
-                    "example": "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of \"de Finibus Bonorum et Malorum\" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, \"Lorem ipsum dolor sit amet..\", comes from a line in section 1.10.32.Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of \"de Finibus Bonorum et Malorum\" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, \"Lorem ipsum dolor sit amet..\", comes from a line in section 1.10.32.Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of \"de Finibus Bonorum et Malorum\" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, \"Lorem ipsum dolor sit amet..\", comes from a line in section 1.10.32."
-                  },
-                  "availability": {
-                    "type": "string",
-                    "example": "[{\"day\":\"monday\",\"status\":\"true\",\"start_time\":\"9:00:AM\",\"close_time\":\"11:00:PM\",\"date\":\"2000-02-12\"},{\"day\":\"tuesday\",\"status\":\"true\",\"start_time\":\"9:00:AM\",\"close_time\":\"11:00:PM\",\"date\":\"2000-02-12\"}]"
-                  },
-                  "status": {
-                    "type": "integer",
-                    "example": "1"
-                  },
-                  "user_id": {
-                    "type": "integer",
-                    "example": "2"
-                  },
-                  "image": {
-                    "type": "string",
-                    "format": "binary"
-                  },
-                  "gallary_image": {
-                    "type": "string",
-                    "format": "binary"
-                  },
-                  "location": {
-                    "type": "number",
-                    "example": "{\"latitude\":\"22.719568\",\"longitude\":\"75.857727\""
-                  },
-                  "city": {
-                    "type": "string",
-                    "example": "indore"
-                  },
-                  "booking_type": {
-                    "type": "string",
-                    "example": "{\"is_hourly_booking\":true, \"is_day_boking\":true,\"is_monthly_booking\":true}"
-                  },
-                  "cancellation_pilicy": {
-                    "type": "string",
-                    "example": "[\"Ani\", \"Sam\", \"Joe\"]"
-                  },
-                  "terms_condition": {
-                    "type": "string",
-                    "example": "[\"Ani\", \"Sam\", \"Joe\"]"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
         "parameters": [
           {
             "name": "x-access-token",
             "in": "header",
+            "required": false,
+            "style": "simple",
+            "explode": false,
             "schema": {
               "type": "string"
             },
-            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6IlNodWJoYW0gQmhhaSIsImVtYWlsIjoic2o4NDY0NzM2QGdtYWlsLmNvbSIsInJvbGUiOjIsImlhdCI6MTY5MTY0NDYzNiwiZXhwIjoxNjkxNjczNDM2fQ.f0LGi7z81ljvl5xDXQsP2CjsM4h0G1xDXcVxkLV3fNA"
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IlNodWJoYW0gS3VtYXIiLCJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJyb2xlIjoxLCJpYXQiOjE2OTIyNTE1MDUsImV4cCI6MTY5MjI4MDMwNX0.GVSjlQsh6g0y-jwjf_Cspiokz4IoI9QNdohX7a-6ZI8"
           }
         ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/api_addhotel_body"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "Successful response",
@@ -701,67 +682,23 @@
               "application/json": {}
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
-    "/000/api/gethotels": {
+    "/api/gethotels": {
       "get": {
         "tags": ["hotel"],
         "summary": "gethotels",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
         "responses": {
           "200": {
             "description": "Successful response",
             "content": {
               "application/json": {}
-            }
-          }
-        }
-      }
-    },
-    "/000/api/gethotel/1": {
-      "get": {
-        "tags": ["hotel"],
-        "summary": "gethotel",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful response",
-            "content": {
-              "application/json": {}
-            }
-          }
-        }
-      }
-    },
-    "/000/api/edithotel/1": {
-      "put": {
-        "tags": ["hotel"],
-        "summary": "edithotel",
-        "requestBody": {
-          "content": {
-            "multipart/form-data": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "title": {
-                    "type": "string",
-                    "example": "dsjfkhgk"
-                  },
-                  "slug": {
-                    "type": "string",
-                    "example": "dsfelisdof"
-                  }
-                }
-              }
             }
           }
         },
@@ -769,17 +706,13 @@
           {
             "bearerAuth": []
           }
-        ],
-        "parameters": [
-          {
-            "name": "x-access-token",
-            "in": "header",
-            "schema": {
-              "type": "string"
-            },
-            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6IlNodWJoYW0gQmhhaSIsImVtYWlsIjoic2o4NDY0NzM2QGdtYWlsLmNvbSIsInJvbGUiOjIsImlhdCI6MTY5MTA3MTE3NCwiZXhwIjoxNjkxMDk5OTc0fQ.qDDwh9Wl5WqJ6EN7g3McBqJtvCqj6yqILSUedysI_-Q"
-          }
-        ],
+        ]
+      }
+    },
+    "/api/gethotel/1": {
+      "get": {
+        "tags": ["hotel"],
+        "summary": "gethoteldetwithrooms",
         "responses": {
           "200": {
             "description": "Successful response",
@@ -787,22 +720,66 @@
               "application/json": {}
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
-    "/000/api/deletehotel/2": {
+    "/api/edithotel/2": {
+      "put": {
+        "tags": ["hotel"],
+        "summary": "edithotel",
+        "parameters": [
+          {
+            "name": "x-access-token",
+            "in": "header",
+            "required": false,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IlNodWJoYW0gS3VtYXIiLCJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJyb2xlIjoxLCJpYXQiOjE2OTIyNTE1MDUsImV4cCI6MTY5MjI4MDMwNX0.GVSjlQsh6g0y-jwjf_Cspiokz4IoI9QNdohX7a-6ZI8"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/edithotel_2_body"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {}
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/deletehotel/2": {
       "delete": {
         "tags": ["hotel"],
         "summary": "deletehotel",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
         "parameters": [
           {
             "name": "x-access-token",
             "in": "header",
+            "required": false,
+            "style": "simple",
+            "explode": false,
             "schema": {
               "type": "string"
             },
@@ -816,22 +793,25 @@
               "application/json": {}
             }
           }
-        }
-      }
-    },
-    "/000/api/gethotelcategories": {
-      "get": {
-        "tags": ["hotel"],
-        "summary": "gethotelcategories",
+        },
         "security": [
           {
             "bearerAuth": []
           }
-        ],
+        ]
+      }
+    },
+    "/api/gethotelcategories": {
+      "get": {
+        "tags": ["hotel"],
+        "summary": "gethotelcategories",
         "parameters": [
           {
             "name": "type_identifier_id",
             "in": "query",
+            "required": false,
+            "style": "form",
+            "explode": true,
             "schema": {
               "type": "integer"
             },
@@ -845,18 +825,18 @@
               "application/json": {}
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
-    "/000/api/gethotelamenities": {
+    "/api/gethotelamenities": {
       "get": {
         "tags": ["hotel"],
         "summary": "gethotelamenities",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
         "responses": {
           "200": {
             "description": "Successful response",
@@ -864,115 +844,59 @@
               "application/json": {}
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
-    "/000/api/addspace": {
+    "/api/gethoteldetails/1": {
+      "get": {
+        "tags": ["hotel"],
+        "summary": "gethoteldetails",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {}
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/addspace": {
       "post": {
         "tags": ["spaces"],
         "summary": "addspace",
-        "requestBody": {
-          "content": {
-            "multipart/form-data": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "title": {
-                    "type": "string",
-                    "example": "Banquete Hall123"
-                  },
-                  "slug": {
-                    "type": "string",
-                    "example": "Banquete_Hall"
-                  },
-                  "status": {
-                    "type": "integer",
-                    "example": "1"
-                  },
-                  "space_size": {
-                    "type": "string",
-                    "example": "121 sq ft"
-                  },
-                  "guest_capacity": {
-                    "type": "integer",
-                    "example": "20"
-                  },
-                  "space_type": {
-                    "type": "string",
-                    "example": "Premium"
-                  },
-                  "cost_per_hour": {
-                    "type": "integer",
-                    "example": "100"
-                  },
-                  "cost_per_day": {
-                    "type": "integer",
-                    "example": "200"
-                  },
-                  "short_description": {
-                    "type": "number",
-                    "example": "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of \"de Finibus Bonorum et Malorum\" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, \"Lorem ipsum dolor sit amet..\", comes from a line in section 1.10.32."
-                  },
-                  "long_description": {
-                    "type": "number",
-                    "example": "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of \"de Finibus Bonorum et Malorum\" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, \"Lorem ipsum dolor sit amet..\", comes from a line in section 1.10.32.Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of \"de Finibus Bonorum et Malorum\" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, \"Lorem ipsum dolor sit amet..\", comes from a line in section 1.10.32.Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of \"de Finibus Bonorum et Malorum\" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, \"Lorem ipsum dolor sit amet..\", comes from a line in section 1.10.32."
-                  },
-                  "avalability": {
-                    "type": "string",
-                    "example": "[{\"day\":\"monday\",\"status\":\"true\",\"start_time\":\"9:00:AM\",\"close_time\":\"11:00:PM\",\"date\":\"2000-02-12\"},{\"day\":\"tuesday\",\"status\":\"true\",\"start_time\":\"9:00:AM\",\"close_time\":\"11:00:PM\",\"date\":\"2000-02-12\"}]"
-                  },
-                  "image": {
-                    "type": "string",
-                    "format": "binary"
-                  },
-                  "gallary_image": {
-                    "type": "string",
-                    "format": "binary"
-                  },
-                  "location": {
-                    "type": "number",
-                    "example": "{\"latitude\":\"22.719568\",\"longitude\":\"75.857727\""
-                  },
-                  "city": {
-                    "type": "string",
-                    "example": "Indore"
-                  },
-                  "booking_type": {
-                    "type": "string",
-                    "example": "{\"is_hourly_booking\":true, \"is_day_boking\":true,\"is_monthly_booking\":true}"
-                  },
-                  "cancellation_pilicy": {
-                    "type": "string",
-                    "example": "[\"Ani\", \"Sam\", \"Joe\"]"
-                  },
-                  "terms_condition": {
-                    "type": "string",
-                    "example": "[\"Ani\", \"Sam\", \"Joe\"]"
-                  },
-                  "user_id": {
-                    "type": "integer",
-                    "example": "2"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
         "parameters": [
           {
             "name": "x-access-token",
             "in": "header",
+            "required": false,
+            "style": "simple",
+            "explode": false,
             "schema": {
-              "type": "string"
+              "type": "number"
             },
-            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6IlNodWJoYW0gQmhhaSIsImVtYWlsIjoic2o4NDY0NzM2QGdtYWlsLmNvbSIsInJvbGUiOjIsImlhdCI6MTY5MTY0NDYzNiwiZXhwIjoxNjkxNjczNDM2fQ.f0LGi7z81ljvl5xDXQsP2CjsM4h0G1xDXcVxkLV3fNA"
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IlNodWJoYW0gS3VtYXIiLCJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJyb2xlIjoxLCJpYXQiOjE2OTIyNzcwODMsImV4cCI6MTY5MjMwNTg4M30.5EBfPrcrg7kbT3sMlNZZRFOHtOBLKdH6vwjeTN7nICE"
           }
         ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/api_addspace_body"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "Successful response",
@@ -980,63 +904,23 @@
               "application/json": {}
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
-    "/000/api/getspaces": {
+    "/api/getspaces": {
       "get": {
         "tags": ["spaces"],
         "summary": "getspaces",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
         "responses": {
           "200": {
             "description": "Successful response",
             "content": {
               "application/json": {}
-            }
-          }
-        }
-      }
-    },
-    "/000/api/getspace/3": {
-      "get": {
-        "tags": ["spaces"],
-        "summary": "getspace",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful response",
-            "content": {
-              "application/json": {}
-            }
-          }
-        }
-      }
-    },
-    "/000/api/editspace/3": {
-      "put": {
-        "tags": ["spaces"],
-        "summary": "editspace",
-        "requestBody": {
-          "content": {
-            "multipart/form-data": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "title": {
-                    "type": "string",
-                    "example": "hii"
-                  }
-                }
-              }
             }
           }
         },
@@ -1044,17 +928,13 @@
           {
             "bearerAuth": []
           }
-        ],
-        "parameters": [
-          {
-            "name": "x-access-token",
-            "in": "header",
-            "schema": {
-              "type": "string"
-            },
-            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6IlNodWJoYW0gQmhhaSIsImVtYWlsIjoic2o4NDY0NzM2QGdtYWlsLmNvbSIsInJvbGUiOjIsImlhdCI6MTY5MTE0NDUwMywiZXhwIjoxNjkxMTczMzAzfQ.or4RTXgxA1lE7x7oXfG0Vruk2UDXVEn2ij1Y46Q58aw"
-          }
-        ],
+        ]
+      }
+    },
+    "/api/getspace/3": {
+      "get": {
+        "tags": ["spaces"],
+        "summary": "getspace",
         "responses": {
           "200": {
             "description": "Successful response",
@@ -1062,22 +942,66 @@
               "application/json": {}
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
-    "/000/api/deletespace/3": {
+    "/api/editspace/1": {
+      "put": {
+        "tags": ["spaces"],
+        "summary": "editspace",
+        "parameters": [
+          {
+            "name": "x-access-token",
+            "in": "header",
+            "required": false,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "number"
+            },
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IlNodWJoYW0gS3VtYXIiLCJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJyb2xlIjoxLCJpYXQiOjE2OTIyNzcwODMsImV4cCI6MTY5MjMwNTg4M30.5EBfPrcrg7kbT3sMlNZZRFOHtOBLKdH6vwjeTN7nICE"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/editspace_1_body"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {}
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/deletespace/3": {
       "delete": {
         "tags": ["spaces"],
         "summary": "deletespace",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
         "parameters": [
           {
             "name": "x-access-token",
             "in": "header",
+            "required": false,
+            "style": "simple",
+            "explode": false,
             "schema": {
               "type": "string"
             },
@@ -1091,22 +1015,25 @@
               "application/json": {}
             }
           }
-        }
-      }
-    },
-    "/000/api/getspacescategories": {
-      "get": {
-        "tags": ["spaces"],
-        "summary": "getspacecategories",
+        },
         "security": [
           {
             "bearerAuth": []
           }
-        ],
+        ]
+      }
+    },
+    "/api/getspacescategories": {
+      "get": {
+        "tags": ["spaces"],
+        "summary": "getspacecategories",
         "parameters": [
           {
             "name": "type_identifier_id",
             "in": "query",
+            "required": false,
+            "style": "form",
+            "explode": true,
             "schema": {
               "type": "integer"
             },
@@ -1120,18 +1047,18 @@
               "application/json": {}
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
-    "/000/api/getspacesamenities": {
+    "/api/getspacesamenities": {
       "get": {
         "tags": ["spaces"],
         "summary": "getspaceamenities",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
         "responses": {
           "200": {
             "description": "Successful response",
@@ -1139,87 +1066,40 @@
               "application/json": {}
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
-    "/000/api/addautomobile": {
+    "/api/addautomobile": {
       "post": {
         "tags": ["automobiles"],
         "summary": "addautomobile",
-        "requestBody": {
-          "content": {
-            "multipart/form-data": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "auto_mobile_categories": {
-                    "type": "string",
-                    "example": "bike"
-                  },
-                  "auto_mobile_name": {
-                    "type": "string",
-                    "example": "CD Delux 125"
-                  },
-                  "auto_mobile_number": {
-                    "type": "string",
-                    "example": "MP-17-IN-124"
-                  },
-                  "auto_mobile_brand": {
-                    "type": "string",
-                    "example": "Hero Honda"
-                  },
-                  "auto_mobile_type": {
-                    "type": "string",
-                    "example": "sedan"
-                  },
-                  "user_id": {
-                    "type": "integer",
-                    "example": "1"
-                  },
-                  "rc_number": {
-                    "type": "string",
-                    "example": "835947dhjsfksg"
-                  },
-                  "seater": {
-                    "type": "integer",
-                    "example": "2"
-                  },
-                  "cost_per_km": {
-                    "type": "integer",
-                    "example": "200"
-                  },
-                  "image": {
-                    "type": "string",
-                    "format": "binary"
-                  },
-                  "gallary_image": {
-                    "type": "string",
-                    "format": "binary"
-                  },
-                  "status": {
-                    "type": "integer",
-                    "example": "1"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
         "parameters": [
           {
             "name": "x-access-token",
             "in": "header",
+            "required": false,
+            "style": "simple",
+            "explode": false,
             "schema": {
-              "type": "string"
+              "type": "number"
             },
-            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6IlNodWJoYW0gQmhhaSIsImVtYWlsIjoic2o4NDY0NzM2QGdtYWlsLmNvbSIsInJvbGUiOjIsImlhdCI6MTY5MTY2MDQ2MiwiZXhwIjoxNjkxNjg5MjYyfQ.e9hW5a_V8Bc2fET6gtE1VZY2peZABPJfhOSk-P4I6IQ"
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IlNodWJoYW0gS3VtYXIiLCJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJyb2xlIjoxLCJpYXQiOjE2OTIyNzcwODMsImV4cCI6MTY5MjMwNTg4M30.5EBfPrcrg7kbT3sMlNZZRFOHtOBLKdH6vwjeTN7nICE"
           }
         ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/api_addautomobile_body"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "Successful response",
@@ -1227,63 +1107,23 @@
               "application/json": {}
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
-    "/000/api/getautomobiles": {
+    "/api/getautomobiles": {
       "get": {
         "tags": ["automobiles"],
         "summary": "getautomobiles",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
         "responses": {
           "200": {
             "description": "Successful response",
             "content": {
               "application/json": {}
-            }
-          }
-        }
-      }
-    },
-    "/000/api/getautomobile/13": {
-      "get": {
-        "tags": ["automobiles"],
-        "summary": "getautomobile",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful response",
-            "content": {
-              "application/json": {}
-            }
-          }
-        }
-      }
-    },
-    "/000/api/editautomobile/1": {
-      "put": {
-        "tags": ["automobiles"],
-        "summary": "editautomobile",
-        "requestBody": {
-          "content": {
-            "multipart/form-data": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "auto_mobile_categories": {
-                    "type": "string",
-                    "example": "car"
-                  }
-                }
-              }
             }
           }
         },
@@ -1291,17 +1131,13 @@
           {
             "bearerAuth": []
           }
-        ],
-        "parameters": [
-          {
-            "name": "x-access-token",
-            "in": "header",
-            "schema": {
-              "type": "string"
-            },
-            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6IlNodWJoYW0gQmhhaSIsImVtYWlsIjoic2o4NDY0NzM2QGdtYWlsLmNvbSIsInJvbGUiOjIsImlhdCI6MTY5MTE1MDQ5MSwiZXhwIjoxNjkxMTc5MjkxfQ.CH1nAwsGiuwNa2oWoZTTbYUb9Xap8qj5Ojxl78aSKPU"
-          }
-        ],
+        ]
+      }
+    },
+    "/api/getautomobile/13": {
+      "get": {
+        "tags": ["automobiles"],
+        "summary": "getautomobile",
         "responses": {
           "200": {
             "description": "Successful response",
@@ -1309,22 +1145,66 @@
               "application/json": {}
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
-    "/000/api/deleteautomobile/2": {
+    "/api/editautomobile/1": {
+      "put": {
+        "tags": ["automobiles"],
+        "summary": "editautomobile",
+        "parameters": [
+          {
+            "name": "x-access-token",
+            "in": "header",
+            "required": false,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "number"
+            },
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IlNodWJoYW0gS3VtYXIiLCJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJyb2xlIjoxLCJpYXQiOjE2OTIyNzcwODMsImV4cCI6MTY5MjMwNTg4M30.5EBfPrcrg7kbT3sMlNZZRFOHtOBLKdH6vwjeTN7nICE"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/editautomobile_1_body"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {}
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/deleteautomobile/2": {
       "delete": {
         "tags": ["automobiles"],
         "summary": "deleteautomobile",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
         "parameters": [
           {
             "name": "x-access-token",
             "in": "header",
+            "required": false,
+            "style": "simple",
+            "explode": false,
             "schema": {
               "type": "string"
             },
@@ -1338,22 +1218,25 @@
               "application/json": {}
             }
           }
-        }
-      }
-    },
-    "/000/api/getautomobilecategories": {
-      "get": {
-        "tags": ["automobiles"],
-        "summary": "getautomobilecategories",
+        },
         "security": [
           {
             "bearerAuth": []
           }
-        ],
+        ]
+      }
+    },
+    "/api/getautomobilecategories": {
+      "get": {
+        "tags": ["automobiles"],
+        "summary": "getautomobilecategories",
         "parameters": [
           {
             "name": "type_identifier_id",
             "in": "query",
+            "required": false,
+            "style": "form",
+            "explode": true,
             "schema": {
               "type": "integer"
             },
@@ -1367,18 +1250,18 @@
               "application/json": {}
             }
           }
-        }
-      }
-    },
-    "/000/api/gettypeidentifiers": {
-      "get": {
-        "tags": ["typeidentifier"],
-        "summary": "gettypeidentifiers",
+        },
         "security": [
           {
             "bearerAuth": []
           }
-        ],
+        ]
+      }
+    },
+    "/api/gettypeidentifiers": {
+      "get": {
+        "tags": ["typeidentifier"],
+        "summary": "gettypeidentifiers",
         "responses": {
           "200": {
             "description": "Successful response",
@@ -1386,22 +1269,25 @@
               "application/json": {}
             }
           }
-        }
-      }
-    },
-    "/000/api/addtypeidentifier": {
-      "get": {
-        "tags": ["typeidentifier"],
-        "summary": "addtypeidentifier",
+        },
         "security": [
           {
             "bearerAuth": []
           }
-        ],
+        ]
+      }
+    },
+    "/api/addtypeidentifier": {
+      "get": {
+        "tags": ["typeidentifier"],
+        "summary": "addtypeidentifier",
         "parameters": [
           {
             "name": "x-access-token",
             "in": "header",
+            "required": false,
+            "style": "simple",
+            "explode": false,
             "schema": {
               "type": "string"
             },
@@ -1415,13 +1301,31 @@
               "application/json": {}
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
-    "/000/api/addcategoriesoramenities": {
+    "/api/addcategoriesoramenities": {
       "post": {
         "tags": ["addcategoryamenities"],
         "summary": "addcategoriesamenities",
+        "parameters": [
+          {
+            "name": "x-access-token",
+            "in": "header",
+            "required": false,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6IlNodWJoYW0gQmhhaSIsImVtYWlsIjoic2o4NDY0NzM2QGdtYWlsLmNvbSIsInJvbGUiOjIsImlhdCI6MTY5MTQwMzAwOSwiZXhwIjoxNjkxNDMxODA5fQ.XQ5npKOEj4Qa3b1-zyQqQJKwhMiweq4IDEiDZ7JK3vQ"
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -1436,54 +1340,57 @@
             }
           }
         },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {}
+            }
+          }
+        },
         "security": [
           {
             "bearerAuth": []
           }
-        ],
+        ]
+      }
+    },
+    "/api/getcategoriesamenities/15": {
+      "get": {
+        "tags": ["addcategoryamenities"],
+        "summary": "getcatamtbyid",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {}
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/editcategoriesamenities/15": {
+      "put": {
+        "tags": ["addcategoryamenities"],
+        "summary": "editcatamtbtid",
         "parameters": [
           {
             "name": "x-access-token",
             "in": "header",
+            "required": false,
+            "style": "simple",
+            "explode": false,
             "schema": {
               "type": "string"
             },
-            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6IlNodWJoYW0gQmhhaSIsImVtYWlsIjoic2o4NDY0NzM2QGdtYWlsLmNvbSIsInJvbGUiOjIsImlhdCI6MTY5MTQwMzAwOSwiZXhwIjoxNjkxNDMxODA5fQ.XQ5npKOEj4Qa3b1-zyQqQJKwhMiweq4IDEiDZ7JK3vQ"
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6IlNodWJoYW0gQmhhaSIsImVtYWlsIjoic2o4NDY0NzM2QGdtYWlsLmNvbSIsInJvbGUiOjIsImlhdCI6MTY5MTQwNjEzOCwiZXhwIjoxNjkxNDM0OTM4fQ.AMfd5xucTodAeqra4iUU-AVgjrwtbKcTOStx5E5BxTA"
           }
         ],
-        "responses": {
-          "200": {
-            "description": "Successful response",
-            "content": {
-              "application/json": {}
-            }
-          }
-        }
-      }
-    },
-    "/000/api/getcategoriesamenities/15": {
-      "get": {
-        "tags": ["addcategoryamenities"],
-        "summary": "getcatamtbyid",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful response",
-            "content": {
-              "application/json": {}
-            }
-          }
-        }
-      }
-    },
-    "/000/api/editcategoriesamenities/15": {
-      "put": {
-        "tags": ["addcategoryamenities"],
-        "summary": "editcatamtbtid",
         "requestBody": {
           "content": {
             "application/json": {
@@ -1496,21 +1403,6 @@
             }
           }
         },
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "x-access-token",
-            "in": "header",
-            "schema": {
-              "type": "string"
-            },
-            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6IlNodWJoYW0gQmhhaSIsImVtYWlsIjoic2o4NDY0NzM2QGdtYWlsLmNvbSIsInJvbGUiOjIsImlhdCI6MTY5MTQwNjEzOCwiZXhwIjoxNjkxNDM0OTM4fQ.AMfd5xucTodAeqra4iUU-AVgjrwtbKcTOStx5E5BxTA"
-          }
-        ],
         "responses": {
           "200": {
             "description": "Successful response",
@@ -1518,22 +1410,25 @@
               "application/json": {}
             }
           }
-        }
-      }
-    },
-    "/000/api/getcategoriesamenities": {
-      "get": {
-        "tags": ["addcategoryamenities"],
-        "summary": "getcategoriesamenitiesbytypeidentifierid",
+        },
         "security": [
           {
             "bearerAuth": []
           }
-        ],
+        ]
+      }
+    },
+    "/api/getcategoriesamenities": {
+      "get": {
+        "tags": ["addcategoryamenities"],
+        "summary": "getcategoriesamenitiesbytypeidentifierid",
         "parameters": [
           {
             "name": "type_identifier_id",
             "in": "query",
+            "required": false,
+            "style": "form",
+            "explode": true,
             "schema": {
               "type": "integer"
             },
@@ -1547,13 +1442,31 @@
               "application/json": {}
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
-    "/000/api/addorder": {
+    "/api/addorder": {
       "post": {
         "tags": ["orders"],
         "summary": "addautomobileorder",
+        "parameters": [
+          {
+            "name": "x-access-token",
+            "in": "header",
+            "required": false,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "number"
+            },
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJwYXNzd29yZCI6IlNodWJoYW0jMTIiLCJpYXQiOjE2OTE1ODU1NjAsImV4cCI6MTY5MTYyODc2MH0.6us5DvxObJhwHFI7_QtUV8gajoUWtWlHRfnDFb97vzc"
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -1577,73 +1490,76 @@
             }
           }
         },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {}
+            }
+          }
+        },
         "security": [
           {
             "bearerAuth": []
           }
-        ],
+        ]
+      }
+    },
+    "/api/getorders": {
+      "get": {
+        "tags": ["orders"],
+        "summary": "getorders",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {}
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/getorder/2": {
+      "get": {
+        "tags": ["orders"],
+        "summary": "getorderrdetails",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {}
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/addtransaction": {
+      "post": {
+        "tags": ["transaction"],
+        "summary": "addtransaction",
         "parameters": [
           {
             "name": "x-access-token",
             "in": "header",
+            "required": false,
+            "style": "simple",
+            "explode": false,
             "schema": {
-              "type": "number"
+              "type": "string"
             },
-            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJwYXNzd29yZCI6IlNodWJoYW0jMTIiLCJpYXQiOjE2OTE1ODU1NjAsImV4cCI6MTY5MTYyODc2MH0.6us5DvxObJhwHFI7_QtUV8gajoUWtWlHRfnDFb97vzc"
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6IlNodWJoYW0gQmhhaSIsImVtYWlsIjoic2o4NDY0NzM2QGdtYWlsLmNvbSIsInJvbGUiOjIsImlhdCI6MTY5MTQ2OTE0MywiZXhwIjoxNjkxNDk3OTQzfQ.pc9pLzB5nPOKxmdX_Sf5V_n5xNLRbU31K9nRktki3vw"
           }
         ],
-        "responses": {
-          "200": {
-            "description": "Successful response",
-            "content": {
-              "application/json": {}
-            }
-          }
-        }
-      }
-    },
-    "/000/api/getorders": {
-      "get": {
-        "tags": ["orders"],
-        "summary": "getorders",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful response",
-            "content": {
-              "application/json": {}
-            }
-          }
-        }
-      }
-    },
-    "/000/api/getorder/2": {
-      "get": {
-        "tags": ["orders"],
-        "summary": "getorderrdetails",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful response",
-            "content": {
-              "application/json": {}
-            }
-          }
-        }
-      }
-    },
-    "/000/api/addtransaction": {
-      "post": {
-        "tags": ["transaction"],
-        "summary": "addtransaction",
         "requestBody": {
           "content": {
             "application/json": {
@@ -1659,73 +1575,76 @@
             }
           }
         },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {}
+            }
+          }
+        },
         "security": [
           {
             "bearerAuth": []
           }
-        ],
+        ]
+      }
+    },
+    "/api/gettransactions": {
+      "get": {
+        "tags": ["transaction"],
+        "summary": "gettransactions",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {}
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/gettransaction/1": {
+      "get": {
+        "tags": ["transaction"],
+        "summary": "gettransactionbyid",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {}
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/acceptpayment": {
+      "post": {
+        "tags": ["payment"],
+        "summary": "acceptpayment",
         "parameters": [
           {
             "name": "x-access-token",
             "in": "header",
+            "required": false,
+            "style": "simple",
+            "explode": false,
             "schema": {
               "type": "string"
             },
             "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6IlNodWJoYW0gQmhhaSIsImVtYWlsIjoic2o4NDY0NzM2QGdtYWlsLmNvbSIsInJvbGUiOjIsImlhdCI6MTY5MTQ2OTE0MywiZXhwIjoxNjkxNDk3OTQzfQ.pc9pLzB5nPOKxmdX_Sf5V_n5xNLRbU31K9nRktki3vw"
           }
         ],
-        "responses": {
-          "200": {
-            "description": "Successful response",
-            "content": {
-              "application/json": {}
-            }
-          }
-        }
-      }
-    },
-    "/000/api/gettransactions": {
-      "get": {
-        "tags": ["transaction"],
-        "summary": "gettransactions",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful response",
-            "content": {
-              "application/json": {}
-            }
-          }
-        }
-      }
-    },
-    "/000/api/gettransaction/1": {
-      "get": {
-        "tags": ["transaction"],
-        "summary": "gettransactionbyid",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful response",
-            "content": {
-              "application/json": {}
-            }
-          }
-        }
-      }
-    },
-    "/000/api/acceptpayment": {
-      "post": {
-        "tags": ["payment"],
-        "summary": "acceptpayment",
         "requestBody": {
           "content": {
             "application/json": {
@@ -1746,21 +1665,6 @@
             }
           }
         },
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "x-access-token",
-            "in": "header",
-            "schema": {
-              "type": "string"
-            },
-            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6IlNodWJoYW0gQmhhaSIsImVtYWlsIjoic2o4NDY0NzM2QGdtYWlsLmNvbSIsInJvbGUiOjIsImlhdCI6MTY5MTQ2OTE0MywiZXhwIjoxNjkxNDk3OTQzfQ.pc9pLzB5nPOKxmdX_Sf5V_n5xNLRbU31K9nRktki3vw"
-          }
-        ],
         "responses": {
           "200": {
             "description": "Successful response",
@@ -1768,22 +1672,25 @@
               "application/json": {}
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
-    "/000/api/getpaymentdetails": {
+    "/api/getpaymentdetails": {
       "get": {
         "tags": ["payment"],
         "summary": "getpaymentdetails",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
         "parameters": [
           {
             "name": "x-access-token",
             "in": "header",
+            "required": false,
+            "style": "simple",
+            "explode": false,
             "schema": {
               "type": "string"
             },
@@ -1797,10 +1704,116 @@
               "application/json": {}
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
-    "/000": {
+    "/api/addsiteoptionmeta": {
+      "post": {
+        "tags": ["siteoptions"],
+        "summary": "addsiteoptions",
+        "parameters": [
+          {
+            "name": "x-access-token",
+            "in": "header",
+            "required": false,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IlNodWJoYW0gS3VtYXIiLCJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJyb2xlIjoxLCJpYXQiOjE2OTIzNDU2MzQsImV4cCI6MTY5MjM3NDQzNH0.RQdSk-OmCvHqU2aKHyBgauUOndcvBKNxX6F7BwfdYpw"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/api_addsiteoptionmeta_body"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {}
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/getsiteoptionmeta": {
+      "get": {
+        "tags": ["siteoptions"],
+        "summary": "getsiteoptions",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {}
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/editsiteoptionmeta": {
+      "put": {
+        "tags": ["siteoptions"],
+        "summary": "editsiteoptions",
+        "parameters": [
+          {
+            "name": "x-access-token",
+            "in": "header",
+            "required": false,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IlNodWJoYW0gS3VtYXIiLCJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJyb2xlIjoxLCJpYXQiOjE2OTIzNDU2MzQsImV4cCI6MTY5MjM3NDQzNH0.RQdSk-OmCvHqU2aKHyBgauUOndcvBKNxX6F7BwfdYpw"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/api_editsiteoptionmeta_body"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {}
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "": {
       "get": {
         "tags": ["General"],
         "summary": "checkserver",
@@ -1812,6 +1825,557 @@
             }
           }
         }
+      }
+    },
+    "/api-docs": {
+      "get": {
+        "tags": ["General"],
+        "summary": "swaggerdoc",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "api_addspace_body": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "example": "Banquete Hall123"
+          },
+          "slug": {
+            "type": "string",
+            "example": "Banquete_Hall"
+          },
+          "status": {
+            "type": "integer",
+            "example": 1
+          },
+          "space_size": {
+            "type": "string",
+            "example": "121 sq ft"
+          },
+          "guest_capacity": {
+            "type": "integer",
+            "example": 20
+          },
+          "space_type": {
+            "type": "string",
+            "example": "Premium"
+          },
+          "cost_per_hour": {
+            "type": "integer",
+            "example": 100
+          },
+          "cost_per_day": {
+            "type": "integer",
+            "example": 200
+          },
+          "short_description": {
+            "type": "number"
+          },
+          "long_description": {
+            "type": "number"
+          },
+          "avalability": {
+            "type": "string",
+            "example": "[{\"day\":\"monday\",\"status\":\"true\",\"start_time\":\"9:00:AM\",\"close_time\":\"11:00:PM\",\"date\":\"2000-02-12\"},{\"day\":\"tuesday\",\"status\":\"true\",\"start_time\":\"9:00:AM\",\"close_time\":\"11:00:PM\",\"date\":\"2000-02-12\"}]"
+          },
+          "image": {
+            "type": "string",
+            "format": "binary"
+          },
+          "gallary_image": {
+            "type": "string",
+            "format": "binary"
+          },
+          "location": {
+            "type": "number"
+          },
+          "city": {
+            "type": "string",
+            "example": "Indore"
+          },
+          "booking_type": {
+            "type": "string",
+            "example": "{\"is_hourly_booking\":true, \"is_day_boking\":true,\"is_monthly_booking\":true}"
+          },
+          "cancellation_pilicy": {
+            "type": "string",
+            "example": "[\"Ani\", \"Sam\", \"Joe\"]"
+          },
+          "terms_condition": {
+            "type": "string",
+            "example": "[\"Ani\", \"Sam\", \"Joe\"]"
+          },
+          "user_id": {
+            "type": "integer",
+            "example": 2
+          }
+        }
+      },
+      "api_addroom_body": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "example": "Premium R"
+          },
+          "room_number": {
+            "type": "integer",
+            "example": 201
+          },
+          "description": {
+            "type": "number"
+          },
+          "image": {
+            "type": "string",
+            "format": "binary"
+          },
+          "gallary_image": {
+            "type": "string",
+            "format": "binary"
+          },
+          "guest_capacity": {
+            "type": "integer",
+            "example": 2
+          },
+          "room_type": {
+            "type": "string",
+            "example": "single"
+          },
+          "status": {
+            "type": "integer",
+            "example": 1
+          },
+          "cost_per_day": {
+            "type": "integer",
+            "example": 200
+          },
+          "cost_per_hour": {
+            "type": "integer",
+            "example": 200
+          },
+          "room_size": {
+            "type": "string",
+            "example": "301 sq.ft"
+          },
+          "hotel_id": {
+            "type": "integer",
+            "example": 1
+          },
+          "": {
+            "type": "string"
+          }
+        }
+      },
+      "editroom_3_body": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "example": "room1"
+          },
+          "room_number": {
+            "type": "integer",
+            "example": 123
+          },
+          "description": {
+            "type": "string",
+            "example": "zdxsvgfsdfgsdfg"
+          },
+          "image": {
+            "type": "string",
+            "format": "binary"
+          },
+          "gallary_image": {
+            "type": "string",
+            "format": "binary"
+          },
+          "guest_capacity": {
+            "type": "integer",
+            "example": 12
+          },
+          "room_type": {
+            "type": "string",
+            "example": "dfgdfag"
+          },
+          "status": {
+            "type": "integer",
+            "example": 1
+          },
+          "cost_per_day": {
+            "type": "integer",
+            "example": 23
+          },
+          "cost_per_hour": {
+            "type": "integer",
+            "example": 234
+          },
+          "room_size": {
+            "type": "string",
+            "example": "200 sqft"
+          }
+        }
+      },
+      "api_addhotel_body": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "example": "Hotel  Grande Vijay Nagarrt123"
+          },
+          "slug": {
+            "type": "string",
+            "example": "Hotel_Meritel_Grande_Vijay_Nagar_Indore2"
+          },
+          "short_description": {
+            "type": "number"
+          },
+          "long_description": {
+            "type": "number"
+          },
+          "availability": {
+            "type": "string",
+            "example": "[{\"day\":\"monday\",\"status\":\"true\",\"start_time\":\"9:00:AM\",\"close_time\":\"11:00:PM\",\"date\":\"2000-02-12\"},{\"day\":\"tuesday\",\"status\":\"true\",\"start_time\":\"9:00:AM\",\"close_time\":\"11:00:PM\",\"date\":\"2000-02-12\"}]"
+          },
+          "status": {
+            "type": "integer",
+            "example": 1
+          },
+          "user_id": {
+            "type": "integer",
+            "example": 2
+          },
+          "image": {
+            "type": "string",
+            "format": "binary"
+          },
+          "gallary_image": {
+            "type": "string",
+            "format": "binary"
+          },
+          "location": {
+            "type": "number"
+          },
+          "city": {
+            "type": "string",
+            "example": "indore"
+          },
+          "booking_type": {
+            "type": "string",
+            "example": "{\"is_hourly_booking\":true, \"is_day_boking\":true,\"is_monthly_booking\":true}"
+          },
+          "cancellation_pilicy": {
+            "type": "string",
+            "example": "[\"Ani\", \"Sam\", \"Joe\"]"
+          },
+          "terms_condition": {
+            "type": "string",
+            "example": "[\"Ani\", \"Sam\", \"Joe\"]"
+          }
+        }
+      },
+      "editautomobile_1_body": {
+        "type": "object",
+        "properties": {
+          "auto_mobile_categories": {
+            "type": "string",
+            "example": "car"
+          },
+          "auto_mobile_name": {
+            "type": "string",
+            "example": "CD Delux 125"
+          },
+          "auto_mobile_number": {
+            "type": "string",
+            "example": "MP-17-IN-124"
+          },
+          "auto_mobile_brand": {
+            "type": "string",
+            "example": "Hero Honda"
+          },
+          "auto_mobile_type": {
+            "type": "string",
+            "example": "sedan"
+          },
+          "user_id": {
+            "type": "integer",
+            "example": 2
+          },
+          "rc_number": {
+            "type": "string",
+            "example": "dfgvd345345"
+          },
+          "seater": {
+            "type": "integer",
+            "example": 2
+          },
+          "cost_per_km": {
+            "type": "integer",
+            "example": 12
+          },
+          "image": {
+            "type": "string",
+            "format": "binary"
+          },
+          "gallary_image": {
+            "type": "string",
+            "format": "binary"
+          },
+          "status": {
+            "type": "integer",
+            "example": 1
+          }
+        }
+      },
+      "api_addautomobile_body": {
+        "type": "object",
+        "properties": {
+          "auto_mobile_categories": {
+            "type": "string",
+            "example": "bike"
+          },
+          "auto_mobile_name": {
+            "type": "string",
+            "example": "CD Delux 125"
+          },
+          "auto_mobile_number": {
+            "type": "string",
+            "example": "MP-17-IN-124"
+          },
+          "auto_mobile_brand": {
+            "type": "string",
+            "example": "Hero Honda"
+          },
+          "auto_mobile_type": {
+            "type": "string",
+            "example": "sedan"
+          },
+          "user_id": {
+            "type": "integer",
+            "example": 1
+          },
+          "rc_number": {
+            "type": "string",
+            "example": "835947dhjsfksg"
+          },
+          "seater": {
+            "type": "integer",
+            "example": 2
+          },
+          "cost_per_km": {
+            "type": "integer",
+            "example": 200
+          },
+          "image": {
+            "type": "string",
+            "format": "binary"
+          },
+          "gallary_image": {
+            "type": "string",
+            "format": "binary"
+          },
+          "status": {
+            "type": "integer",
+            "example": 1
+          }
+        }
+      },
+      "edituserprofilepicture_3_body": {
+        "type": "object",
+        "properties": {
+          "image": {
+            "type": "string",
+            "format": "binary"
+          }
+        }
+      },
+      "edithotel_2_body": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "example": "Hotel Tulsi Exotic"
+          },
+          "slug": {
+            "type": "string",
+            "example": "Hotel_Tulsi_Exotic123"
+          },
+          "short_description": {
+            "type": "string",
+            "example": "What we did here is wrap all our code in a try statement (don't worry the catch statement will follow) and then call our fs.unlink() method we talked about earlier. Because we are doing this for multiple files we can't hard code in the path to the file we want to delete like the example from the docs. So, instead we used the template literals from ES6 to allow us to pass in the name of the file we want to delete into the directory path where it will be located (this works because all files are in the same directory)."
+          },
+          "long_description": {
+            "type": "string",
+            "example": "What we did here is wrap all our code in a try statement (don't worry the catch statement will follow) and then call our fs.unlink() method we talked about earlier. Because we are doing this for multiple files we can't hard code in the path to the file we want to delete like the example from the docs. So, instead we used the template literals from ES6 to allow us to pass in the name of the file we want to delete into the directory path where it will be located (this works because all files are in the same directory)."
+          },
+          "availability": {
+            "type": "string",
+            "example": "[{\"day\":\"monday\",\"status\":\"true\",\"start_time\":\"9:00:AM\",\"close_time\":\"11:00:PM\",\"date\":\"2000-02-12\"},{\"day\":\"tuesday\",\"status\":\"true\",\"start_time\":\"9:00:AM\",\"close_time\":\"11:00:PM\",\"date\":\"2000-02-12\"}]"
+          },
+          "status": {
+            "type": "integer",
+            "example": 1
+          },
+          "user_id": {
+            "type": "integer",
+            "example": 2
+          },
+          "image": {
+            "type": "string",
+            "format": "binary"
+          },
+          "gallary_image": {
+            "type": "string",
+            "format": "binary"
+          },
+          "location": {
+            "type": "number"
+          },
+          "city": {
+            "type": "string",
+            "example": "indore"
+          },
+          "booking_type": {
+            "type": "string",
+            "example": "{\"is_hourly_booking\":true, \"is_day_boking\":true,\"is_monthly_booking\":true}"
+          },
+          "cancellation_pilicy": {
+            "type": "string",
+            "example": "[\"Ani\", \"Sam\", \"Joe\"]"
+          },
+          "terms_condition": {
+            "type": "string",
+            "example": "[\"Ani\", \"Sam\", \"Joe\"]"
+          }
+        }
+      },
+      "api_addsiteoptionmeta_body": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "example": "My Shoping App"
+          },
+          "fav_icon": {
+            "type": "string",
+            "format": "binary"
+          },
+          "company_logo": {
+            "type": "string",
+            "format": "binary"
+          }
+        }
+      },
+      "api_editsiteoptionmeta_body": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "example": "dfgadghsdfg"
+          },
+          "fav_icon": {
+            "type": "string",
+            "format": "binary"
+          },
+          "company_logo": {
+            "type": "string",
+            "format": "binary"
+          }
+        }
+      },
+      "editspace_1_body": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "example": "Banquete Hall1"
+          },
+          "slug": {
+            "type": "string",
+            "example": "Hello_Varun_sir"
+          },
+          "status": {
+            "type": "integer",
+            "example": 1
+          },
+          "space_size": {
+            "type": "string",
+            "example": "121 sq ft"
+          },
+          "guest_capacity": {
+            "type": "integer",
+            "example": 23
+          },
+          "space_type": {
+            "type": "string",
+            "example": "Premium"
+          },
+          "cost_per_hour": {
+            "type": "integer",
+            "example": 122
+          },
+          "cost_per_day": {
+            "type": "integer",
+            "example": 1245
+          },
+          "short_description": {
+            "type": "number"
+          },
+          "long_description": {
+            "type": "number"
+          },
+          "avalability": {
+            "type": "string",
+            "example": "[{\"day\":\"monday\",\"status\":\"true\",\"start_time\":\"9:00:AM\",\"close_time\":\"11:00:PM\",\"date\":\"2000-02-12\"},{\"day\":\"tuesday\",\"status\":\"true\",\"start_time\":\"9:00:AM\",\"close_time\":\"11:00:PM\",\"date\":\"2000-02-12\"}]"
+          },
+          "image": {
+            "type": "string",
+            "format": "binary"
+          },
+          "gallary_image": {
+            "type": "string",
+            "format": "binary"
+          },
+          "location": {
+            "type": "number"
+          },
+          "city": {
+            "type": "string",
+            "example": "indore"
+          },
+          "booking_type": {
+            "type": "string",
+            "example": "{\"is_hourly_booking\":true, \"is_day_boking\":true,\"is_monthly_booking\":true}"
+          },
+          "cancellation_pilicy": {
+            "type": "string",
+            "example": "[\"Ani\", \"Sam\", \"Joe\"]"
+          },
+          "terms_condition": {
+            "type": "string",
+            "example": "[\"Ani\", \"Sam\", \"Joe\"]"
+          },
+          "user_id": {
+            "type": "integer",
+            "example": 2
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
       }
     }
   }

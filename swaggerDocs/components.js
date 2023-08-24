@@ -1,11 +1,8 @@
-const user = require('./schema/user');
-const gift = require('./schema/gift');
-const event = require('./schema/event');
-const receiver = require('./schema/receiver');
-const payments = require('./schema/payments');
-const contribution = require('./schema/contribution');
-const notification = require('./schema/notification');
-const thankyou = require('./schema/thankyou');
+const user = require("./schema/user");
+const hotel = require("./schema/hotel");
+const room = require("./schema/room");
+const automobile = require("./schema/automobile");
+const spaces = require("./schema/spaces");
 
 module.exports = {
   components: {
@@ -14,49 +11,45 @@ module.exports = {
         type: "http",
         scheme: "bearer",
         bearerFormat: "JWT",
-        in: "header"
-      }
+        in: "header",
+      },
     },
     schemas: {
       User: user.User,
-      Receiver: receiver.Receiver,
-      ReceiverAccount: payments.Bank,
-      Gift: gift.Gift,
-      Event: event.Event,
-      Contribution: contribution.Contribution,
-      Notification: notification.Notification,
-      Thankyou: thankyou.Thankyou,
-      BankCard: payments.Card,
+      Hotel: hotel.GetHotel,
+      Room: room.getRoom,
+      Automobile: automobile.addautomobile,
+      Spaces: spaces.createSpaces,
       Error: {
-        type:'object',
+        type: "object",
         properties: {
           httpStatusCode: {
-            type: "number"
+            type: "number",
           },
           errorCode: {
-            type: "string"
+            type: "string",
           },
-          message:{
-            type:'string'
+          message: {
+            type: "string",
           },
         },
       },
-      Delete:{
-        type:'object',
+      Delete: {
+        type: "object",
         properties: {
           id: {
-            type: "number"
+            type: "number",
           },
-          message:{
-            type:'string'
+          message: {
+            type: "string",
           },
         },
-      }
-    }
+      },
+    },
   },
   security: [
     {
       bearerAuth: [],
     },
   ],
-}
+};

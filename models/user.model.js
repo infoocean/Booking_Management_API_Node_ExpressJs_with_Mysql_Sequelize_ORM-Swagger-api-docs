@@ -35,6 +35,9 @@ module.exports = (sequelize, DataTypes) => {
       role_id: {
         type: DataTypes.INTEGER,
       },
+      created_by: {
+        type: DataTypes.STRING,
+      },
       is_deleted: {
         type: DataTypes.INTEGER,
       },
