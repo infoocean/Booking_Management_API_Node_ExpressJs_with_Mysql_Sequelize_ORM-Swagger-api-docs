@@ -8,7 +8,7 @@ const {
   getTypeIdentifierController,
   addTypeIdentifierController,
 } = require("../controllers/typeidentifier_controller/typeidentifier_controller");
-router.get(
+router.post(
   "/addtypeidentifier",
   verifyAuthToken,
   verifyLoginToken,

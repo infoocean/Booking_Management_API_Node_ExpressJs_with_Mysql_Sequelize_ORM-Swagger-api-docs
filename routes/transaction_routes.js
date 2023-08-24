@@ -6,6 +6,8 @@ const {
 } = require("../middleware/aunthoticate");
 const {
   addTransactionController,
+  getTransactionsController,
+  getTransactionsByIdController,
 } = require("../controllers/transaction_controller/transaction_controller");
 
 router.post(
@@ -13,5 +15,11 @@ router.post(
   verifyAuthToken,
   verifyLoginToken,
   addTransactionController
+);
+router.get("/gettransactions", verifyAuthToken, getTransactionsController);
+router.get(
+  "/gettransaction/:id",
+  verifyAuthToken,
+  getTransactionsByIdController
 );
 module.exports = router;

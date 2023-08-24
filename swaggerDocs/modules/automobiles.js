@@ -2,18 +2,40 @@ const automobile = require("../schema/automobile");
 
 module.exports = {
   "/addautomobile": {
-    get: {
+    post: {
       tags: ["Automobile"],
-      summary: "List event",
-      operationId: "getEvents",
-      parameters: [],
+      summary: "add automobile into syatem",
+      operationId: "addautomobile",
+      parameters: [
+        {
+          name: "x-access-token",
+          in: "header",
+          required: false,
+          style: "simple",
+          explode: false,
+          schema: {
+            type: "string",
+          },
+          example:
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IlNodWJoYW0gS3VtYXIiLCJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJyb2xlIjoxLCJpYXQiOjE2OTIyNTE1MDUsImV4cCI6MTY5MjI4MDMwNX0.GVSjlQsh6g0y-jwjf_Cspiokz4IoI9QNdohX7a-6ZI8",
+        },
+      ],
+      requestBody: {
+        content: {
+          "multipart/form-data": {
+            schema: {
+              ...automobile.addautomobile,
+            },
+          },
+        },
+      },
       responses: {
-        200: {
-          description: "Events were obtained",
+        201: {
+          description: "automobile register successfully were obtained",
           content: {
             "application/json": {
               schema: {
-                //$ref:'#/components/schemas/Event'
+                ...automobile.addautomobile,
               },
             },
           },
@@ -24,25 +46,16 @@ module.exports = {
   "/getautomobiles": {
     get: {
       tags: ["Automobile"],
-      summary: "List event by id",
-      operationId: "getEvent",
-      parameters: [
-        {
-          name: "id",
-          in: "path",
-          description: "ID of event to return",
-          required: true,
-          type: "integer",
-          format: "int64",
-        },
-      ],
+      summary: "list of automobiles",
+      operationId: "getautomobiles",
+      parameters: [],
       responses: {
         200: {
-          description: "Event were obtained",
+          description: "Automobile getting successfully",
           content: {
             "application/json": {
               schema: {
-                // $ref:'#/components/schemas/Event'
+                ...automobile.getautomobile,
               },
             },
           },
@@ -53,8 +66,8 @@ module.exports = {
   "/getautomobile/{id}": {
     get: {
       tags: ["Automobile"],
-      summary: "fetch event invites",
-      operationId: "getEventInvites",
+      summary: "get automobile details",
+      operationId: "getautomobile",
       parameters: [
         {
           name: "id",
@@ -67,33 +80,11 @@ module.exports = {
       ],
       responses: {
         200: {
-          description: "Ever has been obtained",
+          description: "automobile has been obtained",
           content: {
             "application/json": {
               schema: {
-                type: "object",
-                properties: {
-                  event_id: {
-                    type: "number",
-                    description: "event id of the event invite",
-                    example: 1,
-                  },
-                  invitee_id: {
-                    type: "number",
-                    description: "invitee id of the event invitee",
-                    example: 13,
-                  },
-                  rspv_status: {
-                    type: "boolean",
-                    description: "status of the event invite",
-                    example: false,
-                  },
-                  invite_code: {
-                    type: "string",
-                    description: "invite code",
-                    example: "aB4Dg",
-                  },
-                },
+                ...automobile.getautomobile,
               },
             },
           },
@@ -102,28 +93,40 @@ module.exports = {
     },
   },
   "/editautomobile/{id}": {
-    get: {
+    put: {
       tags: ["Automobile"],
-      summary: "fetch event image",
-      operationId: "getEventImage",
+      summary: "edit automobile details",
+      operationId: "editautomobile",
       parameters: [
         {
-          name: "id",
-          in: "path",
-          description: "ID of event to return",
-          required: true,
-          type: "integer",
-          format: "int64",
+          name: "x-access-token",
+          in: "header",
+          required: false,
+          style: "simple",
+          explode: false,
+          schema: {
+            type: "string",
+          },
+          example:
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IlNodWJoYW0gS3VtYXIiLCJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJyb2xlIjoxLCJpYXQiOjE2OTIyNTE1MDUsImV4cCI6MTY5MjI4MDMwNX0.GVSjlQsh6g0y-jwjf_Cspiokz4IoI9QNdohX7a-6ZI8",
         },
       ],
+      requestBody: {
+        content: {
+          "multipart/form-data": {
+            schema: {
+              ...automobile.addautomobile,
+            },
+          },
+        },
+      },
       responses: {
-        200: {
-          description: "Ever has been obtained",
+        202: {
+          description: "automobile has been updated",
           content: {
-            "image/png": {
+            "application/json": {
               schema: {
-                type: "string",
-                format: "binary",
+                ...automobile.getautomobile,
               },
             },
           },
@@ -132,10 +135,10 @@ module.exports = {
     },
   },
   "/deleteautomobile/{id}": {
-    post: {
+    delete: {
       tags: ["Automobile"],
-      summary: "archive an event",
-      operationId: "postEventArchive",
+      summary: "delete automobile (soft deleted)",
+      operationId: "deleteautomobile",
       parameters: [
         {
           name: "id",
@@ -147,13 +150,11 @@ module.exports = {
         },
       ],
       responses: {
-        200: {
-          description: "Event is archived",
+        202: {
+          description: "automobile deleted successfully",
           content: {
             "application/json": {
-              schema: {
-                //$ref:'#/components/schemas/Delete'
-              },
+              schema: {},
             },
           },
         },
@@ -161,23 +162,14 @@ module.exports = {
     },
   },
   "/getautomobilecategories": {
-    post: {
+    get: {
       tags: ["Automobile"],
-      summary: "archive an event",
-      operationId: "postEventArchive",
-      parameters: [
-        {
-          name: "id",
-          in: "path",
-          description: "ID of event to archive",
-          required: true,
-          type: "integer",
-          format: "int64",
-        },
-      ],
+      summary: "list of automobile categories",
+      operationId: "getautomobilecategories",
+      parameters: [],
       responses: {
         200: {
-          description: "Event is archived",
+          description: "getautomobile categories obtained",
           content: {
             "application/json": {
               schema: {

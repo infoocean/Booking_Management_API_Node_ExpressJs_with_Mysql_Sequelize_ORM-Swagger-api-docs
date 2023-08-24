@@ -22,10 +22,6 @@ const addTransactionController = async (req, res) => {
     res.status(500).send({ error: true, error: error, message: error.message });
   }
 };
-module.exports = {
-  addTransactionController,
-};
-
 //get transactions
 const getTransactionsController = async (req, res) => {
   try {

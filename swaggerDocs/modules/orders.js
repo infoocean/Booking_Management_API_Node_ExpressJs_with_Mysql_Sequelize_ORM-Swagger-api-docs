@@ -1,9 +1,9 @@
 module.exports = {
-  "/giftfcdbgdbhdgfh": {
-    get: {
+  "/addorder": {
+    post: {
       tags: ["Orders"],
-      summary: "List gifts",
-      operationId: "giftfcdbgdbhdgfh",
+      summary: "add order",
+      operationId: "addorder",
       parameters: [],
       responses: {
         200: {
@@ -19,45 +19,34 @@ module.exports = {
       },
     },
   },
-  "/gifasdfasft/{id}": {
+  "/getorders": {
     get: {
       tags: ["Orders"],
-      summary: "List gift by id",
-      operationId: "gifasdfasft",
-      parameters: [
-        {
-          name: "id",
-          in: "path",
-          description: "ID of gift to return",
-          required: true,
-          type: "integer",
-          format: "int64",
-        },
-      ],
+      summary: "list of all orders",
+      operationId: "getorders",
+      parameters: [],
       responses: {
         200: {
-          description: "Gift were obtained",
+          description: "getting orders successfully",
           content: {
             "application/json": {
-              schema: {
-                $ref: "#/components/schemas/Gift",
-              },
+              schema: {},
             },
           },
         },
       },
     },
   },
-  "/gift/{id}/image": {
+  "/getorder/{id}": {
     get: {
       tags: ["Orders"],
-      summary: "fetch gift image",
-      operationId: "getGiftImage",
+      summary: "get orders details",
+      operationId: "getorder",
       parameters: [
         {
           name: "id",
           in: "path",
-          description: "ID of gift to return",
+          description: "ID of orders to return",
           required: true,
           type: "integer",
           format: "int64",
@@ -65,13 +54,10 @@ module.exports = {
       ],
       responses: {
         200: {
-          description: "Gift were obtained",
+          description: "getting orders details successfully",
           content: {
-            "image/json": {
-              schema: {
-                type: "string",
-                format: "binary",
-              },
+            "application/json": {
+              schema: {},
             },
           },
         },

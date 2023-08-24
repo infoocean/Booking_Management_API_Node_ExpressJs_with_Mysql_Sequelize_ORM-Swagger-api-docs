@@ -5,91 +5,55 @@ const defaultProperties = {
     example: 1,
   },
 };
+
 const entityProperties = {
-  type: {
+  auto_mobile_categories: {
     type: "string",
-    description: "Event type onegift / party / gifftlist",
-    example: "onegift",
+    example: "bike",
   },
-  title: {
+  auto_mobile_name: {
     type: "string",
-    description: "Event's title",
-    example: "Santino's birthday",
+    example: "CD Delux 125",
   },
-  description: {
+  auto_mobile_number: {
     type: "string",
-    description: "Description related to the event",
-    example: " A super thanks and c u soon for this event.",
+    example: "MP-17-IN-124",
   },
-  event_date: {
+  auto_mobile_brand: {
     type: "string",
-    pattern: "^(3[01]|[12][0-9]|0[1-9])-(1[0-2]|0[1-9])-[0-9]{4}$",
-    description: "eventdate",
-    example: "2017-05-25 00:00:00",
+    example: "Hero Honda",
   },
-  invite_code: {
+  auto_mobile_type: {
     type: "string",
-    example: "646825",
+    example: "sedan",
   },
-  child_id: {
+  user_id: {
     type: "integer",
-    description: "Receiver identification number.",
+    example: 1,
+  },
+  rc_number: {
+    type: "string",
+    example: "835947dhjsfksg",
+  },
+  seater: {
+    type: "integer",
     example: 2,
   },
-  venue_start_date: {
+  cost_per_km: {
+    type: "integer",
+    example: 200,
+  },
+  image: {
     type: "string",
-    pattern: "^(3[01]|[12][0-9]|0[1-9])-(1[0-2]|0[1-9])-[0-9]{4}$",
-    example: "null",
+    format: "binary",
   },
-  venue_end_date: {
+  gallary_image: {
     type: "string",
-    pattern: "^(3[01]|[12][0-9]|0[1-9])-(1[0-2]|0[1-9])-[0-9]{4}$",
-    example: "null",
+    format: "binary",
   },
-  venue: {
-    type: "string",
-    example: "null",
-  },
-  rspv_date: {
-    type: "string",
-    pattern: "^(3[01]|[12][0-9]|0[1-9])-(1[0-2]|0[1-9])-[0-9]{4}$",
-    example: "null",
-  },
-  rspv_status: {
-    type: "boolean",
-    example: false,
-  },
-  auto_send_contribution_cards: {
-    type: "boolean",
-    example: false,
-  },
-  invite_greeting: {
-    type: "string",
-    example: "null",
-  },
-  invite_subject: {
-    type: "string",
-    example: "null",
-  },
-  email_template: {
-    type: "string",
-    example: "null",
-  },
-  invite_image_url: {
-    type: "string",
-    example: "null",
-  },
-  allow_conts_over_100pc: {
-    type: "boolean",
-    example: false,
-  },
-  min_cont: {
-    type: "number",
-    example: "null",
-  },
-  set_cont: {
-    type: "number",
-    example: "null",
+  status: {
+    type: "integer",
+    example: 1,
   },
 };
 

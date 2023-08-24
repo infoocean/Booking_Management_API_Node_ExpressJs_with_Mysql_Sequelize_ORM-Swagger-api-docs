@@ -31,7 +31,7 @@ router.put(
 );
 
 router.get(
-  "/getcategoriesamenities",
+  "/getcategoriesamenitiesbytypeidentifierid",
   verifyAuthToken,
   getCategoriesAmenitiesController
 );
