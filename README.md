@@ -1,4 +1,4 @@
-# Booking_Management_API_Node_with_Mysql_Sequelize
+# Booking Management API NodeJs with Mysql and Sequelize ORM
 
 #node vesrion  
 v18.12.1
