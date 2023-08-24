@@ -9,7 +9,6 @@ v18.12.1
   `git clone https://github.com/infoocean/Booking_Management_API_Node_with_Mysql_Sequelize.git`
 - Install node version v18.12.1 or use nvm to downgrade your node version.
 - Delete the existing `package.lock.json` and run `npm install`
-- Then you create a postgres database named iLrn with the following credentials:
 
 #start the project using the command
 nodemon
@@ -24,14 +23,14 @@ npm start
 
 # Note
 
-Please go to the AssetsDb Folder for Database Export and entity Relationship Diagram Export
+- Please go to the AssetsDb Folder for Database Export and entity Relationship Diagram Export.
 
 # Database Information
 
-database name = booking_management
-database user name = <your database user name>
-database passwoird = <your database password>
-DIALECT = mysql
+- database name = booking_management
+- database user name = <your database user name>
+- database passwoird = <your database password>
+- DIALECT = mysql
 
 # getting apis collection
 
@@ -42,11 +41,12 @@ click given link to get all collection : https://documenter.getpostman.com/view/
 # swagger collection
 
 hit given url on google crome and get collections :
-local server : <local_server_path>/api-docs
-staging server : <staging_server_path>/api-docs
-development server : <development_server_path>/api-docs
+
+- local server : <local_server_path>/api-docs
+- staging server : <staging_server_path>/api-docs
+- development server : <development_server_path>/api-docs
 
 # if you want to get json collection check below file
 
-postman collection : postman.json
-swagger collection : swagger.json
+- postman collection : postman.json
+- swagger collection : swagger.json
