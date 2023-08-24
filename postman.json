@@ -1,0 +1,2596 @@
+{
+  "info": {
+    "_postman_id": "d1cffc5a-844f-49b1-9aff-aa4a64f778b3",
+    "name": "booking_management",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "17163511"
+  },
+  "item": [
+    {
+      "name": "get_authorization_token",
+      "item": [
+        {
+          "name": "get_authorization_token",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJwYXNzd29yZCI6IlYhdkVrQDMyMUAxMjMiLCJpYXQiOjE2OTI3NjcyMDQsImV4cCI6MTY5MjgxMDQwNH0.1LXhFfA4F23izA7pQoQG9GEqCWi0Brar_Sg0AAshg8Y",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "localhost:4000/api/getauthorizationtoken",
+              "host": ["localhost"],
+              "port": "4000",
+              "path": ["api", "getauthorizationtoken"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "users",
+      "item": [
+        {
+          "name": "adduser",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJwYXNzd29yZCI6IlYhdkVrQDMyMUAxMjMiLCJpYXQiOjE2OTI3NjY3ODksImV4cCI6MTY5MjgwOTk4OX0.AeuF0RHE3nri7HfP5b2UaqP4rNaSlI7bnEh8g4pmWVc",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "x-access-token",
+                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IlNodWJoYW0iLCJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJyb2xlIjowLCJpYXQiOjE2OTI3NjcyMzUsImV4cCI6MTY5Mjc5NjAzNX0.1Hpl_FfQt4Rcfh7bECpxePLDibDztEQhl9YIEx2xc6I",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"first_name\": \"Devendra Bhadoriya\",\n    \"last_name\": \"Bhadoriya\",\n    \"email\": \"Bhadoriya123@gmail.com\",\n    \"phone_number\": \"9131649079\",\n    \"date_of_birth\":\"1999-11-02\",\n    \"role_id\": 2\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:4000/api/adduser",
+              "host": ["localhost"],
+              "port": "4000",
+              "path": ["api", "adduser"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getusers",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJwYXNzd29yZCI6IlYhdkVrQDMyMUAxMjMiLCJpYXQiOjE2OTE3NjA0OTcsImV4cCI6MTY5MTgwMzY5N30.keJPql-iGCkjTkabfAI-TmVtFtwFokSt7HtvCIQwEjU",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "localhost:4000/api/getusers",
+              "host": ["localhost"],
+              "port": "4000",
+              "path": ["api", "getusers"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getuser",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJwYXNzd29yZCI6IlYhdkVrQDMyMUAxMjMiLCJpYXQiOjE2OTE3NjA0OTcsImV4cCI6MTY5MTgwMzY5N30.keJPql-iGCkjTkabfAI-TmVtFtwFokSt7HtvCIQwEjU",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "localhost:4000/api/getuser/2",
+              "host": ["localhost"],
+              "port": "4000",
+              "path": ["api", "getuser", "2"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "deleteuser",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJwYXNzd29yZCI6IlNodWJoYW0jMTIiLCJpYXQiOjE2OTEwMzg4NTQsImV4cCI6MTY5MTA4MjA1NH0.dAMs-1fa1FH2idNEkhrprRUfvVkGJ3iLS3pe1Ra7Xr8",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "localhost:4000/api/deleteuser/3",
+              "host": ["localhost"],
+              "port": "4000",
+              "path": ["api", "deleteuser", "3"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "edituser",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJwYXNzd29yZCI6IlYhdkVrQDMyMUAxMjMiLCJpYXQiOjE2OTE3Mjk0MDMsImV4cCI6MTY5MTc3MjYwM30.V2ZanxJMtkRI6RBmkHI_NKfRUkxqALwUa-V61rZubJk",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"first_name\": \"Muskan ved\",\n    \"last_name\": \"ved\",\n    \"email\": \"mvved@gmail.com\",\n    \"phone_number\": \"7089413024\",\n    \"date_of_birth\": \"1999-11-02\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:4000/api/edituser/3",
+              "host": ["localhost"],
+              "port": "4000",
+              "path": ["api", "edituser", "3"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "editprofilepicture",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJwYXNzd29yZCI6IlYhdkVrQDMyMUAxMjMiLCJpYXQiOjE2OTE3Mjk0MDMsImV4cCI6MTY5MTc3MjYwM30.V2ZanxJMtkRI6RBmkHI_NKfRUkxqALwUa-V61rZubJk",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "image",
+                  "type": "file",
+                  "src": "/home/shubham/Downloads/download.jpg"
+                }
+              ]
+            },
+            "url": {
+              "raw": "localhost:4000/api/edituserprofilepicture/3",
+              "host": ["localhost"],
+              "port": "4000",
+              "path": ["api", "edituserprofilepicture", "3"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "auth",
+      "item": [
+        {
+          "name": "userlogin",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJwYXNzd29yZCI6IlYhdkVrQDMyMUAxMjMiLCJpYXQiOjE2OTI2ODU5NDEsImV4cCI6MTY5MjcyOTE0MX0.I5_QzYwzSCLpNZ1qZBN9srQoa8Wbh8Uh01h_zgP5_V8",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\":\"sj2585097@gmail.com\",\n    \"password\":\"Shubham#12\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:4000/api/userlogin",
+              "host": ["localhost"],
+              "port": "4000",
+              "path": ["api", "userlogin"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "forgotpassword",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJwYXNzd29yZCI6IlYhdkVrQDMyMUAxMjMiLCJpYXQiOjE2OTI2ODU5NDEsImV4cCI6MTY5MjcyOTE0MX0.I5_QzYwzSCLpNZ1qZBN9srQoa8Wbh8Uh01h_zgP5_V8",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\":\"sj2585097@gmail.com\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:4000/api/forgotpassword",
+              "host": ["localhost"],
+              "port": "4000",
+              "path": ["api", "forgotpassword"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "resertpassword",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJwYXNzd29yZCI6IlYhdkVrQDMyMUAxMjMiLCJpYXQiOjE2OTI2ODU5NDEsImV4cCI6MTY5MjcyOTE0MX0.I5_QzYwzSCLpNZ1qZBN9srQoa8Wbh8Uh01h_zgP5_V8",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"token\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJpZCI6MSwiaWF0IjoxNjkyNjk0MzM5LCJleHAiOjE2OTI3MjMxMzl9.Kx8gDH2qZLBwDDfm5KJXhPfeBKkAXGkReU7F4QvKF5o\",\n    \"password\":\"Shubham#12\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:4000/api/resetpassword",
+              "host": ["localhost"],
+              "port": "4000",
+              "path": ["api", "resetpassword"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "usersignup",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJwYXNzd29yZCI6IlYhdkVrQDMyMUAxMjMiLCJpYXQiOjE2OTI2ODU5NDEsImV4cCI6MTY5MjcyOTE0MX0.I5_QzYwzSCLpNZ1qZBN9srQoa8Wbh8Uh01h_zgP5_V8",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"first_name\": \"Devendra Bhadoriya\",\n    \"last_name\": \"Bhadoriya\",\n    \"email\": \"Bhadoriya123@gmail.com\",\n    \"phone_number\": \"9131649079\",\n    \"password\": \"Shubham#12\",\n    \"role_id\": 2\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:4000/api/usersignup",
+              "host": ["localhost"],
+              "port": "4000",
+              "path": ["api", "usersignup"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "changepasword",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJwYXNzd29yZCI6IlYhdkVrQDMyMUAxMjMiLCJpYXQiOjE2OTI2ODU5NDEsImV4cCI6MTY5MjcyOTE0MX0.I5_QzYwzSCLpNZ1qZBN9srQoa8Wbh8Uh01h_zgP5_V8",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "x-access-token",
+                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IlNodWJoYW0iLCJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJyb2xlIjowLCJpYXQiOjE2OTI3MDU0OTcsImV4cCI6MTY5MjczNDI5N30.xCej0FkwBOgU_F0fipkD4eGksD9Hs-OVQHBoegzNOPc",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"current_password\": \"\",\n    \"new_password\": \"Shubham12\",\n    \"confirm_password\": \"Shubham#12\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:4000/api/changepassword",
+              "host": ["localhost"],
+              "port": "4000",
+              "path": ["api", "changepassword"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "role",
+      "item": [
+        {
+          "name": "addrole",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJwYXNzd29yZCI6IlYhdkVrQDMyMUAxMjMiLCJpYXQiOjE2OTE2NzA4MjcsImV4cCI6MTY5MTcxNDAyN30.UzMLQn5YBWGwFhFCZlsxt5VlBGOWqULbR9IdNnhqevU",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"customer\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:4000/api/addrole",
+              "host": ["localhost"],
+              "port": "4000",
+              "path": ["api", "addrole"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getroles",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJwYXNzd29yZCI6IlYhdkVrQDMyMUAxMjMiLCJpYXQiOjE2OTE2Njk5NjIsImV4cCI6MTY5MTcxMzE2Mn0.f5d8pTBtpI5U70GNrEmKgfmWmQGIvYgse6hGjsi8g5Q",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "localhost:4000/api/getroles",
+              "host": ["localhost"],
+              "port": "4000",
+              "path": ["api", "getroles"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "editrole",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJwYXNzd29yZCI6IlYhdkVrQDMyMUAxMjMiLCJpYXQiOjE2OTE3Mjk0MDMsImV4cCI6MTY5MTc3MjYwM30.V2ZanxJMtkRI6RBmkHI_NKfRUkxqALwUa-V61rZubJk",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\":\"customer\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:4000/api/editrole/1",
+              "host": ["localhost"],
+              "port": "4000",
+              "path": ["api", "editrole", "1"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "hotel",
+      "item": [
+        {
+          "name": "room",
+          "item": [
+            {
+              "name": "addroom",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJwYXNzd29yZCI6IlYhdkVrQDMyMUAxMjMiLCJpYXQiOjE2OTIzNDY1NTAsImV4cCI6MTY5MjM4OTc1MH0.ajfidHKkGW0aPu6OdUSVJbXiXatk5p-T0jI9yPhHJjY",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "x-access-token",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IlNodWJoYW0gS3VtYXIiLCJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJyb2xlIjoxLCJpYXQiOjE2OTIzNDU2MzQsImV4cCI6MTY5MjM3NDQzNH0.RQdSk-OmCvHqU2aKHyBgauUOndcvBKNxX6F7BwfdYpw",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "title",
+                      "value": "Premium R",
+                      "type": "text"
+                    },
+                    {
+                      "key": "room_number",
+                      "value": "201",
+                      "type": "text"
+                    },
+                    {
+                      "key": "description",
+                      "value": "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of \"de Finibus Bonorum et Malorum\" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, \"Lorem ipsum dolor sit amet..\", comes from a line in section 1.10.32.",
+                      "type": "text"
+                    },
+                    {
+                      "key": "image",
+                      "type": "file",
+                      "src": "/home/shubham/Downloads/download.jpg",
+                      "disabled": true
+                    },
+                    {
+                      "key": "gallary_image",
+                      "type": "file",
+                      "src": [
+                        "/home/shubham/Downloads/download.jpeg",
+                        "/home/shubham/Downloads/download.jpg",
+                        "/home/shubham/Downloads/download.png"
+                      ],
+                      "disabled": true
+                    },
+                    {
+                      "key": "guest_capacity",
+                      "value": "2",
+                      "type": "text",
+                      "disabled": true
+                    },
+                    {
+                      "key": "room_type",
+                      "value": "single",
+                      "type": "text",
+                      "disabled": true
+                    },
+                    {
+                      "key": "status",
+                      "value": "1",
+                      "type": "text"
+                    },
+                    {
+                      "key": "cost_per_day",
+                      "value": "200",
+                      "type": "text"
+                    },
+                    {
+                      "key": "cost_per_hour",
+                      "value": "200",
+                      "type": "text"
+                    },
+                    {
+                      "key": "room_size",
+                      "value": "301 sq.ft",
+                      "type": "text"
+                    },
+                    {
+                      "key": "hotel_id",
+                      "value": "1",
+                      "type": "text"
+                    },
+                    {
+                      "key": "",
+                      "value": "",
+                      "type": "text",
+                      "disabled": true
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "localhost:4000/api/addroom",
+                  "host": ["localhost"],
+                  "port": "4000",
+                  "path": ["api", "addroom"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "getrooms",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJwYXNzd29yZCI6IlNodWJoYW0jMTIiLCJpYXQiOjE2OTExMjU0MTEsImV4cCI6MTY5MTE2ODYxMX0.PWXrWnvIs88-qKYDO11YRrEmuT0cn9oCiaWMhV-3W2A",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "localhost:4000/api/getrooms",
+                  "host": ["localhost"],
+                  "port": "4000",
+                  "path": ["api", "getrooms"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "getroom",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJwYXNzd29yZCI6IlYhdkVrQDMyMUAxMjMiLCJpYXQiOjE2OTE3NTk5NDMsImV4cCI6MTY5MTgwMzE0M30.d_igKzTxEp0h0HipTpkpM9ZamY7ljnV5vUCAJB5aFMc",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "localhost:4000/api/getroom/1",
+                  "host": ["localhost"],
+                  "port": "4000",
+                  "path": ["api", "getroom", "1"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "getroomsbyhotelid",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJwYXNzd29yZCI6IlNodWJoYW0jMTIiLCJpYXQiOjE2OTExMjU0MTEsImV4cCI6MTY5MTE2ODYxMX0.PWXrWnvIs88-qKYDO11YRrEmuT0cn9oCiaWMhV-3W2A",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "localhost:4000/api/getroomesbyhotelid/1",
+                  "host": ["localhost"],
+                  "port": "4000",
+                  "path": ["api", "getroomesbyhotelid", "1"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "editroom",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJwYXNzd29yZCI6IlYhdkVrQDMyMUAxMjMiLCJpYXQiOjE2OTIzNDY1NTAsImV4cCI6MTY5MjM4OTc1MH0.ajfidHKkGW0aPu6OdUSVJbXiXatk5p-T0jI9yPhHJjY",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "x-access-token",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IlNodWJoYW0gS3VtYXIiLCJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJyb2xlIjoxLCJpYXQiOjE2OTIzNDU2MzQsImV4cCI6MTY5MjM3NDQzNH0.RQdSk-OmCvHqU2aKHyBgauUOndcvBKNxX6F7BwfdYpw",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "title",
+                      "value": "room1",
+                      "type": "text"
+                    },
+                    {
+                      "key": "room_number",
+                      "value": "123",
+                      "type": "text"
+                    },
+                    {
+                      "key": "description",
+                      "value": "zdxsvgfsdfgsdfg",
+                      "type": "text"
+                    },
+                    {
+                      "key": "image",
+                      "type": "file",
+                      "src": "/home/shubham/Downloads/download.jpg"
+                    },
+                    {
+                      "key": "gallary_image",
+                      "type": "file",
+                      "src": [
+                        "/home/shubham/Downloads/download.jpg",
+                        "/home/shubham/Downloads/download.png"
+                      ]
+                    },
+                    {
+                      "key": "guest_capacity",
+                      "value": "12",
+                      "type": "text"
+                    },
+                    {
+                      "key": "room_type",
+                      "value": "dfgdfag",
+                      "type": "text"
+                    },
+                    {
+                      "key": "status",
+                      "value": "1",
+                      "type": "text"
+                    },
+                    {
+                      "key": "cost_per_day",
+                      "value": "23",
+                      "type": "text"
+                    },
+                    {
+                      "key": "cost_per_hour",
+                      "value": "234",
+                      "type": "text"
+                    },
+                    {
+                      "key": "room_size",
+                      "value": "200 sqft",
+                      "type": "text"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "localhost:4000/api/editroom/3",
+                  "host": ["localhost"],
+                  "port": "4000",
+                  "path": ["api", "editroom", "3"]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "addhotel",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJwYXNzd29yZCI6IlYhdkVrQDMyMUAxMjMiLCJpYXQiOjE2OTIyNTQ1MTgsImV4cCI6MTY5MjI5NzcxOH0.uawRKGIuhMds6h8QmTE8HugpOWlVSePja4-3cuewsWc",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "x-access-token",
+                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IlNodWJoYW0gS3VtYXIiLCJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJyb2xlIjoxLCJpYXQiOjE2OTIyNTE1MDUsImV4cCI6MTY5MjI4MDMwNX0.GVSjlQsh6g0y-jwjf_Cspiokz4IoI9QNdohX7a-6ZI8",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "title",
+                  "value": "Hotel  Grande Vijay Nagarrt123",
+                  "type": "text"
+                },
+                {
+                  "key": "slug",
+                  "value": "Hotel_Meritel_Grande_Vijay_Nagar_Indore2",
+                  "type": "text"
+                },
+                {
+                  "key": "short_description",
+                  "value": "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of \"de Finibus Bonorum et Malorum\" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, \"Lorem ipsum dolor sit amet..\", comes from a line in section 1.10.32.",
+                  "type": "text",
+                  "disabled": true
+                },
+                {
+                  "key": "long_description",
+                  "value": "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of \"de Finibus Bonorum et Malorum\" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, \"Lorem ipsum dolor sit amet..\", comes from a line in section 1.10.32.Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of \"de Finibus Bonorum et Malorum\" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, \"Lorem ipsum dolor sit amet..\", comes from a line in section 1.10.32.Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of \"de Finibus Bonorum et Malorum\" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, \"Lorem ipsum dolor sit amet..\", comes from a line in section 1.10.32.",
+                  "type": "text",
+                  "disabled": true
+                },
+                {
+                  "key": "availability",
+                  "value": "[{\"day\":\"monday\",\"status\":\"true\",\"start_time\":\"9:00:AM\",\"close_time\":\"11:00:PM\",\"date\":\"2000-02-12\"},{\"day\":\"tuesday\",\"status\":\"true\",\"start_time\":\"9:00:AM\",\"close_time\":\"11:00:PM\",\"date\":\"2000-02-12\"}]",
+                  "type": "text",
+                  "disabled": true
+                },
+                {
+                  "key": "status",
+                  "value": "1",
+                  "type": "text"
+                },
+                {
+                  "key": "user_id",
+                  "value": "2",
+                  "type": "text"
+                },
+                {
+                  "key": "image",
+                  "type": "file",
+                  "src": "/home/shubham/Downloads/download.png",
+                  "disabled": true
+                },
+                {
+                  "key": "gallary_image",
+                  "type": "file",
+                  "src": [
+                    "/home/shubham/Downloads/download.jpeg",
+                    "/home/shubham/Downloads/download.jpg",
+                    "/home/shubham/Downloads/download.png"
+                  ],
+                  "disabled": true
+                },
+                {
+                  "key": "location",
+                  "value": "{\"latitude\":\"22.719568\",\"longitude\":\"75.857727\"}",
+                  "type": "text"
+                },
+                {
+                  "key": "city",
+                  "value": "indore",
+                  "type": "text"
+                },
+                {
+                  "key": "booking_type",
+                  "value": "{\"is_hourly_booking\":true, \"is_day_boking\":true,\"is_monthly_booking\":true}",
+                  "type": "text",
+                  "disabled": true
+                },
+                {
+                  "key": "cancellation_pilicy",
+                  "value": "[\"Ani\", \"Sam\", \"Joe\"]",
+                  "type": "text",
+                  "disabled": true
+                },
+                {
+                  "key": "terms_condition",
+                  "value": "[\"Ani\", \"Sam\", \"Joe\"]",
+                  "type": "text",
+                  "disabled": true
+                }
+              ]
+            },
+            "url": {
+              "raw": "localhost:4000/api/addhotel",
+              "host": ["localhost"],
+              "port": "4000",
+              "path": ["api", "addhotel"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "gethotels",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJwYXNzd29yZCI6IlYhdkVrQDMyMUAxMjMiLCJpYXQiOjE2OTIyNTQ1MTgsImV4cCI6MTY5MjI5NzcxOH0.uawRKGIuhMds6h8QmTE8HugpOWlVSePja4-3cuewsWc",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "localhost:4000/api/gethotels",
+              "host": ["localhost"],
+              "port": "4000",
+              "path": ["api", "gethotels"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "gethoteldetwithrooms",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJwYXNzd29yZCI6IlYhdkVrQDMyMUAxMjMiLCJpYXQiOjE2OTIyNTQ1MTgsImV4cCI6MTY5MjI5NzcxOH0.uawRKGIuhMds6h8QmTE8HugpOWlVSePja4-3cuewsWc",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "localhost:4000/api/gethotel/1",
+              "host": ["localhost"],
+              "port": "4000",
+              "path": ["api", "gethotel", "1"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "edithotel",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJwYXNzd29yZCI6IlYhdkVrQDMyMUAxMjMiLCJpYXQiOjE2OTIyNTE0NjIsImV4cCI6MTY5MjI5NDY2Mn0.gaHqbiEobiLT2DaQk-SX8wNX_HM_IPS90qNXA-CNqKE",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [
+              {
+                "key": "x-access-token",
+                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IlNodWJoYW0gS3VtYXIiLCJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJyb2xlIjoxLCJpYXQiOjE2OTIyNTE1MDUsImV4cCI6MTY5MjI4MDMwNX0.GVSjlQsh6g0y-jwjf_Cspiokz4IoI9QNdohX7a-6ZI8",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "title",
+                  "value": "Hotel Tulsi Exotic",
+                  "type": "text"
+                },
+                {
+                  "key": "slug",
+                  "value": "Hotel_Tulsi_Exotic123",
+                  "type": "text"
+                },
+                {
+                  "key": "short_description",
+                  "value": "What we did here is wrap all our code in a try statement (don't worry the catch statement will follow) and then call our fs.unlink() method we talked about earlier. Because we are doing this for multiple files we can't hard code in the path to the file we want to delete like the example from the docs. So, instead we used the template literals from ES6 to allow us to pass in the name of the file we want to delete into the directory path where it will be located (this works because all files are in the same directory).",
+                  "type": "text"
+                },
+                {
+                  "key": "long_description",
+                  "value": "What we did here is wrap all our code in a try statement (don't worry the catch statement will follow) and then call our fs.unlink() method we talked about earlier. Because we are doing this for multiple files we can't hard code in the path to the file we want to delete like the example from the docs. So, instead we used the template literals from ES6 to allow us to pass in the name of the file we want to delete into the directory path where it will be located (this works because all files are in the same directory).",
+                  "type": "text"
+                },
+                {
+                  "key": "availability",
+                  "value": "[{\"day\":\"monday\",\"status\":\"true\",\"start_time\":\"9:00:AM\",\"close_time\":\"11:00:PM\",\"date\":\"2000-02-12\"},{\"day\":\"tuesday\",\"status\":\"true\",\"start_time\":\"9:00:AM\",\"close_time\":\"11:00:PM\",\"date\":\"2000-02-12\"}]",
+                  "type": "text"
+                },
+                {
+                  "key": "status",
+                  "value": "1",
+                  "type": "text"
+                },
+                {
+                  "key": "user_id",
+                  "value": "2",
+                  "type": "text"
+                },
+                {
+                  "key": "image",
+                  "type": "file",
+                  "src": "/home/shubham/Downloads/download.jpg"
+                },
+                {
+                  "key": "gallary_image",
+                  "type": "file",
+                  "src": [
+                    "/home/shubham/Downloads/download.jpeg",
+                    "/home/shubham/Downloads/download.jpg",
+                    "/home/shubham/Downloads/download.png"
+                  ]
+                },
+                {
+                  "key": "location",
+                  "value": "{\"latitude\":\"22.719568\",\"longitude\":\"75.857727\"}",
+                  "type": "text"
+                },
+                {
+                  "key": "city",
+                  "value": "indore",
+                  "type": "text"
+                },
+                {
+                  "key": "booking_type",
+                  "value": "{\"is_hourly_booking\":true, \"is_day_boking\":true,\"is_monthly_booking\":true}",
+                  "type": "text"
+                },
+                {
+                  "key": "cancellation_pilicy",
+                  "value": "[\"Ani\", \"Sam\", \"Joe\"]",
+                  "type": "text"
+                },
+                {
+                  "key": "terms_condition",
+                  "value": "[\"Ani\", \"Sam\", \"Joe\"]",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "localhost:4000/api/edithotel/2",
+              "host": ["localhost"],
+              "port": "4000",
+              "path": ["api", "edithotel", "2"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "deletehotel",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJwYXNzd29yZCI6IlNodWJoYW0jMTIiLCJpYXQiOjE2OTEwMzg4NTQsImV4cCI6MTY5MTA4MjA1NH0.dAMs-1fa1FH2idNEkhrprRUfvVkGJ3iLS3pe1Ra7Xr8",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "x-access-token",
+                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6IlNodWJoYW0gQmhhaSIsImVtYWlsIjoic2o4NDY0NzM2QGdtYWlsLmNvbSIsInJvbGUiOjIsImlhdCI6MTY5MTA3MTE3NCwiZXhwIjoxNjkxMDk5OTc0fQ.qDDwh9Wl5WqJ6EN7g3McBqJtvCqj6yqILSUedysI_-Q",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "localhost:4000/api/deletehotel/2",
+              "host": ["localhost"],
+              "port": "4000",
+              "path": ["api", "deletehotel", "2"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "gethotelcategories",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJwYXNzd29yZCI6IlYhdkVrQDMyMUAxMjMiLCJpYXQiOjE2OTE3NTk5NDMsImV4cCI6MTY5MTgwMzE0M30.d_igKzTxEp0h0HipTpkpM9ZamY7ljnV5vUCAJB5aFMc",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "localhost:4000/api/gethotelcategories?type_identifier_id=1",
+              "host": ["localhost"],
+              "port": "4000",
+              "path": ["api", "gethotelcategories"],
+              "query": [
+                {
+                  "key": "type_identifier_id",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "gethotelamenities",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJwYXNzd29yZCI6IlYhdkVrQDMyMUAxMjMiLCJpYXQiOjE2OTE3NTk5NDMsImV4cCI6MTY5MTgwMzE0M30.d_igKzTxEp0h0HipTpkpM9ZamY7ljnV5vUCAJB5aFMc",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "localhost:4000/api/gethotelamenities",
+              "host": ["localhost"],
+              "port": "4000",
+              "path": ["api", "gethotelamenities"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "gethoteldetails",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJwYXNzd29yZCI6IlYhdkVrQDMyMUAxMjMiLCJpYXQiOjE2OTIyNTQ1MTgsImV4cCI6MTY5MjI5NzcxOH0.uawRKGIuhMds6h8QmTE8HugpOWlVSePja4-3cuewsWc",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "localhost:4000/api/gethoteldetails/1",
+              "host": ["localhost"],
+              "port": "4000",
+              "path": ["api", "gethoteldetails", "1"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "spaces",
+      "item": [
+        {
+          "name": "addspace",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJwYXNzd29yZCI6IlYhdkVrQDMyMUAxMjMiLCJpYXQiOjE2OTIyNTQ1MTgsImV4cCI6MTY5MjI5NzcxOH0.uawRKGIuhMds6h8QmTE8HugpOWlVSePja4-3cuewsWc",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "x-access-token",
+                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IlNodWJoYW0gS3VtYXIiLCJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJyb2xlIjoxLCJpYXQiOjE2OTIyNzcwODMsImV4cCI6MTY5MjMwNTg4M30.5EBfPrcrg7kbT3sMlNZZRFOHtOBLKdH6vwjeTN7nICE",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "title",
+                  "value": "Banquete Hall123",
+                  "type": "text"
+                },
+                {
+                  "key": "slug",
+                  "value": "Banquete_Hall",
+                  "type": "text"
+                },
+                {
+                  "key": "status",
+                  "value": "1",
+                  "type": "text"
+                },
+                {
+                  "key": "space_size",
+                  "value": "121 sq ft",
+                  "type": "text"
+                },
+                {
+                  "key": "guest_capacity",
+                  "value": "20",
+                  "type": "text"
+                },
+                {
+                  "key": "space_type",
+                  "value": "Premium",
+                  "type": "text"
+                },
+                {
+                  "key": "cost_per_hour",
+                  "value": "100",
+                  "type": "text"
+                },
+                {
+                  "key": "cost_per_day",
+                  "value": "200",
+                  "type": "text"
+                },
+                {
+                  "key": "short_description",
+                  "value": "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of \"de Finibus Bonorum et Malorum\" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, \"Lorem ipsum dolor sit amet..\", comes from a line in section 1.10.32.",
+                  "type": "text"
+                },
+                {
+                  "key": "long_description",
+                  "value": "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of \"de Finibus Bonorum et Malorum\" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, \"Lorem ipsum dolor sit amet..\", comes from a line in section 1.10.32.Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of \"de Finibus Bonorum et Malorum\" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, \"Lorem ipsum dolor sit amet..\", comes from a line in section 1.10.32.Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of \"de Finibus Bonorum et Malorum\" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, \"Lorem ipsum dolor sit amet..\", comes from a line in section 1.10.32.",
+                  "type": "text"
+                },
+                {
+                  "key": "avalability",
+                  "value": "[{\"day\":\"monday\",\"status\":\"true\",\"start_time\":\"9:00:AM\",\"close_time\":\"11:00:PM\",\"date\":\"2000-02-12\"},{\"day\":\"tuesday\",\"status\":\"true\",\"start_time\":\"9:00:AM\",\"close_time\":\"11:00:PM\",\"date\":\"2000-02-12\"}]",
+                  "type": "text",
+                  "disabled": true
+                },
+                {
+                  "key": "image",
+                  "type": "file",
+                  "src": "/home/shubham/Downloads/download.jpg",
+                  "disabled": true
+                },
+                {
+                  "key": "gallary_image",
+                  "type": "file",
+                  "src": [
+                    "/home/shubham/Downloads/download.jpeg",
+                    "/home/shubham/Downloads/download.jpg",
+                    "/home/shubham/Downloads/download.png"
+                  ],
+                  "disabled": true
+                },
+                {
+                  "key": "location",
+                  "value": "{\"latitude\":\"22.719568\",\"longitude\":\"75.857727\"}",
+                  "type": "text",
+                  "disabled": true
+                },
+                {
+                  "key": "city",
+                  "value": "Indore",
+                  "type": "text",
+                  "disabled": true
+                },
+                {
+                  "key": "booking_type",
+                  "value": "{\"is_hourly_booking\":true, \"is_day_boking\":true,\"is_monthly_booking\":true}",
+                  "type": "text",
+                  "disabled": true
+                },
+                {
+                  "key": "cancellation_pilicy",
+                  "value": "[\"Ani\", \"Sam\", \"Joe\"]",
+                  "type": "text",
+                  "disabled": true
+                },
+                {
+                  "key": "terms_condition",
+                  "value": "[\"Ani\", \"Sam\", \"Joe\"]",
+                  "type": "text",
+                  "disabled": true
+                },
+                {
+                  "key": "user_id",
+                  "value": "2",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "localhost:4000/api/addspace",
+              "host": ["localhost"],
+              "port": "4000",
+              "path": ["api", "addspace"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getspaces",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJwYXNzd29yZCI6IlNodWJoYW0jMTIiLCJpYXQiOjE2OTE2NDE3ODQsImV4cCI6MTY5MTY4NDk4NH0.tLSpmSdPHJxrS7xMofG9J4u5gqSJ4RS3K8DGRHImQtc",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "localhost:4000/api/getspaces",
+              "host": ["localhost"],
+              "port": "4000",
+              "path": ["api", "getspaces"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getspace",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJwYXNzd29yZCI6IlNodWJoYW0jMTIiLCJpYXQiOjE2OTE2NDE3ODQsImV4cCI6MTY5MTY4NDk4NH0.tLSpmSdPHJxrS7xMofG9J4u5gqSJ4RS3K8DGRHImQtc",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "localhost:4000/api/getspace/3",
+              "host": ["localhost"],
+              "port": "4000",
+              "path": ["api", "getspace", "3"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "editspace",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJwYXNzd29yZCI6IlYhdkVrQDMyMUAxMjMiLCJpYXQiOjE2OTIyNTQ1MTgsImV4cCI6MTY5MjI5NzcxOH0.uawRKGIuhMds6h8QmTE8HugpOWlVSePja4-3cuewsWc",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [
+              {
+                "key": "x-access-token",
+                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IlNodWJoYW0gS3VtYXIiLCJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJyb2xlIjoxLCJpYXQiOjE2OTIyNzcwODMsImV4cCI6MTY5MjMwNTg4M30.5EBfPrcrg7kbT3sMlNZZRFOHtOBLKdH6vwjeTN7nICE",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "title",
+                  "value": "Banquete Hall1",
+                  "type": "text"
+                },
+                {
+                  "key": "slug",
+                  "value": "Hello_Varun_sir",
+                  "type": "text"
+                },
+                {
+                  "key": "status",
+                  "value": "1",
+                  "type": "text"
+                },
+                {
+                  "key": "space_size",
+                  "value": "121 sq ft",
+                  "type": "text"
+                },
+                {
+                  "key": "guest_capacity",
+                  "value": "23",
+                  "type": "text"
+                },
+                {
+                  "key": "space_type",
+                  "value": "Premium",
+                  "type": "text"
+                },
+                {
+                  "key": "cost_per_hour",
+                  "value": "122",
+                  "type": "text"
+                },
+                {
+                  "key": "cost_per_day",
+                  "value": "1245",
+                  "type": "text"
+                },
+                {
+                  "key": "short_description",
+                  "value": "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of \"de Finibus Bonorum et Malorum\" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics,",
+                  "type": "text"
+                },
+                {
+                  "key": "long_description",
+                  "value": "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of \"de Finibus Bonorum et Malorum\" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics,",
+                  "type": "text"
+                },
+                {
+                  "key": "avalability",
+                  "value": "[{\"day\":\"monday\",\"status\":\"true\",\"start_time\":\"9:00:AM\",\"close_time\":\"11:00:PM\",\"date\":\"2000-02-12\"},{\"day\":\"tuesday\",\"status\":\"true\",\"start_time\":\"9:00:AM\",\"close_time\":\"11:00:PM\",\"date\":\"2000-02-12\"}]",
+                  "type": "text"
+                },
+                {
+                  "key": "image",
+                  "type": "file",
+                  "src": "/home/shubham/Downloads/download.jpeg"
+                },
+                {
+                  "key": "gallary_image",
+                  "type": "file",
+                  "src": [
+                    "/home/shubham/Downloads/download.jpeg",
+                    "/home/shubham/Downloads/download.jpg",
+                    "/home/shubham/Downloads/download.png"
+                  ]
+                },
+                {
+                  "key": "location",
+                  "value": "{\"latitude\":\"22.719568\",\"longitude\":\"75.857727\"}",
+                  "type": "text"
+                },
+                {
+                  "key": "city",
+                  "value": "indore",
+                  "type": "text"
+                },
+                {
+                  "key": "booking_type",
+                  "value": "{\"is_hourly_booking\":true, \"is_day_boking\":true,\"is_monthly_booking\":true}",
+                  "type": "text"
+                },
+                {
+                  "key": "cancellation_pilicy",
+                  "value": "[\"Ani\", \"Sam\", \"Joe\"]",
+                  "type": "text"
+                },
+                {
+                  "key": "terms_condition",
+                  "value": "[\"Ani\", \"Sam\", \"Joe\"]",
+                  "type": "text"
+                },
+                {
+                  "key": "user_id",
+                  "value": "2",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "localhost:4000/api/editspace/1",
+              "host": ["localhost"],
+              "port": "4000",
+              "path": ["api", "editspace", "1"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "deletespace",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJwYXNzd29yZCI6IlNodWJoYW0jMTIiLCJpYXQiOjE2OTExMjU0MTEsImV4cCI6MTY5MTE2ODYxMX0.PWXrWnvIs88-qKYDO11YRrEmuT0cn9oCiaWMhV-3W2A",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "x-access-token",
+                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6IlNodWJoYW0gQmhhaSIsImVtYWlsIjoic2o4NDY0NzM2QGdtYWlsLmNvbSIsInJvbGUiOjIsImlhdCI6MTY5MTE0NDUwMywiZXhwIjoxNjkxMTczMzAzfQ.or4RTXgxA1lE7x7oXfG0Vruk2UDXVEn2ij1Y46Q58aw",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "localhost:4000/api/deletespace/3",
+              "host": ["localhost"],
+              "port": "4000",
+              "path": ["api", "deletespace", "3"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getspacecategories",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJwYXNzd29yZCI6IlNodWJoYW0jMTIiLCJpYXQiOjE2OTEzOTY2MDQsImV4cCI6MTY5MTQzOTgwNH0.3m_5aypP_8h7SPFa7NHfIdPPIVPVXvpo5-eXCPjVehU",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "localhost:4000/api/getspacescategories?type_identifier_id=3",
+              "host": ["localhost"],
+              "port": "4000",
+              "path": ["api", "getspacescategories"],
+              "query": [
+                {
+                  "key": "type_identifier_id",
+                  "value": "3"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getspaceamenities",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJwYXNzd29yZCI6IlNodWJoYW0jMTIiLCJpYXQiOjE2OTEzOTY2MDQsImV4cCI6MTY5MTQzOTgwNH0.3m_5aypP_8h7SPFa7NHfIdPPIVPVXvpo5-eXCPjVehU",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "localhost:4000/api/getspacesamenities",
+              "host": ["localhost"],
+              "port": "4000",
+              "path": ["api", "getspacesamenities"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "automobiles",
+      "item": [
+        {
+          "name": "addautomobile",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJwYXNzd29yZCI6IlYhdkVrQDMyMUAxMjMiLCJpYXQiOjE2OTIyNTQ1MTgsImV4cCI6MTY5MjI5NzcxOH0.uawRKGIuhMds6h8QmTE8HugpOWlVSePja4-3cuewsWc",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "x-access-token",
+                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IlNodWJoYW0gS3VtYXIiLCJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJyb2xlIjoxLCJpYXQiOjE2OTIyNzcwODMsImV4cCI6MTY5MjMwNTg4M30.5EBfPrcrg7kbT3sMlNZZRFOHtOBLKdH6vwjeTN7nICE",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "auto_mobile_categories",
+                  "value": "bike",
+                  "type": "text"
+                },
+                {
+                  "key": "auto_mobile_name",
+                  "value": "CD Delux 125",
+                  "type": "text"
+                },
+                {
+                  "key": "auto_mobile_number",
+                  "value": "MP-17-IN-124",
+                  "type": "text"
+                },
+                {
+                  "key": "auto_mobile_brand",
+                  "value": "Hero Honda",
+                  "type": "text"
+                },
+                {
+                  "key": "auto_mobile_type",
+                  "value": "sedan",
+                  "type": "text"
+                },
+                {
+                  "key": "user_id",
+                  "value": "1",
+                  "type": "text"
+                },
+                {
+                  "key": "rc_number",
+                  "value": "835947dhjsfksg",
+                  "type": "text"
+                },
+                {
+                  "key": "seater",
+                  "value": "2",
+                  "type": "text"
+                },
+                {
+                  "key": "cost_per_km",
+                  "value": "200",
+                  "type": "text"
+                },
+                {
+                  "key": "image",
+                  "type": "file",
+                  "src": "/home/shubham/Downloads/download.jpg"
+                },
+                {
+                  "key": "gallary_image",
+                  "type": "file",
+                  "src": [
+                    "/home/shubham/Downloads/download.jpeg",
+                    "/home/shubham/Downloads/download.jpg",
+                    "/home/shubham/Downloads/download.png"
+                  ]
+                },
+                {
+                  "key": "status",
+                  "value": "1",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "localhost:4000/api/addautomobile",
+              "host": ["localhost"],
+              "port": "4000",
+              "path": ["api", "addautomobile"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getautomobiles",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJwYXNzd29yZCI6IlNodWJoYW0jMTIiLCJpYXQiOjE2OTE2NjA0MjEsImV4cCI6MTY5MTcwMzYyMX0.WS9KdWVdsLccYzGiPY0hKL8aviaTlbOUs4L-TiVFIBo",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "localhost:4000/api/getautomobiles",
+              "host": ["localhost"],
+              "port": "4000",
+              "path": ["api", "getautomobiles"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getautomobile",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJwYXNzd29yZCI6IlNodWJoYW0jMTIiLCJpYXQiOjE2OTE2NjA0MjEsImV4cCI6MTY5MTcwMzYyMX0.WS9KdWVdsLccYzGiPY0hKL8aviaTlbOUs4L-TiVFIBo",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "localhost:4000/api/getautomobile/13",
+              "host": ["localhost"],
+              "port": "4000",
+              "path": ["api", "getautomobile", "13"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "editautomobile",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJwYXNzd29yZCI6IlYhdkVrQDMyMUAxMjMiLCJpYXQiOjE2OTIyNTQ1MTgsImV4cCI6MTY5MjI5NzcxOH0.uawRKGIuhMds6h8QmTE8HugpOWlVSePja4-3cuewsWc",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [
+              {
+                "key": "x-access-token",
+                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IlNodWJoYW0gS3VtYXIiLCJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJyb2xlIjoxLCJpYXQiOjE2OTIyNzcwODMsImV4cCI6MTY5MjMwNTg4M30.5EBfPrcrg7kbT3sMlNZZRFOHtOBLKdH6vwjeTN7nICE",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "auto_mobile_categories",
+                  "value": "car",
+                  "type": "text"
+                },
+                {
+                  "key": "auto_mobile_name",
+                  "value": "CD Delux 125",
+                  "type": "text"
+                },
+                {
+                  "key": "auto_mobile_number",
+                  "value": "MP-17-IN-124",
+                  "type": "text"
+                },
+                {
+                  "key": "auto_mobile_brand",
+                  "value": "Hero Honda",
+                  "type": "text"
+                },
+                {
+                  "key": "auto_mobile_type",
+                  "value": "sedan",
+                  "type": "text"
+                },
+                {
+                  "key": "user_id",
+                  "value": "2",
+                  "type": "text"
+                },
+                {
+                  "key": "rc_number",
+                  "value": "dfgvd345345",
+                  "type": "text"
+                },
+                {
+                  "key": "seater",
+                  "value": "2",
+                  "type": "text"
+                },
+                {
+                  "key": "cost_per_km",
+                  "value": "12",
+                  "type": "text"
+                },
+                {
+                  "key": "image",
+                  "type": "file",
+                  "src": "/home/shubham/Downloads/download.jpg"
+                },
+                {
+                  "key": "gallary_image",
+                  "type": "file",
+                  "src": [
+                    "/home/shubham/Downloads/download.jpeg",
+                    "/home/shubham/Downloads/download.jpg",
+                    "/home/shubham/Downloads/download.png"
+                  ]
+                },
+                {
+                  "key": "status",
+                  "value": "1",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "localhost:4000/api/editautomobile/1",
+              "host": ["localhost"],
+              "port": "4000",
+              "path": ["api", "editautomobile", "1"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "deleteautomobile",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJwYXNzd29yZCI6IlNodWJoYW0jMTIiLCJpYXQiOjE2OTExMjU0MTEsImV4cCI6MTY5MTE2ODYxMX0.PWXrWnvIs88-qKYDO11YRrEmuT0cn9oCiaWMhV-3W2A",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "x-access-token",
+                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6IlNodWJoYW0gQmhhaSIsImVtYWlsIjoic2o4NDY0NzM2QGdtYWlsLmNvbSIsInJvbGUiOjIsImlhdCI6MTY5MTE1MDQ5MSwiZXhwIjoxNjkxMTc5MjkxfQ.CH1nAwsGiuwNa2oWoZTTbYUb9Xap8qj5Ojxl78aSKPU",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "localhost:4000/api/deleteautomobile/2",
+              "host": ["localhost"],
+              "port": "4000",
+              "path": ["api", "deleteautomobile", "2"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getautomobilecategories",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJwYXNzd29yZCI6IlNodWJoYW0jMTIiLCJpYXQiOjE2OTEzOTY2MDQsImV4cCI6MTY5MTQzOTgwNH0.3m_5aypP_8h7SPFa7NHfIdPPIVPVXvpo5-eXCPjVehU",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "localhost:4000/api/getautomobilecategories?type_identifier_id=5",
+              "host": ["localhost"],
+              "port": "4000",
+              "path": ["api", "getautomobilecategories"],
+              "query": [
+                {
+                  "key": "type_identifier_id",
+                  "value": "5"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "typeidentifier",
+      "item": [
+        {
+          "name": "gettypeidentifiers",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJwYXNzd29yZCI6IlNodWJoYW0jMTIiLCJpYXQiOjE2OTEzODQ2NjcsImV4cCI6MTY5MTQyNzg2N30.3KH4dYkt1E6hfzd8K5cpaKhWv7-5x74Uo25G2aUpba8",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "localhost:4000/api/gettypeidentifiers",
+              "host": ["localhost"],
+              "port": "4000",
+              "path": ["api", "gettypeidentifiers"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "addtypeidentifier",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJwYXNzd29yZCI6IlNodWJoYW0jMTIiLCJpYXQiOjE2OTEzOTY2MDQsImV4cCI6MTY5MTQzOTgwNH0.3m_5aypP_8h7SPFa7NHfIdPPIVPVXvpo5-eXCPjVehU",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-access-token",
+                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6IlNodWJoYW0gQmhhaSIsImVtYWlsIjoic2o4NDY0NzM2QGdtYWlsLmNvbSIsInJvbGUiOjIsImlhdCI6MTY5MTQwNjEzOCwiZXhwIjoxNjkxNDM0OTM4fQ.AMfd5xucTodAeqra4iUU-AVgjrwtbKcTOStx5E5BxTA",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"type\":\"space_amenities\",\n    \"slug\":\"space_amenities\",\n    \"entity\":\"space\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:4000/api/addtypeidentifier",
+              "host": ["localhost"],
+              "port": "4000",
+              "path": ["api", "addtypeidentifier"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "addcategoryamenities",
+      "item": [
+        {
+          "name": "addcategoriesamenities",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJwYXNzd29yZCI6IlNodWJoYW0jMTIiLCJpYXQiOjE2OTEzOTY2MDQsImV4cCI6MTY5MTQzOTgwNH0.3m_5aypP_8h7SPFa7NHfIdPPIVPVXvpo5-eXCPjVehU",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "x-access-token",
+                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6IlNodWJoYW0gQmhhaSIsImVtYWlsIjoic2o4NDY0NzM2QGdtYWlsLmNvbSIsInJvbGUiOjIsImlhdCI6MTY5MTQwMzAwOSwiZXhwIjoxNjkxNDMxODA5fQ.XQ5npKOEj4Qa3b1-zyQqQJKwhMiweq4IDEiDZ7JK3vQ",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"Projector\",\n    \"slug\": \"Projector\",\n    \"type_identifier_id\": 4\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:4000/api/addcategoriesoramenities",
+              "host": ["localhost"],
+              "port": "4000",
+              "path": ["api", "addcategoriesoramenities"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getcatamtbyid",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJwYXNzd29yZCI6IlNodWJoYW0jMTIiLCJpYXQiOjE2OTEzOTY2MDQsImV4cCI6MTY5MTQzOTgwNH0.3m_5aypP_8h7SPFa7NHfIdPPIVPVXvpo5-eXCPjVehU",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "localhost:4000/api/getcategoriesamenities/15",
+              "host": ["localhost"],
+              "port": "4000",
+              "path": ["api", "getcategoriesamenities", "15"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "editcatamtbtid",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJwYXNzd29yZCI6IlNodWJoYW0jMTIiLCJpYXQiOjE2OTEzOTY2MDQsImV4cCI6MTY5MTQzOTgwNH0.3m_5aypP_8h7SPFa7NHfIdPPIVPVXvpo5-eXCPjVehU",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [
+              {
+                "key": "x-access-token",
+                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6IlNodWJoYW0gQmhhaSIsImVtYWlsIjoic2o4NDY0NzM2QGdtYWlsLmNvbSIsInJvbGUiOjIsImlhdCI6MTY5MTQwNjEzOCwiZXhwIjoxNjkxNDM0OTM4fQ.AMfd5xucTodAeqra4iUU-AVgjrwtbKcTOStx5E5BxTA",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\":\"Meeting hall\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:4000/api/editcategoriesamenities/15",
+              "host": ["localhost"],
+              "port": "4000",
+              "path": ["api", "editcategoriesamenities", "15"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getcategoriesamenitiesbytypeidentifierid",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJwYXNzd29yZCI6IlNodWJoYW0jMTIiLCJpYXQiOjE2OTEzOTY2MDQsImV4cCI6MTY5MTQzOTgwNH0.3m_5aypP_8h7SPFa7NHfIdPPIVPVXvpo5-eXCPjVehU",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "localhost:4000/api/getcategoriesamenities?type_identifier_id=4",
+              "host": ["localhost"],
+              "port": "4000",
+              "path": ["api", "getcategoriesamenities"],
+              "query": [
+                {
+                  "key": "type_identifier_id",
+                  "value": "4"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "orders",
+      "item": [
+        {
+          "name": "addhotelorder",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJwYXNzd29yZCI6IlNodWJoYW0jMTIiLCJpYXQiOjE2OTE1ODU4NTYsImV4cCI6MTY5MTYyOTA1Nn0.Fp4npDd2mOKrQfJgThFTK4OyyF2OtGZ_AVWwVadMpdc",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "x-access-token",
+                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJwYXNzd29yZCI6IlNodWJoYW0jMTIiLCJpYXQiOjE2OTE1ODU4NTYsImV4cCI6MTY5MTYyOTA1Nn0.Fp4npDd2mOKrQfJgThFTK4OyyF2OtGZ_AVWwVadMpdc",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"status\": 1,\n    \"order_type\": \"hotel_order\",\n    \"amount\": 200,\n    \"unique_transaction_id\": \"Trx-123456789\",\n    \"user_id\": \"1\",\n    \"hotel_id\": \"1\",\n    \"room_id\": 1,\n    \"transaction_id\": 1,\n    \"check_in_datetime\": \"2023-08-07 11:22:04\",\n    \"check_out_datetime\": \"2023-08-07 11:22:04\",\n    \"guest_details\": [\n        {\n            \"name\": \"shubham kumar jaiswal\",\n            \"date_of_birth\": \"199-02-11\",\n            \"gender\": \"male\"\n        },\n        {\n            \"name\": \"shubham kumar jaiswal\",\n            \"date_of_birth\": \"199-02-11\",\n            \"gender\": \"male\"\n        }\n    ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:4000/api/addorder",
+              "host": ["localhost"],
+              "port": "4000",
+              "path": ["api", "addorder"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getorders",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJwYXNzd29yZCI6IlNodWJoYW0jMTIiLCJpYXQiOjE2OTE1ODU4NTYsImV4cCI6MTY5MTYyOTA1Nn0.Fp4npDd2mOKrQfJgThFTK4OyyF2OtGZ_AVWwVadMpdc",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "localhost:4000/api/getorders",
+              "host": ["localhost"],
+              "port": "4000",
+              "path": ["api", "getorders"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getorderrdetails",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6IlNodWJoYW0gQmhhaSIsImVtYWlsIjoic2o4NDY0NzM2QGdtYWlsLmNvbSIsInJvbGUiOjIsImlhdCI6MTY5MTU4NTczMCwiZXhwIjoxNjkxNjE0NTMwfQ.36yCdEfFIqwJF5IetHNMNPIw5TNOALUgjNh0MxhQB_M",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "localhost:4000/api/getorder/2",
+              "host": ["localhost"],
+              "port": "4000",
+              "path": ["api", "getorder", "2"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "addspaceorder",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJwYXNzd29yZCI6IlNodWJoYW0jMTIiLCJpYXQiOjE2OTE1ODU4NTYsImV4cCI6MTY5MTYyOTA1Nn0.Fp4npDd2mOKrQfJgThFTK4OyyF2OtGZ_AVWwVadMpdc",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "x-access-token",
+                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJwYXNzd29yZCI6IlNodWJoYW0jMTIiLCJpYXQiOjE2OTE1ODU4NTYsImV4cCI6MTY5MTYyOTA1Nn0.Fp4npDd2mOKrQfJgThFTK4OyyF2OtGZ_AVWwVadMpdc",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"status\": 1,\n    \"order_type\": \"space_order\",\n    \"amount\": 200,\n    \"unique_transaction_id\": \"Trx-123456789YYYYY\",\n    \"user_id\": \"1\",\n    \"space_id\": \"1\",\n    \"total_person\": 50,\n    \"transaction_id\": 1,\n    \"check_in_datetime\": \"2023-08-09 10:21:42\",\n    \"check_out_datetime\": \"2023-08-09 10:21:42\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:4000/api/addorder",
+              "host": ["localhost"],
+              "port": "4000",
+              "path": ["api", "addorder"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "addautomobileorder",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJwYXNzd29yZCI6IlNodWJoYW0jMTIiLCJpYXQiOjE2OTE1ODU1NjAsImV4cCI6MTY5MTYyODc2MH0.6us5DvxObJhwHFI7_QtUV8gajoUWtWlHRfnDFb97vzc",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "x-access-token",
+                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJwYXNzd29yZCI6IlNodWJoYW0jMTIiLCJpYXQiOjE2OTE1ODU1NjAsImV4cCI6MTY5MTYyODc2MH0.6us5DvxObJhwHFI7_QtUV8gajoUWtWlHRfnDFb97vzc",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"status\": 1,\n    \"order_type\": \"autoobile_order\",\n    \"amount\": 200,\n    \"unique_transaction_id\": \"Trx-123456789YYYYY\",\n    \"user_id\": \"1\",\n    \"automobile_id\": 1,\n    \"driver_id\": 2,\n    \"transaction_id\": 1,\n    \"auto_mobile_source\": \"\",\n    \"auto_mobile_destination\": \"\",\n    \"check_in_datetime\": \"\",\n    \"check_out_datetime\": \"\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:4000/api/addorder",
+              "host": ["localhost"],
+              "port": "4000",
+              "path": ["api", "addorder"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "transaction",
+      "item": [
+        {
+          "name": "addtransaction",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJwYXNzd29yZCI6IlNodWJoYW0jMTIiLCJpYXQiOjE2OTE0NjkxMDYsImV4cCI6MTY5MTUxMjMwNn0.SwB__iGPLT2hjsISCi-L37hG9UwilF13d8NOb1erVXw",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "x-access-token",
+                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6IlNodWJoYW0gQmhhaSIsImVtYWlsIjoic2o4NDY0NzM2QGdtYWlsLmNvbSIsInJvbGUiOjIsImlhdCI6MTY5MTQ2OTE0MywiZXhwIjoxNjkxNDk3OTQzfQ.pc9pLzB5nPOKxmdX_Sf5V_n5xNLRbU31K9nRktki3vw",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"order_id\":2,\n    \"amount\":200,\n    \"txn_id\":\"bvgfhngfhnjgf\",\n    \"payment_method\":\"stripe\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:4000/api/addtransaction",
+              "host": ["localhost"],
+              "port": "4000",
+              "path": ["api", "addtransaction"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "gettransactions",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJwYXNzd29yZCI6IlNodWJoYW0jMTIiLCJpYXQiOjE2OTE0NjkxMDYsImV4cCI6MTY5MTUxMjMwNn0.SwB__iGPLT2hjsISCi-L37hG9UwilF13d8NOb1erVXw",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "localhost:4000/api/gettransactions",
+              "host": ["localhost"],
+              "port": "4000",
+              "path": ["api", "gettransactions"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "gettransactionbyid",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJwYXNzd29yZCI6IlNodWJoYW0jMTIiLCJpYXQiOjE2OTE0NjkxMDYsImV4cCI6MTY5MTUxMjMwNn0.SwB__iGPLT2hjsISCi-L37hG9UwilF13d8NOb1erVXw",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "localhost:4000/api/gettransaction/1",
+              "host": ["localhost"],
+              "port": "4000",
+              "path": ["api", "gettransaction", "1"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "payment",
+      "item": [
+        {
+          "name": "acceptpayment",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJwYXNzd29yZCI6IlNodWJoYW0jMTIiLCJpYXQiOjE2OTE0NjkxMDYsImV4cCI6MTY5MTUxMjMwNn0.SwB__iGPLT2hjsISCi-L37hG9UwilF13d8NOb1erVXw",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "x-access-token",
+                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6IlNodWJoYW0gQmhhaSIsImVtYWlsIjoic2o4NDY0NzM2QGdtYWlsLmNvbSIsInJvbGUiOjIsImlhdCI6MTY5MTQ2OTE0MywiZXhwIjoxNjkxNDk3OTQzfQ.pc9pLzB5nPOKxmdX_Sf5V_n5xNLRbU31K9nRktki3vw",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"product_items\": [\n        {\n            \"item_name\": \"T-shirt\",\n            \"amount\": 2000,\n            \"quantity\": 1\n        }\n    ],\n    \"success_page_url\": \"http://mangoit-lms.mangoitsol.com/paymentsuccess\",\n    \"cancel_page_url\": \"http://mangoit-lms.mangoitsol.com/paymentcancel\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:4000/api/acceptpayment",
+              "host": ["localhost"],
+              "port": "4000",
+              "path": ["api", "acceptpayment"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getpaymentdetails",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJwYXNzd29yZCI6IlNodWJoYW0jMTIiLCJpYXQiOjE2OTE0NjkxMDYsImV4cCI6MTY5MTUxMjMwNn0.SwB__iGPLT2hjsISCi-L37hG9UwilF13d8NOb1erVXw",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-access-token",
+                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6IlNodWJoYW0gQmhhaSIsImVtYWlsIjoic2o4NDY0NzM2QGdtYWlsLmNvbSIsInJvbGUiOjIsImlhdCI6MTY5MTQ2OTE0MywiZXhwIjoxNjkxNDk3OTQzfQ.pc9pLzB5nPOKxmdX_Sf5V_n5xNLRbU31K9nRktki3vw",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"cs_test_key\": \"cs_test_a1Y6XrChxKCsWk9gOet6TFUseERGE43eu08ZDq2aZysXJfpf8xuFQpXCMH\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:4000/api/getpaymentdetails",
+              "host": ["localhost"],
+              "port": "4000",
+              "path": ["api", "getpaymentdetails"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "siteoptions",
+      "item": [
+        {
+          "name": "addsiteoptions",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJwYXNzd29yZCI6IlYhdkVrQDMyMUAxMjMiLCJpYXQiOjE2OTIzNDY1NTAsImV4cCI6MTY5MjM4OTc1MH0.ajfidHKkGW0aPu6OdUSVJbXiXatk5p-T0jI9yPhHJjY",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "x-access-token",
+                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IlNodWJoYW0gS3VtYXIiLCJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJyb2xlIjoxLCJpYXQiOjE2OTIzNDU2MzQsImV4cCI6MTY5MjM3NDQzNH0.RQdSk-OmCvHqU2aKHyBgauUOndcvBKNxX6F7BwfdYpw",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "title",
+                  "value": "My Shoping App",
+                  "type": "text"
+                },
+                {
+                  "key": "fav_icon",
+                  "type": "file",
+                  "src": "/home/shubham/Downloads/download.jpeg"
+                },
+                {
+                  "key": "company_logo",
+                  "type": "file",
+                  "src": "/home/shubham/Downloads/download.jpg"
+                }
+              ]
+            },
+            "url": {
+              "raw": "localhost:4000/api/addsiteoptionmeta",
+              "host": ["localhost"],
+              "port": "4000",
+              "path": ["api", "addsiteoptionmeta"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getsiteoptions",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJwYXNzd29yZCI6IlYhdkVrQDMyMUAxMjMiLCJpYXQiOjE2OTIzNDY1NTAsImV4cCI6MTY5MjM4OTc1MH0.ajfidHKkGW0aPu6OdUSVJbXiXatk5p-T0jI9yPhHJjY",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "localhost:4000/api/getsiteoptionmeta",
+              "host": ["localhost"],
+              "port": "4000",
+              "path": ["api", "getsiteoptionmeta"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "editsiteoptions",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJwYXNzd29yZCI6IlYhdkVrQDMyMUAxMjMiLCJpYXQiOjE2OTIzNDY1NTAsImV4cCI6MTY5MjM4OTc1MH0.ajfidHKkGW0aPu6OdUSVJbXiXatk5p-T0jI9yPhHJjY",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [
+              {
+                "key": "x-access-token",
+                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IlNodWJoYW0gS3VtYXIiLCJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJyb2xlIjoxLCJpYXQiOjE2OTIzNDU2MzQsImV4cCI6MTY5MjM3NDQzNH0.RQdSk-OmCvHqU2aKHyBgauUOndcvBKNxX6F7BwfdYpw",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "title",
+                  "value": "dfgadghsdfg",
+                  "type": "text"
+                },
+                {
+                  "key": "fav_icon",
+                  "type": "file",
+                  "src": "/home/shubham/Downloads/download.jpg"
+                },
+                {
+                  "key": "company_logo",
+                  "type": "file",
+                  "src": "/home/shubham/Downloads/download.png"
+                }
+              ]
+            },
+            "url": {
+              "raw": "localhost:4000/api/editsiteoptionmeta",
+              "host": ["localhost"],
+              "port": "4000",
+              "path": ["api", "editsiteoptionmeta"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "checkserver",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "localhost:4000",
+          "host": ["localhost"],
+          "port": "4000"
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "swaggerdoc",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:4000/api-docs",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "4000",
+          "path": ["api-docs"]
+        }
+      },
+      "response": []
+    }
+  ]
+}

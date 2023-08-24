@@ -15,7 +15,8 @@ npm start
 ![booking-management-backend_erd](https://github.com/infoocean/Booking_Management_API_Node_with_Mysql_Sequelize/assets/63592223/938c67b9-3f07-4215-8083-82c62d432068)
 
 # Note
- Please go to the AssetsDb Folder for Database Export and entity Relationship Diagram Export
+
+Please go to the AssetsDb Folder for Database Export and entity Relationship Diagram Export
 
 # Database Information
 
@@ -33,5 +34,11 @@ click given link to get all collection : https://documenter.getpostman.com/view/
 # swagger collection
 
 hit given url on google crome and get collections :
-for local server => http://localhost:4000/api-docs
-for staging server => http://localhost:4000/api-docs
+local server : <local_server_path>/api-docs
+staging server : <staging_server_path>/api-docs
+development server : <development_server_path>/api-docs
+
+# if you want to get json collection check below file
+
+postman collection : postman.json
+swagger collection : swagger.json
