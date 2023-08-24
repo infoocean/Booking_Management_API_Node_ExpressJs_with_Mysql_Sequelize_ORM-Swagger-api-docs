@@ -21,8 +21,8 @@ Please go to the AssetsDb Folder for Database Export and entity Relationship Dia
 # Database Information
 
 database name = booking_management
-database user name = root
-database passwoird = V!vEk@321@123
+database user name = <your database user name>
+database passwoird = <your database password>
 DIALECT = mysql
 
 # getting apis collection
