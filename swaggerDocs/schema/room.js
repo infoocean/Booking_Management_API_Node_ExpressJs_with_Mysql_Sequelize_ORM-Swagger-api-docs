@@ -21,7 +21,7 @@ const roomEntityProperties = {
     type: "string",
     description: "Short information of abount room",
     example:
-      "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of de Finibus Bonorum et Malorum (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, Lorem ipsum dolor sit amet.., comes from a line in section 1.10.32.",
+      "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source.",
   },
   image: {
     type: "string",
@@ -35,27 +35,29 @@ const roomEntityProperties = {
   },
   guest_capacity: {
     type: "integer",
-    description: "Total capacity of guest",
+    description: "Total capacity of guest in room",
     example: 2,
   },
   room_type: {
     type: "string",
-    description: "Types of room",
+    description:
+      "Type of room : like - single room, double room, family room, living room, dining room, suite room etc",
     example: "single",
   },
   status: {
     type: "integer",
-    description: "Status of room available or not",
+    description:
+      "Status of room active or inactive :  0 means inactive 1 means active",
     example: 1,
   },
   cost_per_day: {
     type: "integer",
-    description: "Per day amount of room",
+    description: "Per day amount(cost) of room",
     example: 200,
   },
   cost_per_hour: {
     type: "integer",
-    description: "Per hour amount of room",
+    description: "Per hour amount(cost) of room",
     example: 200,
   },
   room_size: {

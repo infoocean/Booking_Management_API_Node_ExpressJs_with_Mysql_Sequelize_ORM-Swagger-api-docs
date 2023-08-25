@@ -56,36 +56,26 @@ module.exports = {
                 properties: {
                   success: { example: "true" },
                   message: { example: "user signup successfylly!" },
-                  first_name: {
-                    description: "The user first name for signup",
-                    required: true,
-                    type: "string",
-                    example: "Shubham",
-                  },
-                  last_name: {
-                    description: "The user last name for signup",
-                    required: true,
-                    type: "string",
-                    example: "Jaiwsal",
-                  },
-                  email: {
-                    description: "The user email for signup",
-                    required: true,
-                    type: "string",
-                    example: "sj2585097@gmail.com",
-                  },
-                  phone_number: {
-                    description: "The user phone number for signup",
-                    required: true,
-                    type: "string",
-                    example: "7089413024",
-                  },
-                  password: {
-                    description: "The user phone number for signup",
-                    required: true,
-                    type: "string",
-                    example:
-                      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJwYXNzd29yZCI6IlYhdkVrQDMyMUAxMjMiLCJpYXQiOjE2OTI2ODU5NDEsImV4cCI6MTY5MjcyOTE0MX0.I5_QzYwzSCLpNZ1qZBN9srQoa8Wbh8Uh01h_zgP5_V8",
+                  user: {
+                    type: "object",
+                    properties: {
+                      first_name: {
+                        example: "Shubham",
+                      },
+                      last_name: {
+                        example: "Jaiwsal",
+                      },
+                      email: {
+                        example: "sj2585097@gmail.com",
+                      },
+                      phone_number: {
+                        example: "7089413024",
+                      },
+                      password: {
+                        example:
+                          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJwYXNzd29yZCI6IlYhdkVrQDMyMUAxMjMiLCJpYXQiOjE2OTI2ODU5NDEsImV4cCI6MTY5MjcyOTE0MX0.I5_QzYwzSCLpNZ1qZBN9srQoa8Wbh8Uh01h_zgP5_V8",
+                      },
+                    },
                   },
                 },
               },

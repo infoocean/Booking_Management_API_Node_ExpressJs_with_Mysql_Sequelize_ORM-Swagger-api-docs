@@ -5,12 +5,27 @@ module.exports = {
       tags: ["User"],
       summary: "add user into the system",
       operationId: "adduser",
+      parameters: [
+        {
+          name: "x-access-token",
+          in: "header",
+          required: true,
+          style: "simple",
+          explode: false,
+          schema: {
+            type: "string",
+          },
+          description: "provide login token",
+          example:
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IlNodWJoYW0gS3VtYXIiLCJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJyb2xlIjoxLCJpYXQiOjE2OTIyNTE1MDUsImV4cCI6MTY5MjI4MDMwNX0.GVSjlQsh6g0y-jwjf_Cspiokz4IoI9QNdohX7a-6ZI8",
+        },
+      ],
       produces: ["application/json"],
       requestBody: {
         content: {
           "application/json": {
             schema: {
-              ...user.CreateUser,
+              ...user.createUser,
             },
           },
         },
@@ -21,7 +36,14 @@ module.exports = {
           content: {
             "application/json": {
               schema: {
-                ...user.CreateUser,
+                type: "object",
+                properties: {
+                  success: { example: "true" },
+                  message: { example: "user created successfylly!" },
+                  user: {
+                    ...user.createUser,
+                  },
+                },
               },
             },
           },
@@ -29,7 +51,6 @@ module.exports = {
       },
     },
   },
-
   "/getusers": {
     get: {
       tags: ["User"],
@@ -37,11 +58,17 @@ module.exports = {
       operationId: "getusers",
       responses: {
         200: {
-          description: "list of all users",
+          description: "users getting successfully",
           content: {
             "application/json": {
               schema: {
-                ...user.User,
+                type: "object",
+                properties: {
+                  success: { example: "true" },
+                  users: {
+                    ...user.getUsers,
+                  },
+                },
               },
             },
           },
@@ -52,7 +79,7 @@ module.exports = {
   "/getuser/{id}": {
     get: {
       tags: ["User"],
-      summary: "get user details by id",
+      summary: "get user details by user id",
       operationId: "getuser",
       parameters: [
         {
@@ -62,15 +89,22 @@ module.exports = {
           required: true,
           type: "integer",
           format: "int64",
+          example: 2,
         },
       ],
       responses: {
         200: {
-          description: "get user details by id",
+          description: "userdetails getting successfully",
           content: {
             "application/json": {
               schema: {
-                ...user.User,
+                type: "object",
+                properties: {
+                  success: { example: "true" },
+                  user: {
+                    ...user.getUsers,
+                  },
+                },
               },
             },
           },
@@ -85,17 +119,31 @@ module.exports = {
       operationId: "deleteuser",
       parameters: [
         {
+          name: "x-access-token",
+          in: "header",
+          required: true,
+          style: "simple",
+          explode: false,
+          schema: {
+            type: "string",
+          },
+          description: "provide login token",
+          example:
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IlNodWJoYW0gS3VtYXIiLCJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJyb2xlIjoxLCJpYXQiOjE2OTIyNTE1MDUsImV4cCI6MTY5MjI4MDMwNX0.GVSjlQsh6g0y-jwjf_Cspiokz4IoI9QNdohX7a-6ZI8",
+        },
+        {
           name: "id",
           in: "path",
-          description: "ID of user to return",
+          description: "ID of user to delete",
           required: true,
           type: "integer",
           format: "int64",
+          example: 2,
         },
       ],
       responses: {
         202: {
-          description: "delete user by id (soft deleted)",
+          description: "user deleted successfully",
           content: {
             "application/json": {
               schema: {
@@ -116,9 +164,22 @@ module.exports = {
   "/edituser/{id}": {
     put: {
       tags: ["User"],
-      summary: "update an user details ",
+      summary: "update an user details",
       operationId: "edituser",
       parameters: [
+        {
+          name: "x-access-token",
+          in: "header",
+          required: true,
+          style: "simple",
+          explode: false,
+          schema: {
+            type: "string",
+          },
+          description: "provide login token",
+          example:
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IlNodWJoYW0gS3VtYXIiLCJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJyb2xlIjoxLCJpYXQiOjE2OTIyNTE1MDUsImV4cCI6MTY5MjI4MDMwNX0.GVSjlQsh6g0y-jwjf_Cspiokz4IoI9QNdohX7a-6ZI8",
+        },
         {
           name: "id",
           in: "path",
@@ -126,13 +187,14 @@ module.exports = {
           required: true,
           type: "integer",
           format: "int64",
+          example: 2,
         },
       ],
       requestBody: {
         content: {
           "application/json": {
             schema: {
-              ...user.UpdateUser,
+              ...user.createUser,
             },
           },
         },
@@ -164,17 +226,31 @@ module.exports = {
       operationId: "edituserprofilepicture",
       parameters: [
         {
+          name: "x-access-token",
+          in: "header",
+          required: true,
+          style: "simple",
+          explode: false,
+          schema: {
+            type: "string",
+          },
+          description: "provide login token",
+          example:
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IlNodWJoYW0gS3VtYXIiLCJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJyb2xlIjoxLCJpYXQiOjE2OTIyNTE1MDUsImV4cCI6MTY5MjI4MDMwNX0.GVSjlQsh6g0y-jwjf_Cspiokz4IoI9QNdohX7a-6ZI8",
+        },
+        {
           name: "id",
           in: "path",
-          description: "ID of user to update",
+          description: "ID of user to update profile picture",
           required: true,
           type: "integer",
           format: "int64",
+          example: 2,
         },
       ],
       requestBody: {
         content: {
-          "application/json": {
+          "multipart/form-data": {
             schema: {
               type: "object",
               properties: {
@@ -182,6 +258,7 @@ module.exports = {
                   description: "The user profile picture",
                   required: true,
                   type: "string",
+                  format: "binary",
                   example: "/home/shubham/Downloads/google.svg",
                 },
               },

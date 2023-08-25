@@ -23,13 +23,15 @@ npm start
 
 # Note
 
-- Please go to the AssetsDb Folder for Database Export and entity Relationship Diagram Export.
+- go to AssetsDb Folder
+- Database Export : booking-management-database-export.sql
+- entity Relationship Diagram Export : ER-Diagram.mwb
 
 # Database Information
 
 - database name = booking_management
-- database user name = <your database user name>
-- database passwoird = <your database password>
+- database user name = "<your database user name>"
+- database passwoird = "<your database password>"
 - DIALECT = mysql
 
 # getting apis collection

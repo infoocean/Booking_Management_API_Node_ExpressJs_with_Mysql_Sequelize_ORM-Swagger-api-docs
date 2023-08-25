@@ -3,6 +3,7 @@ const db = require("../../models/index.model");
 const Role = db.Role;
 //add role controller
 const addRoleController = async (req, res) => {
+  
   const { name } = req.body;
   const { error, value } = roleSchemaValidation.validate(
     { name },

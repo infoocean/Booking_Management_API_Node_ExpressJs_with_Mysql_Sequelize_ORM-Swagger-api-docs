@@ -8,12 +8,13 @@ module.exports = {
         {
           name: "x-access-token",
           in: "header",
-          required: false,
+          required: true,
           style: "simple",
           explode: false,
           schema: {
             type: "string",
           },
+          description: "provide login token",
           example:
             "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IlNodWJoYW0gS3VtYXIiLCJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJyb2xlIjoxLCJpYXQiOjE2OTIyNTE1MDUsImV4cCI6MTY5MjI4MDMwNX0.GVSjlQsh6g0y-jwjf_Cspiokz4IoI9QNdohX7a-6ZI8",
         },
@@ -28,12 +29,28 @@ module.exports = {
         },
       },
       responses: {
-        200: {
-          description: "Successful response",
+        201: {
+          description: "Successfully",
           content: {
             "application/json": {
               schema: {
-                ...hotel.GetHotel,
+                type: "object",
+                properties: {
+                  success: { example: "true" },
+                  message: { example: "hotel created successfully!" },
+                  hotel: {
+                    type: "object",
+                    properties: {
+                      id: { example: 3 },
+                      title: { example: "Hotel  Grande Vijay Nagarrt123" },
+                      slug: {
+                        example: "Hotel_Meritel_Grande_Vijay_Nagar_Indore2",
+                      },
+                      status: { example: 1 },
+                      user_id: { example: 2 },
+                    },
+                  },
+                },
               },
             },
           },
@@ -53,7 +70,7 @@ module.exports = {
       operationId: "gethotels",
       responses: {
         200: {
-          description: "list of all hotels",
+          description: "getting list of all hotels successfully!",
           content: {
             "application/json": {
               schema: {
@@ -68,7 +85,7 @@ module.exports = {
   "/gethotel/{id}": {
     get: {
       tags: ["Hotel"],
-      summary: "get hotel details with rooms by hotel id",
+      summary: "get hotel details with associated rooms by hotel id",
       operationId: "gethotel",
       parameters: [
         {
@@ -78,15 +95,16 @@ module.exports = {
           required: true,
           type: "integer",
           format: "int64",
+          example: 2,
         },
       ],
       responses: {
         200: {
-          description: "get hotel details with rooms",
+          description: "getting hotels details successfully!",
           content: {
             "application/json": {
               schema: {
-                ...hotel.GetHotel,
+                ...hotel.getHotelsDetailswithRooms,
               },
             },
           },
@@ -97,37 +115,51 @@ module.exports = {
   "/edithotel/{id}/": {
     put: {
       tags: ["Hotel"],
-      summary: "Update the Hotel details",
+      summary: "update the hotel details",
       parameters: [
         {
           name: "x-access-token",
           in: "header",
-          required: false,
+          required: true,
           style: "simple",
           explode: false,
           schema: {
             type: "string",
           },
+          description: "provide login token",
           example:
             "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IlNodWJoYW0gS3VtYXIiLCJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJyb2xlIjoxLCJpYXQiOjE2OTIyNTE1MDUsImV4cCI6MTY5MjI4MDMwNX0.GVSjlQsh6g0y-jwjf_Cspiokz4IoI9QNdohX7a-6ZI8",
+        },
+        {
+          name: "id",
+          in: "path",
+          description: "ID of hotel to update",
+          required: true,
+          type: "integer",
+          format: "int64",
+          example: 2,
         },
       ],
       requestBody: {
         content: {
           "multipart/form-data": {
             schema: {
-              ...hotel.UpdateHotel,
+              ...hotel.CreateHotel,
             },
           },
         },
       },
       responses: {
         200: {
-          description: "Successful response",
+          description: "hotel updated successfully!",
           content: {
             "application/json": {
               schema: {
-                ...hotel.GetHotel,
+                type: "object",
+                properties: {
+                  success: { example: "true" },
+                  message: { example: "hotel updated successfully!" },
+                },
               },
             },
           },
@@ -147,12 +179,26 @@ module.exports = {
       operationId: "deletehotel",
       parameters: [
         {
+          name: "x-access-token",
+          in: "header",
+          required: true,
+          style: "simple",
+          explode: false,
+          schema: {
+            type: "string",
+          },
+          description: "provide login token",
+          example:
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IlNodWJoYW0gS3VtYXIiLCJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJyb2xlIjoxLCJpYXQiOjE2OTIyNTE1MDUsImV4cCI6MTY5MjI4MDMwNX0.GVSjlQsh6g0y-jwjf_Cspiokz4IoI9QNdohX7a-6ZI8",
+        },
+        {
           name: "id",
           in: "path",
           description: "ID of hotel to delete",
           required: true,
           type: "integer",
           format: "int64",
+          example: 2,
         },
       ],
       responses: {
@@ -167,7 +213,7 @@ module.exports = {
                     example: "true",
                   },
                   message: {
-                    example: "hotel deleted successfully",
+                    example: "hotel deleted successfully!",
                   },
                 },
               },
@@ -186,19 +232,20 @@ module.exports = {
         {
           name: "id",
           in: "path",
-          description: "ID of hotel to delete",
+          description: "ID of hotel to get details",
           required: true,
           type: "integer",
           format: "int64",
+          example: 2,
         },
       ],
       responses: {
         200: {
-          description: "hotel obtained",
+          description: "getting hotel details successfully",
           content: {
             "application/json": {
               schema: {
-                ...hotel.GetHotel,
+                ...hotel.getHotelsDetails,
               },
             },
           },
@@ -213,11 +260,23 @@ module.exports = {
       operationId: "gethotelcategories",
       responses: {
         200: {
-          description: "categories obtained",
+          description: "getting hotel categories successfully!",
           content: {
             "application/json": {
               schema: {
-                //...hotel.GetHotel,
+                type: "object",
+                properties: {
+                  success: { example: "true" },
+                  hotelCategories: {
+                    type: "object",
+                    properties: {
+                      id: { example: 1 },
+                      name: { example: "Boutique hotel" },
+                      slug: { example: "boutique_hotel" },
+                      type_identifier_id: { example: 1 },
+                    },
+                  },
+                },
               },
             },
           },
@@ -232,11 +291,23 @@ module.exports = {
       operationId: "gethotelamenities",
       responses: {
         200: {
-          description: "hotel amenities obtained",
+          description: "getting hotel amenities successfully!",
           content: {
             "application/json": {
               schema: {
-               // ...hotel.GetHotel,
+                type: "object",
+                properties: {
+                  success: { example: "true" },
+                  hotelAmenities: {
+                    type: "object",
+                    properties: {
+                      id: { example: 1 },
+                      name: { example: "WiFi" },
+                      slug: { example: "Wi_Fi" },
+                      type_identifier_id: { example: 2 },
+                    },
+                  },
+                },
               },
             },
           },

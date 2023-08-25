@@ -3,17 +3,18 @@ module.exports = {
   "/addroom": {
     post: {
       tags: ["Room"],
-      summary: "addroom",
+      summary: "add room into system",
       parameters: [
         {
           name: "x-access-token",
           in: "header",
-          required: false,
+          required: true,
           style: "simple",
           explode: false,
           schema: {
             type: "string",
           },
+          description: "provide login token",
           example:
             "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IlNodWJoYW0gS3VtYXIiLCJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJyb2xlIjoxLCJpYXQiOjE2OTIzNDU2MzQsImV4cCI6MTY5MjM3NDQzNH0.RQdSk-OmCvHqU2aKHyBgauUOndcvBKNxX6F7BwfdYpw",
         },
@@ -28,12 +29,19 @@ module.exports = {
         },
       },
       responses: {
-        200: {
-          description: "Successful response",
+        201: {
+          description: "room created successfully!",
           content: {
             "application/json": {
               schema: {
-                ...room.createRoom,
+                type: "object",
+                properties: {
+                  success: { example: "true" },
+                  message: { example: "room created successfully" },
+                  room: {
+                    ...room.createRoom,
+                  },
+                },
               },
             },
           },
@@ -49,15 +57,21 @@ module.exports = {
   "/getrooms": {
     get: {
       tags: ["Room"],
-      summary: "list of all rooms",
+      summary: "get list of all rooms",
       operationId: "getrooms",
       responses: {
         200: {
-          description: "rooms has been obtained",
+          description: "getting rooms successfully!",
           content: {
             "application/json": {
               schema: {
-                ...room.getRoom,
+                type: "object",
+                properties: {
+                  success: { example: "true" },
+                  rooms: {
+                    ...room.getRoom,
+                  },
+                },
               },
             },
           },
@@ -78,15 +92,22 @@ module.exports = {
           required: true,
           type: "integer",
           format: "int64",
+          example: 1,
         },
       ],
       responses: {
         200: {
-          description: "Account has been created",
+          description: "getting room details successfully",
           content: {
             "application/json": {
               schema: {
-                ...room.getRoom,
+                type: "object",
+                properties: {
+                  success: { example: "true" },
+                  room: {
+                    ...room.getRoom,
+                  },
+                },
               },
             },
           },
@@ -97,25 +118,32 @@ module.exports = {
   "/getroomesbyhotelid/{id}/": {
     get: {
       tags: ["Room"],
-      summary: "get all rooms by hotel id associated from hotel id",
+      summary: "get all rooms by hotel id",
       operationId: "getroomesbyhotelid",
       parameters: [
         {
           name: "id",
           in: "path",
-          description: "ID of hotel to return rooms",
+          description: "ID of hotel to return all rooms",
           required: true,
           type: "integer",
           format: "int64",
+          example: 2,
         },
       ],
       responses: {
         200: {
-          description: "rooms has been obtained",
+          description: "rooms getting successfully",
           content: {
             "application/json": {
               schema: {
-                ...room.getRoom,
+                type: "object",
+                properties: {
+                  success: { example: "true" },
+                  rooms: {
+                    ...room.getRoom,
+                  },
+                },
               },
             },
           },
@@ -126,20 +154,30 @@ module.exports = {
   "/editroom/{id}/": {
     put: {
       tags: ["Room"],
-      summary: "update a room",
+      summary: "update room details",
       operationId: "editroom",
       parameters: [
         {
           name: "x-access-token",
           in: "header",
-          required: false,
+          required: true,
           style: "simple",
           explode: false,
           schema: {
             type: "string",
           },
+          description: "provide login token",
           example:
             "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IlNodWJoYW0gS3VtYXIiLCJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJyb2xlIjoxLCJpYXQiOjE2OTIzNDU2MzQsImV4cCI6MTY5MjM3NDQzNH0.RQdSk-OmCvHqU2aKHyBgauUOndcvBKNxX6F7BwfdYpw",
+        },
+        {
+          name: "id",
+          in: "path",
+          description: "ID of room to update room details",
+          required: true,
+          type: "integer",
+          format: "int64",
+          example: 2,
         },
       ],
       requestBody: {
@@ -152,12 +190,16 @@ module.exports = {
         },
       },
       responses: {
-        200: {
-          description: "room has been updated",
+        202: {
+          description: "room updated successfully",
           content: {
             "application/json": {
               schema: {
-                ...room.getRoom,
+                type: "object",
+                properties: {
+                  succes: { example: "true" },
+                  message: { example: "room updated successfully" },
+                },
               },
             },
           },

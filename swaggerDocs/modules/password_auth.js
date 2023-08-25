@@ -105,6 +105,20 @@ module.exports = {
       summary: "change password from the system",
       operationId: "changepassword",
       produces: ["application/json"],
+      parameters: [
+        {
+          name: "x-access-token",
+          in: "header",
+          required: false,
+          style: "simple",
+          explode: false,
+          schema: {
+            type: "string",
+          },
+          example:
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IlNodWJoYW0gS3VtYXIiLCJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJyb2xlIjoxLCJpYXQiOjE2OTIyNTE1MDUsImV4cCI6MTY5MjI4MDMwNX0.GVSjlQsh6g0y-jwjf_Cspiokz4IoI9QNdohX7a-6ZI8",
+        },
+      ],
       requestBody: {
         content: {
           "application/json": {
@@ -142,6 +156,7 @@ module.exports = {
               schema: {
                 type: "object",
                 properties: {
+                  success: { example: "true" },
                   message: {
                     type: "string",
                     description: "password changed successfully",

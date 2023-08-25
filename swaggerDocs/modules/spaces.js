@@ -10,12 +10,13 @@ module.exports = {
         {
           name: "x-access-token",
           in: "header",
-          required: false,
+          required: true,
           style: "simple",
           explode: false,
           schema: {
-            type: "number",
+            type: "string",
           },
+          description: "provide login token",
           example:
             "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IlNodWJoYW0gS3VtYXIiLCJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJyb2xlIjoxLCJpYXQiOjE2OTIyNzcwODMsImV4cCI6MTY5MjMwNTg4M30.5EBfPrcrg7kbT3sMlNZZRFOHtOBLKdH6vwjeTN7nICE",
         },
@@ -24,18 +25,25 @@ module.exports = {
         content: {
           "multipart/form-data": {
             schema: {
-              ...spaces.createSpaces,
+              ...spaces.CreateSpace,
             },
           },
         },
       },
       responses: {
-        200: {
-          description: "Successful response",
+        201: {
+          description: "space created successfully!",
           content: {
             "application/json": {
               schema: {
-                ...spaces.createSpaces,
+                type: "object",
+                properties: {
+                  success: { example: "true" },
+                  message: { example: "space created successfylly!" },
+                  space: {
+                    ...spaces.getcreatespace,
+                  },
+                },
               },
             },
           },
@@ -59,7 +67,16 @@ module.exports = {
           content: {
             "application/json": {
               schema: {
-                ...spaces.createSpaces,
+                type: "object",
+                properties: {
+                  success: { example: "true" },
+                  spaces: {
+                    ...spaces.getcreatespace,
+                  },
+                  space_meta: {
+                    ...spaces.spacemeta,
+                  },
+                },
               },
             },
           },
@@ -70,16 +87,17 @@ module.exports = {
   "/getspace/{id}": {
     get: {
       tags: ["Spaces"],
-      summary: "get spaces details",
+      summary: "get spaces details by space id",
       operationId: "getspace",
       parameters: [
         {
           name: "id",
           in: "path",
-          description: "ID of space to return",
+          description: "ID of space to return space details",
           required: true,
           type: "integer",
           format: "int64",
+          example: 1,
         },
       ],
       responses: {
@@ -88,7 +106,16 @@ module.exports = {
           content: {
             "application/json": {
               schema: {
-                ...spaces.createSpaces,
+                type: "object",
+                properties: {
+                  success: { example: "true" },
+                  spaces: {
+                    ...spaces.getcreatespace,
+                  },
+                  space_meta: {
+                    ...spaces.spacemeta,
+                  },
+                },
               },
             },
           },
@@ -99,31 +126,62 @@ module.exports = {
   "/editspace/{id}": {
     put: {
       tags: ["Spaces"],
-      summary: "edit spaces details",
+      summary: "edit space details",
       operationId: "editspace",
       parameters: [
         {
           name: "x-access-token",
           in: "header",
-          required: false,
+          required: true,
           style: "simple",
           explode: false,
           schema: {
-            type: "number",
+            type: "string",
           },
+          description: "provide login token",
           example:
             "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IlNodWJoYW0gS3VtYXIiLCJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJyb2xlIjoxLCJpYXQiOjE2OTIyNzcwODMsImV4cCI6MTY5MjMwNTg4M30.5EBfPrcrg7kbT3sMlNZZRFOHtOBLKdH6vwjeTN7nICE",
+        },
+        {
+          name: "id",
+          in: "path",
+          description: "ID of space to update space details",
+          required: true,
+          type: "integer",
+          format: "int64",
+          example: 1,
         },
       ],
       requestBody: {
         content: {
           "multipart/form-data": {
             schema: {
-              ...spaces.createSpaces,
+              ...spaces.CreateSpace,
             },
           },
         },
       },
+      responses: {
+        202: {
+          description: "space updated successfully!",
+          content: {
+            "application/json": {
+              schema: {
+                type: "object",
+                properties: {
+                  succes: { example: "true" },
+                  message: { example: "space updated successfully" },
+                },
+              },
+            },
+          },
+        },
+      },
+      security: [
+        {
+          bearerAuth: [],
+        },
+      ],
     },
   },
   "/deletespace/{id}": {
@@ -133,21 +191,39 @@ module.exports = {
       operationId: "deletespace",
       parameters: [
         {
+          name: "x-access-token",
+          in: "header",
+          required: true,
+          style: "simple",
+          explode: false,
+          schema: {
+            type: "string",
+          },
+          description: "provide login token",
+          example:
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IlNodWJoYW0gS3VtYXIiLCJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJyb2xlIjoxLCJpYXQiOjE2OTIyNzcwODMsImV4cCI6MTY5MjMwNTg4M30.5EBfPrcrg7kbT3sMlNZZRFOHtOBLKdH6vwjeTN7nICE",
+        },
+        {
           name: "id",
           in: "path",
-          description: "ID of space to return",
+          description: "ID of space to delete space",
           required: true,
           type: "integer",
           format: "int64",
+          example: 1,
         },
       ],
       responses: {
-        200: {
+        202: {
           description: "space deleted successfully",
           content: {
             "application/json": {
               schema: {
-                //...spaces.createSpaces,
+                type: "object",
+                properties: {
+                  succes: { example: "true" },
+                  message: { example: "space deleted successfully" },
+                },
               },
             },
           },
@@ -160,25 +236,39 @@ module.exports = {
       tags: ["Spaces"],
       summary: "get spaces categories",
       parameters: [
-        {
-          name: "type_identifier_id",
-          in: "query",
-          required: false,
-          style: "form",
-          explode: true,
-          description: "optional",
-          schema: {
-            type: "integer",
-          },
-          example: "3",
-        },
+        // {
+        //   name: "type_identifier_id",
+        //   in: "query",
+        //   required: false,
+        //   style: "form",
+        //   explode: true,
+        //   description: "Optional",
+        //   schema: {
+        //     type: "integer",
+        //   },
+        //   example: "3",
+        // },
       ],
       responses: {
         200: {
-          description: "Successfuly getting space categories",
+          description: "Successfully getting space categories",
           content: {
             "application/json": {
-              schema: {},
+              schema: {
+                type: "object",
+                properties: {
+                  success: { example: "true" },
+                  SpaceCategories: {
+                    type: "object",
+                    properties: {
+                      id: { example: 15 },
+                      name: { example: "Meeting hall" },
+                      slug: { example: "Meeting_hall" },
+                      type_identifier_id: { example: 3 },
+                    },
+                  },
+                },
+              },
             },
           },
         },
@@ -201,7 +291,19 @@ module.exports = {
           content: {
             "application/json": {
               schema: {
-                //..spaces.createSpaces,
+                type: "object",
+                properties: {
+                  success: { example: "true" },
+                  spaceAmenities: {
+                    type: "object",
+                    properties: {
+                      id: { example: 1 },
+                      name: { example: "wifi" },
+                      slug: { example: "wi_fi" },
+                      type_identifier_id: { example: 3 },
+                    },
+                  },
+                },
               },
             },
           },
