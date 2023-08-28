@@ -1,3 +1,4 @@
+const typeidentifier = require("../schema/typeidentifier");
 module.exports = {
   "/addcategoriesoramenities": {
     post: {
@@ -8,21 +9,22 @@ module.exports = {
         {
           name: "x-access-token",
           in: "header",
-          required: false,
+          required: true,
           style: "simple",
           explode: false,
           schema: {
             type: "string",
           },
+          description: "provide login token",
           example:
             "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IlNodWJoYW0gS3VtYXIiLCJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJyb2xlIjoxLCJpYXQiOjE2OTIyNTE1MDUsImV4cCI6MTY5MjI4MDMwNX0.GVSjlQsh6g0y-jwjf_Cspiokz4IoI9QNdohX7a-6ZI8",
         },
       ],
       requestBody: {
         content: {
-          "multipart/form-data": {
+          "application/json": {
             schema: {
-              //...automobile.addautomobile,
+              ...typeidentifier.createcategories_amenities_properties,
             },
           },
         },
@@ -33,7 +35,14 @@ module.exports = {
           content: {
             "application/json": {
               schema: {
-                // $ref:'#/components/schemas/Gift'
+                type: "object",
+                properties: {
+                  succcess: { example: "true" },
+                  message: { example: "created successfylly!" },
+                  data: {
+                    ...typeidentifier.getcategories_amenities_properties,
+                  },
+                },
               },
             },
           },
@@ -54,15 +63,22 @@ module.exports = {
           required: true,
           type: "integer",
           format: "int64",
+          example: 2,
         },
       ],
       responses: {
         200: {
-          description: " Categories or Amenities are obtained",
+          description: "Categories or Amenities getting successfully",
           content: {
             "application/json": {
               schema: {
-                //$ref:'#/components/schemas/Gift'
+                type: "object",
+                succcess: { example: "true" },
+                properties: {
+                  data: {
+                    ...typeidentifier.getcategories_amenities_properties,
+                  },
+                },
               },
             },
           },
@@ -77,21 +93,48 @@ module.exports = {
       operationId: "editcategoriesamenities",
       parameters: [
         {
+          name: "x-access-token",
+          in: "header",
+          required: true,
+          style: "simple",
+          explode: false,
+          schema: {
+            type: "string",
+          },
+          description: "provide login token",
+          example:
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IlNodWJoYW0gS3VtYXIiLCJlbWFpbCI6InNqMjU4NTA5N0BnbWFpbC5jb20iLCJyb2xlIjoxLCJpYXQiOjE2OTIyNTE1MDUsImV4cCI6MTY5MjI4MDMwNX0.GVSjlQsh6g0y-jwjf_Cspiokz4IoI9QNdohX7a-6ZI8",
+        },
+        {
           name: "id",
           in: "path",
-          description: "ID of Categories or Amenities to return",
+          description: "ID of Categories or Amenities to update",
           required: true,
           type: "integer",
           format: "int64",
+          example: 2,
         },
       ],
+      requestBody: {
+        content: {
+          "application/json": {
+            schema: {
+              ...typeidentifier.createcategories_amenities_properties,
+            },
+          },
+        },
+      },
       responses: {
-        200: {
-          description: " Categories or Amenities are updated",
+        202: {
+          description: " Categories or Amenities updated successfully",
           content: {
             "application/json": {
               schema: {
-                //$ref:'#/components/schemas/Gift'
+                type: "object",
+                properties: {
+                  succcess: { example: "true" },
+                  message: { example: "data updated successfully" },
+                },
               },
             },
           },
@@ -108,7 +151,7 @@ module.exports = {
         {
           name: "type_identifier_id",
           in: "query",
-          required: false,
+          required: true,
           style: "form",
           explode: true,
           schema: {
@@ -119,11 +162,22 @@ module.exports = {
       ],
       responses: {
         200: {
-          description: " Categories or Amenities are obtained",
+          description: " Categories or Amenities are getting successfully",
           content: {
             "application/json": {
               schema: {
-                //$ref:'#/components/schemas/Gift'
+                type: "object",
+                properties: {
+                  success: { example: "true" },
+                  data: {
+                    properties: {
+                      id: { example: 10 },
+                      name: { example: "WiFi" },
+                      slug: { example: "Wi_Fi" },
+                      type_identifier_id: { example: 2 },
+                    },
+                  },
+                },
               },
             },
           },

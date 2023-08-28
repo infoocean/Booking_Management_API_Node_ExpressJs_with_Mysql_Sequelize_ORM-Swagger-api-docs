@@ -33,6 +33,11 @@ exports.AcceptPaymentController = async (req, res) => {
 
 exports.GetpaymentDetailsController = async (req, res) => {
   const { cs_test_key } = req.body;
+  if (!cs_test_key) {
+    return res
+      .status(400)
+      .json({ success: false, message: "cs_test_key is required" });
+  }
   try {
     stripe.checkout.sessions.listLineItems(
       cs_test_key,

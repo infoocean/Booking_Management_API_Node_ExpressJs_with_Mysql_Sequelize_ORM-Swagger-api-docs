@@ -1,3 +1,4 @@
+const transaction = require("../schema/transaction");
 module.exports = {
   "/addtransaction": {
     post: {
@@ -8,12 +9,13 @@ module.exports = {
         {
           name: "x-access-token",
           in: "header",
-          required: false,
+          required: true,
           style: "simple",
           explode: false,
           schema: {
             type: "string",
           },
+          description: "provide login token",
           example:
             "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6IlNodWJoYW0gQmhhaSIsImVtYWlsIjoic2o4NDY0NzM2QGdtYWlsLmNvbSIsInJvbGUiOjIsImlhdCI6MTY5MTQ2OTE0MywiZXhwIjoxNjkxNDk3OTQzfQ.pc9pLzB5nPOKxmdX_Sf5V_n5xNLRbU31K9nRktki3vw",
         },
@@ -22,29 +24,24 @@ module.exports = {
         content: {
           "application/json": {
             schema: {
-              type: "object",
-              example: {
-                order_id: 2,
-                amount: 200,
-                txn_id: "bvgfhngfhnjgf",
-                payment_method: "stripe",
-              },
+              ...transaction.createTransaction,
             },
           },
         },
       },
       responses: {
         201: {
-          description: "transaction added succesfully",
+          description: "transaction created succesfully",
           content: {
             "application/json": {
               schema: {
                 type: "object",
-                example: {
-                  order_id: 2,
-                  amount: 200,
-                  txn_id: "bvgfhngfhnjgf",
-                  payment_method: "stripe",
+                properties: {
+                  success: { example: "true" },
+                  message: { example: "transaction created successfylly!" },
+                  transaction: {
+                    ...transaction.getcreatetxn,
+                  },
                 },
               },
             },
@@ -56,7 +53,7 @@ module.exports = {
   "/gettransactions": {
     get: {
       tags: ["Transaction"],
-      summary: "List of all transactions",
+      summary: "list of all transactions",
       operationId: "gettransactions",
       responses: {
         200: {
@@ -64,7 +61,13 @@ module.exports = {
           content: {
             "application/json": {
               schema: {
-                //$ref: "#/components/schemas/Receiver",
+                type: "object",
+                properties: {
+                  success: { example: "true" },
+                  Transaction: {
+                    ...transaction.getcreatetxn,
+                  },
+                },
               },
             },
           },
@@ -81,10 +84,11 @@ module.exports = {
         {
           name: "id",
           in: "path",
-          description: "ID of transactions to return",
+          description: "ID of transactions to return transaction details",
           required: true,
           type: "integer",
           format: "int64",
+          example: 1,
         },
       ],
       responses: {
@@ -92,7 +96,15 @@ module.exports = {
           description: "transaction details getting succesfully",
           content: {
             "application/json": {
-              schema: {},
+              schema: {
+                type: "object",
+                properties: {
+                  success: { example: "true" },
+                  Transaction: {
+                    ...transaction.getcreatetxn,
+                  },
+                },
+              },
             },
           },
         },

@@ -13,8 +13,10 @@ const orders = require("./orders");
 const transaction = require("./transaction");
 const payment = require("./payment");
 const siteoption = require("./siteoptions");
+const checkserver = require("./check_server");
 module.exports = {
   paths: {
+    ...checkserver,
     ...authorization,
     ...authenticate,
     ...passwordauth,

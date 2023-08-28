@@ -15,7 +15,7 @@ router.post(
   verifyLoginToken,
   AcceptPaymentController
 );
-router.get(
+router.post(
   "/getpaymentdetails",
   verifyAuthToken,
   verifyLoginToken,

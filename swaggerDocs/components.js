@@ -3,7 +3,9 @@ const hotel = require("./schema/hotel");
 const room = require("./schema/room");
 const automobile = require("./schema/automobile");
 const spaces = require("./schema/spaces");
-
+const order = require("./schema/order");
+const typeidentifier = require("./schema/typeidentifier");
+const transaction = require("./schema/transaction");
 module.exports = {
   components: {
     securitySchemes: {
@@ -20,6 +22,9 @@ module.exports = {
       Room: room.getRoom,
       Automobile: automobile.addautomobile,
       Spaces: spaces.createSpaces,
+      order: order.createHotelOrder,
+      typeidentifier: typeidentifier.createTypeidentifier,
+      transaction: transaction.createTransaction,
       Error: {
         type: "object",
         properties: {

@@ -7,7 +7,7 @@ v18.12.1
 
 - First, you clone the project by using the following command:\
   `git clone https://github.com/infoocean/Booking_Management_API_Node_with_Mysql_Sequelize.git`
-- Install node version v18.12.1 or use nvm to downgrade your node version.
+- Install node version v18.12.1 or use nvm to upgrade your node version.
 - Delete the existing `package.lock.json` and run `npm install`
 
 #start the project using the command
@@ -23,15 +23,15 @@ npm start
 
 # Note
 
-- go to AssetsDb Folder
+- for database information go to AssetsDb Folder
 - Database Export : booking-management-database-export.sql
 - entity Relationship Diagram Export : ER-Diagram.mwb
 
 # Database Information
 
 - database name = booking_management
-- database user name = "<your database user name>"
-- database passwoird = "<your database password>"
+- database user name = "your database user name"
+- database passwoird = "your database password"
 - DIALECT = mysql
 
 # getting apis collection

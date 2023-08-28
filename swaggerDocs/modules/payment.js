@@ -8,12 +8,13 @@ module.exports = {
         {
           name: "x-access-token",
           in: "header",
-          required: false,
+          required: true,
           style: "simple",
           explode: false,
           schema: {
             type: "string",
           },
+          description: "provide login token",
           example:
             "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6IlNodWJoYW0gQmhhaSIsImVtYWlsIjoic2o4NDY0NzM2QGdtYWlsLmNvbSIsInJvbGUiOjIsImlhdCI6MTY5MTQ2OTE0MywiZXhwIjoxNjkxNDk3OTQzfQ.pc9pLzB5nPOKxmdX_Sf5V_n5xNLRbU31K9nRktki3vw",
         },
@@ -46,7 +47,14 @@ module.exports = {
           content: {
             "application/json": {
               schema: {
-                //$ref: "#/components/schemas/Thankyou",
+                type: "object",
+                properties: {
+                  success: { example: "true" },
+                  paymentlink: {
+                    example:
+                      "https://checkout.stripe.com/c/pay/cs_test_a15qyjoC4bCOFp7VyysrQ4gAc4R7DDol7dnSbVaaBxDVag603OzticoViU#fidkdWxOYHwnPyd1blpxYHZxWjA0SW5JaVVJU3U2ZmFBdVBtcX1icEZcZ39BV0Bcf2NNYmozS0ZGc013cW1yQzBsakFIdkw0cWM8YXJGNXBRUjR9clY0MmIxSXFRSklKNU1IUDdLc2xLc1w3NTV2ajJvYG9EUycpJ2N3amhWYHdzYHcnP3F3cGApJ2lkfGpwcVF8dWAnPyd2bGtiaWBabHFgaCcpJ2BrZGdpYFVpZGZgbWppYWB3dic%2FcXdwYHgl",
+                  },
+                },
               },
             },
           },
@@ -55,7 +63,7 @@ module.exports = {
     },
   },
   "/getpaymentdetails": {
-    get: {
+    post: {
       tags: ["Payment"],
       summary: "getting payent details",
       operationId: "getpaymentdetails",
@@ -63,12 +71,13 @@ module.exports = {
         {
           name: "x-access-token",
           in: "header",
-          required: false,
+          required: true,
           style: "simple",
           explode: false,
           schema: {
             type: "string",
           },
+          description: "provide login token",
           example:
             "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6IlNodWJoYW0gQmhhaSIsImVtYWlsIjoic2o4NDY0NzM2QGdtYWlsLmNvbSIsInJvbGUiOjIsImlhdCI6MTY5MTQ2OTE0MywiZXhwIjoxNjkxNDk3OTQzfQ.pc9pLzB5nPOKxmdX_Sf5V_n5xNLRbU31K9nRktki3vw",
         },
@@ -95,7 +104,11 @@ module.exports = {
           content: {
             "application/json": {
               schema: {
-                //$ref: "#/components/schemas/Delete",
+                type: "object",
+                properties: {
+                  success: { example: "true" },
+                  orderdetails: { example: "object" },
+                },
               },
             },
           },
