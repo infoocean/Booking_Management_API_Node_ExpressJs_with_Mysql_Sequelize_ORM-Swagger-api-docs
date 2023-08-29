@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+const { decodeToken } = require("../helper/helperfn");
 
 const verifyAuthToken = (req, res, next) => {
   const authorizationtoken = req.headers["authorization"];
@@ -20,7 +21,6 @@ const verifyAuthToken = (req, res, next) => {
   }
   return next();
 };
-
 const verifyLoginToken = (req, res, next) => {
   const token =
     req.body.token || req.query.token || req.headers["x-access-token"];
@@ -48,5 +48,14 @@ const verifyLoginToken = (req, res, next) => {
     });
   }
 };
+const checkPermition = async (req, res, next) => {
+  const verify_token = await decodeToken(req.headers["x-access-token"]);
+  if (verify_token?.role !== 1) {
+    return res
+      .status(401)
+      .send({ succes: false, message: "You can't permission do this" });
+  }
+  next();
+};
 
-module.exports = { verifyAuthToken, verifyLoginToken };
+module.exports = { verifyAuthToken, verifyLoginToken, checkPermition };

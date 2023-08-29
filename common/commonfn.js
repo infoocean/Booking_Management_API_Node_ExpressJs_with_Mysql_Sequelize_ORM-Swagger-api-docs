@@ -16,22 +16,29 @@ exports.getExtension = (fileName) => {
 exports.deleteSinglefile = (pathToFile) => {
   fs.unlink(pathToFile, function (err) {
     if (err) {
-      throw err;
+      //throw err;
     } else {
       console.log("Successfully deleted the file.");
     }
   });
 };
-
 //for multiple image deleting
 exports.deleteMultiplefile = (pathToFile) => {
   pathToFile.map((data, keys) => {
     fs.unlink(data, function (err) {
       if (err) {
-        throw err;
+        //throw err;
       } else {
         console.log("Successfully deleted the file.");
       }
     });
   });
+};
+
+//image extention validation
+exports.ValidateImageExtension = (fileName) => {
+  var allowedExtensions = /(\.jpg|\.jpeg|\.svg|\.png|\.gif)$/i;
+  if (!allowedExtensions.exec(fileName?.originalname)) {
+    return true;
+  }
 };

@@ -25,3 +25,6 @@ exports.automobile_defaine_arr = [
   "cost_per_km",
   "status",
 ];
+
+//predife keys for site options meta
+exports.predefine_keys = ["title", "fav_icon", "company_logo"];

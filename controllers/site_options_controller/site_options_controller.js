@@ -1,12 +1,67 @@
+const {
+  deleteSinglefile,
+  ValidateImageExtension,
+} = require("../../common/commonfn");
+const { predefine_keys } = require("../../common/default_array");
+const {
+  siteOptionsMetaSchemaValidation,
+} = require("../../common/schema_validation");
 const { decodeToken } = require("../../helper/helperfn");
 const db = require("../../models/index.model");
 const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
 const SiteOptionMeta = db.SiteOptionMeta;
-const predefine_keys = ["title", "fav_icon", "company_logo"];
+
 //add site options meta controller
 const addSiteOptionMetaController = async (req, res) => {
   const verify_token = await decodeToken(req.headers["x-access-token"]);
+  const { title } = req.body;
+  let fav_icon = "",
+    company_logo = "";
+  if (req.files.fav_icon) {
+    fav_icon = req.files.fav_icon[0]?.path;
+  }
+  if (req.files.company_logo) {
+    company_logo = req.files.company_logo[0]?.path;
+  }
+  //check validation
+  const { error, value } = siteOptionsMetaSchemaValidation.validate(
+    {
+      title,
+      fav_icon,
+      company_logo,
+    },
+    {
+      abortEarly: false,
+    }
+  );
+  if (error) {
+    deleteSinglefile(fav_icon);
+    deleteSinglefile(company_logo);
+    return res.status(400).send({ error: "Invalid Request: " + error });
+  }
+  //check image extention validation
+  if (req.files.fav_icon[0]?.fieldname === "fav_icon") {
+    if (ValidateImageExtension(req.files.fav_icon[0])) {
+      deleteSinglefile(fav_icon);
+      deleteSinglefile(company_logo);
+      return res.status(400).send({
+        error:
+          "Please upload file having extensions .jpeg/.jpg/.png/.gif/.svg only.",
+      });
+    }
+  }
+  if (req.files.company_logo[0]?.fieldname === "company_logo") {
+    if (ValidateImageExtension(req.files.company_logo[0])) {
+      deleteSinglefile(fav_icon);
+      deleteSinglefile(company_logo);
+      return res.status(400).send({
+        error:
+          "Please upload file having extensions .jpeg/.jpg/.png/.gif/.svg only.",
+      });
+    }
+  }
+  //check site options meta already registred or not
   const getsiteoption = await SiteOptionMeta.findAll({
     where: {
       key: {
@@ -15,9 +70,12 @@ const addSiteOptionMetaController = async (req, res) => {
     },
   });
   if (getsiteoption.length > 0) {
+    //delete image from folder
+    deleteSinglefile(fav_icon);
+    deleteSinglefile(company_logo);
     return res
       .status(409)
-      .send({ succes: false, message: "site option meta already registred" });
+      .send({ succes: false, message: "site options meta already registred" });
   }
   try {
     for (let index = 0; index < predefine_keys.length; index++) {
@@ -30,10 +88,7 @@ const addSiteOptionMetaController = async (req, res) => {
       } else {
         await SiteOptionMeta.create({
           key: predefine_keys[index],
-          value:
-            predefine_keys[index] == "fav_icon"
-              ? req.files.fav_icon[0]?.path
-              : req.files.company_logo[0]?.path,
+          value: predefine_keys[index] == "fav_icon" ? fav_icon : company_logo,
           created_by: verify_token?.id,
         });
       }
@@ -46,6 +101,7 @@ const addSiteOptionMetaController = async (req, res) => {
     res.status(500).send(error.message);
   }
 };
+
 //edit site options
 const ediSiteOptionMetaController = async (req, res) => {
   const verify_token = await decodeToken(req.headers["x-access-token"]);

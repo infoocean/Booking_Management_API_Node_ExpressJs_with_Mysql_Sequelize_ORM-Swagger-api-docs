@@ -48,10 +48,6 @@ const storage4 = multer.diskStorage({
     cb(null, "./uploads/users_images/");
   },
   filename: (req, file, cb) => {
-    // const image_properties = getExtension(file?.originalname);
-    // if (image_properties === "jpeg" || image_properties === "png") {
-    // } else {
-    // }
     cb(null, Date.now() + uniqid() + file.originalname);
   },
 });
@@ -62,10 +58,6 @@ const storage5 = multer.diskStorage({
     cb(null, "./uploads/siteoptions_images/");
   },
   filename: (req, file, cb) => {
-    // const image_properties = getExtension(file?.originalname);
-    // if (image_properties === "jpeg" || image_properties === "png") {
-    // } else {
-    // }
     cb(null, Date.now() + uniqid() + file.originalname);
   },
 });

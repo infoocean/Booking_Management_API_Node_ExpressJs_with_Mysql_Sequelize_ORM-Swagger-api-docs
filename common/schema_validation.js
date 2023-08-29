@@ -33,7 +33,6 @@ const resetSchemaValidation = Joi.object({
     .required(),
 });
 //change password validation
-//role schema validation
 const changePasswordValidation = Joi.object({
   current_password: Joi.string()
     .pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[ -\/:-@\[-\`{-~]).{8,}$/)
@@ -45,7 +44,6 @@ const changePasswordValidation = Joi.object({
     .pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[ -\/:-@\[-\`{-~]).{8,}$/)
     .required(),
 });
-
 //user schema validation
 const userSchemaValidation = Joi.object({
   first_name: Joi.string().required(),
@@ -65,6 +63,12 @@ const userSchemaValidation = Joi.object({
 const roleSchemaValidation = Joi.object({
   name: Joi.string().required(),
 });
+//site options meta schema validation
+const siteOptionsMetaSchemaValidation = Joi.object({
+  title: Joi.string().required(),
+  fav_icon: Joi.string().required(),
+  company_logo: Joi.string().required(),
+});
 
 module.exports = {
   userSignupValidation,
@@ -73,4 +77,5 @@ module.exports = {
   roleSchemaValidation,
   resetSchemaValidation,
   changePasswordValidation,
+  siteOptionsMetaSchemaValidation,
 };

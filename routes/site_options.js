@@ -3,6 +3,7 @@ const router = express.Router();
 const {
   verifyAuthToken,
   verifyLoginToken,
+  checkPermition,
 } = require("../middleware/aunthoticate");
 const {
   addSiteOptionMetaController,
@@ -14,6 +15,7 @@ router.post(
   "/addsiteoptionmeta",
   verifyAuthToken,
   verifyLoginToken,
+  checkPermition,
   siteupload.fields([
     { name: "fav_icon", maxCount: 1 },
     { name: "company_logo", maxCount: 1 },
