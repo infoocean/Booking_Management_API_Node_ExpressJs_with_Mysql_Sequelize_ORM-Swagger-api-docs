@@ -101,10 +101,55 @@ const addSiteOptionMetaController = async (req, res) => {
     res.status(500).send(error.message);
   }
 };
-
 //edit site options
 const ediSiteOptionMetaController = async (req, res) => {
   const verify_token = await decodeToken(req.headers["x-access-token"]);
+  const { title } = req.body;
+  let fav_icon = "",
+    company_logo = "";
+  if (req.files.fav_icon) {
+    fav_icon = req.files.fav_icon[0]?.path;
+  }
+  if (req.files.company_logo) {
+    company_logo = req.files.company_logo[0]?.path;
+  }
+  //check validation
+  const { error, value } = siteOptionsMetaSchemaValidation.validate(
+    {
+      title,
+      fav_icon,
+      company_logo,
+    },
+    {
+      abortEarly: false,
+    }
+  );
+  if (error) {
+    deleteSinglefile(fav_icon);
+    deleteSinglefile(company_logo);
+    return res.status(400).send({ error: "Invalid Request: " + error });
+  }
+  //check image extention validation
+  if (req.files.fav_icon[0]?.fieldname === "fav_icon") {
+    if (ValidateImageExtension(req.files.fav_icon[0])) {
+      deleteSinglefile(fav_icon);
+      deleteSinglefile(company_logo);
+      return res.status(400).send({
+        error:
+          "Please upload file having extensions .jpeg/.jpg/.png/.gif/.svg only.",
+      });
+    }
+  }
+  if (req.files.company_logo[0]?.fieldname === "company_logo") {
+    if (ValidateImageExtension(req.files.company_logo[0])) {
+      deleteSinglefile(fav_icon);
+      deleteSinglefile(company_logo);
+      return res.status(400).send({
+        error:
+          "Please upload file having extensions .jpeg/.jpg/.png/.gif/.svg only.",
+      });
+    }
+  }
   try {
     const get_site_options = await SiteOptionMeta.findAll({
       where: {
@@ -113,13 +158,17 @@ const ediSiteOptionMetaController = async (req, res) => {
         },
       },
     });
-    const dt = [];
-    get_site_options.map((data) => {
-      dt.push(data?.key);
-    });
-    if (dt.length > 0) {
-      for (let index = 0; index < dt.length; index++) {
-        console.log(predefine_keys[index]);
+    const meta_keys = [];
+    if (get_site_options.length > 0) {
+      get_site_options.map((data) => {
+        meta_keys.push(data?.key);
+        if (data?.key === "fav_icon" || data?.key === "company_logo") {
+          deleteSinglefile(data?.value);
+        }
+      });
+    }
+    if (meta_keys.length > 0) {
+      for (let index = 0; index < meta_keys.length; index++) {
         if (
           predefine_keys[index] == "fav_icon" ||
           predefine_keys[index] == "company_logo"
@@ -127,9 +176,7 @@ const ediSiteOptionMetaController = async (req, res) => {
           await SiteOptionMeta.update(
             {
               value:
-                SiteOptionMeta[index] == "fav_icon"
-                  ? req.files.fav_icon[0]?.path
-                  : req.files.company_logo[0]?.path,
+                predefine_keys[index] == "fav_icon" ? fav_icon : company_logo,
               update_by: verify_token?.id,
             },
             {
@@ -152,7 +199,28 @@ const ediSiteOptionMetaController = async (req, res) => {
       }
       res.status(202).json({
         succes: true,
-        message: "site option meta  updated successfully",
+        message: "site option meta updated successfully",
+      });
+    } else {
+      for (let index = 0; index < predefine_keys.length; index++) {
+        if (predefine_keys[index] == "title") {
+          await SiteOptionMeta.create({
+            key: predefine_keys[index],
+            value: req.body[predefine_keys[index]],
+            created_by: verify_token?.id,
+          });
+        } else {
+          await SiteOptionMeta.create({
+            key: predefine_keys[index],
+            value:
+              predefine_keys[index] == "fav_icon" ? fav_icon : company_logo,
+            created_by: verify_token?.id,
+          });
+        }
+      }
+      res.status(201).json({
+        success: true,
+        message: "site option meta updated successfylly!",
       });
     }
   } catch (error) {

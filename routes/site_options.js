@@ -26,6 +26,7 @@ router.put(
   "/editsiteoptionmeta",
   verifyAuthToken,
   verifyLoginToken,
+  checkPermition,
   siteupload.fields([
     { name: "fav_icon", maxCount: 1 },
     { name: "company_logo", maxCount: 1 },

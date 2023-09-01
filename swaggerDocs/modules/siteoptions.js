@@ -158,7 +158,7 @@ module.exports = {
                     example: "true",
                   },
                   message: {
-                    example: "site option meta  updated successfully",
+                    example: "site option meta updated successfully",
                   },
                 },
               },
