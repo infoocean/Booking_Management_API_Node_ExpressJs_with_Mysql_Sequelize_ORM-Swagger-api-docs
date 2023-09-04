@@ -1,6 +1,13 @@
 const { userSchemaValidation } = require("../../common/schema_validation");
 const db = require("../../models/index.model");
+const Op = db.Sequelize.Op;
 const { decodeToken } = require("../../helper/helperfn");
+const {
+  ValidateImageExtension,
+  deleteSinglefile,
+  getPagination,
+  getPagingData,
+} = require("../../common/commonfn");
 const User = db.User;
 
 //add user controller
@@ -57,6 +64,7 @@ const addUserController = async (req, res) => {
 
 //get users controller
 const getUsersController = async (req, res) => {
+  //by default getting users
   try {
     const findUser = await User.findAll({
       attributes: {
@@ -78,6 +86,29 @@ const getUsersController = async (req, res) => {
   } catch (error) {
     res.status(500).send(error.message);
   }
+
+  // //dynamic searching and filter and pagination
+  // const { page, size, search_query } = req.query;
+  // if (page <= 0 || size <= 0) {
+  //   return res.status(400).json({
+  //     success: false,
+  //     message: "please enter valid page number and page size",
+  //   });
+  // }
+  // var condition = search_query
+  //   ? { first_name: { [Op.like]: `%${search_query}%` } }
+  //   : null;
+  // const { limit, offset } = getPagination(page, size);
+  // const findUser = await User.findAndCountAll({
+  //   where: condition,
+  //   limit,
+  //   offset,
+  // });
+  // const formaat_data = getPagingData(findUser, page, limit);
+  // res.status(200).json({
+  //   success: "true",
+  //   responce: formaat_data,
+  // });
 };
 
 //get user by id controller
@@ -192,31 +223,48 @@ const editUserController = async (req, res) => {
 
 //edit user profile picture controller
 const uploadProfilePictureController = async (req, res) => {
+  //check file is required
   if (!req.file) {
     return res.status(400).json({
       succes: false,
       message: "image is required",
     });
   }
+  //check image extention validation
+  if (ValidateImageExtension(req.file)) {
+    deleteSinglefile(req.file?.path);
+    return res.status(400).send({
+      error:
+        "Please upload file having extensions .jpeg/.jpg/.png/.gif/.svg only.",
+    });
+  }
   try {
-    const findUser = await User.update(
+    const finduser = await User.findByPk(req.params.id, {
+      attributes: ["profile_picture"],
+    });
+    if (finduser) {
+      deleteSinglefile(finduser?.profile_picture);
+    }
+    const updateUser = await User.update(
       {
         profile_picture: req.file ? req.file.path : "",
       },
       { where: { id: req.params.id } }
     );
-    if (findUser[0] == 1) {
+    if (updateUser[0] == 1) {
       res.status(202).json({
         succes: true,
         message: "user profile picture updated successfully",
       });
     } else {
+      deleteSinglefile(req.file?.path);
       res.status(404).json({
         success: false,
         message: "user not found!",
       });
     }
   } catch (error) {
+    deleteSinglefile(req.file?.path);
     res.status(500).send(error.message);
   }
 };

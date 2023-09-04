@@ -98,6 +98,8 @@ const addSiteOptionMetaController = async (req, res) => {
       message: "site option created successfylly!",
     });
   } catch (error) {
+    deleteSinglefile(fav_icon);
+    deleteSinglefile(company_logo);
     res.status(500).send(error.message);
   }
 };
@@ -224,6 +226,8 @@ const ediSiteOptionMetaController = async (req, res) => {
       });
     }
   } catch (error) {
+    deleteSinglefile(fav_icon);
+    deleteSinglefile(company_logo);
     res.status(500).send(error.message);
   }
 };
